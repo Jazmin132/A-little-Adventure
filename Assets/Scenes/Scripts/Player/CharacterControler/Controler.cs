@@ -19,10 +19,7 @@ public class Controler : IController
         var V = Input.GetAxis("Vertical");
         var H = Input.GetAxis("Horizontal");
 
-        //_M.MyMovement += _M.MovePlayer;
         _M.MovePlayer(H, V);
-        //Lograr hacer que el moviemiento cambien por completo apretando E
-        //y se restaure a tocar el piso o soltar E
 
         if (Input.GetKeyDown(KeyCode.Space))
             _M.Jump();
