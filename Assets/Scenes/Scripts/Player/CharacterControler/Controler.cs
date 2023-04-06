@@ -20,7 +20,8 @@ public class Controler : IController
         var H = Input.GetAxis("Horizontal");
 
         _M.MovePlayer(H, V);
-
+        //No permite mas de dos teclas al mismo tiempo??????
+        //Mas que nada, no permite saktar al moverse (al correr)
         if (Input.GetKeyDown(KeyCode.Space))
             _M.Jump();
         if (Input.GetKey(KeyCode.Z))
@@ -29,7 +30,6 @@ public class Controler : IController
             _M.Attack();
         if (Input.GetKey(KeyCode.C))
             _M.Shoot();
-        
         if (Input.GetKey(KeyCode.LeftShift))
             _M.Run();
         else if(Input.GetKeyUp(KeyCode.LeftShift)) _M.RunReset();

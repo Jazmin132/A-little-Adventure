@@ -18,6 +18,8 @@ public class PlayerM : MonoBehaviour
     [SerializeField] float VelocityFalloff;
     private Camera _playerCamera;
     private Vector3 _direction;
+    //Intentar arreglarlo?
+    private bool _CanRun = false;
 
     [Header("Jump")]
     [SerializeField] float _RayJumpDist;
@@ -52,8 +54,8 @@ public class PlayerM : MonoBehaviour
         _direction = (H * Right + V * Forward).normalized;
 
         GravityModifier();
-        if( _playerJump.IsGrounded())
-            IsJumping = false;
+        if(_playerJump.IsGrounded()) IsJumping = false;
+
         //Verificar si está grounded una sola vez, no todo el tiempo
         if (H != 0 || V != 0 && _direction.magnitude >= 0.01f)
         {//Agregar una miniaceleración
@@ -66,21 +68,19 @@ public class PlayerM : MonoBehaviour
     }
     public void Jump()
     {
-        //Debug.Log("_buttonPressed " + _buttonPressed);
-        Debug.Log(_playerJump.IsGrounded() && IsJumping == false);
-        if (_playerJump.IsGrounded() && IsJumping == false)
+        if (IsJumping == false)
         {
-            IsJumping = true;
             _playerJump.Jump();
-            Debug.Log("Jumping = true");
+            IsJumping = true;
+            Debug.Log("Jumping");
         }//No salta todo el tiempo, a veces se traba, sobretodo si corro o voy a la izquierda/arriba
     }//Lograr que el glide se active después del Jump normal, manteniendo la tecla apretada
     public void Run()
     {
         if (_playerJump.IsGrounded())
         {
-            _CurrentSpeed = _Speed * 1.5f;
             _CurrentSpeed = Math.Clamp(_CurrentSpeed, 0, _Speed * 1.5f);
+            _CurrentSpeed = _Speed * 1.5f;
         }
     }
     public void RunReset()
@@ -108,6 +108,7 @@ public class PlayerM : MonoBehaviour
     public void Shoot()
     {
         var bullet = Instantiate(_BulletPrefab);
+        //RayCast de la cámara hasta la mira
     }
     public void GravityModifier()
     {
