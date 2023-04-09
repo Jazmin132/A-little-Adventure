@@ -4,10 +4,8 @@ using UnityEngine;
 
 public class BOX : Damage
 {
-    public override void RecieveDamage(int damage)
+    public override void Destroy()
     {
-        _CurrentLife -= damage;
-        if (_CurrentLife <= 0) 
             Destroy(this.gameObject);
     }
 }

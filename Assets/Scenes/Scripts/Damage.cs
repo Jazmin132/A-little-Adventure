@@ -13,6 +13,10 @@ public abstract class Damage : MonoBehaviour
     }
     public virtual void RecieveDamage(int damage)
     {
-
+        _CurrentLife -= damage;
+        if (_CurrentLife <= 0) Destroy();
+    }
+    public virtual void Destroy()
+    {
     }
 }
