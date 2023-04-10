@@ -6,7 +6,6 @@ using System;
 public class PlayerM : MonoBehaviour
 {
     [Header("Normal Movement")]
-    [SerializeField] Transform _BulletPrefab;
     [SerializeField] int _Damage;
     [SerializeField] float _AttackDuration;
     [SerializeField] float _AttackReload;
@@ -28,6 +27,10 @@ public class PlayerM : MonoBehaviour
 
     [Header("Glide")]
     [SerializeField] float _GlideDescendSpeed;
+
+    [Header("Shoot")]
+    [SerializeField] GameObject _BulletPrefab;
+    private Vector3 _BulletDir;
 
     IController _controller;
     PlayerJump _playerJump;
@@ -100,15 +103,20 @@ public class PlayerM : MonoBehaviour
     }
     IEnumerator Recharge(float AttackD, float ReloadT)
     {
-        yield return new WaitForSeconds(AttackD);
+        var Wait = new WaitForSeconds(AttackD);
+        yield return Wait;
         _AttackBox.enabled = false;
         Debug.Log("Cant attack");
-        yield return new WaitForSeconds(ReloadT);
+        yield return Wait;
+        Debug.Log("Can Attack again");
     }
     public void Shoot()
     {
+        //_BulletDir = _playerCamera.transform.forward;
         var bullet = Instantiate(_BulletPrefab);
-        //RayCast de la cámara hasta la mira
+        bullet.transform.position = transform.position;
+        Debug.Log("Shoot");
+        //bullet.transform.forward = _BulletDir;
     }
     public void GravityModifier()
     {

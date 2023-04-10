@@ -17,7 +17,7 @@ public class CollectablesManager : MonoBehaviour
     public void AddTuerca(int value)
     {
         TotalTuercas += value;
-        Debug.Log("Here comes the money : " + TotalTuercas);
+        //Debug.Log("Here comes the money : " + TotalTuercas);
     }
     public void AddCritales(int value)
     {

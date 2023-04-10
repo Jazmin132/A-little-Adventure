@@ -28,7 +28,7 @@ public class Controler : IController
             _M.Glide();
         if (Input.GetKeyDown(KeyCode.X))
             _M.Attack();
-        if (Input.GetKey(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.C))
             _M.Shoot();
         if (Input.GetKey(KeyCode.LeftShift))
             _M.Run();
