@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class PlayerM : MonoBehaviour
+public class PlayerM : Damage
 {
     [Header("Normal Movement")]
     [SerializeField] int _Damage;
@@ -97,7 +97,6 @@ public class PlayerM : MonoBehaviour
     }
     public void Attack()
     {
-        Debug.Log("Can Attack");
         _AttackBox.enabled = true;
         StartCoroutine(Recharge(_AttackDuration, _AttackReload));
     }
@@ -110,13 +109,19 @@ public class PlayerM : MonoBehaviour
         yield return Wait;
         Debug.Log("Can Attack again");
     }
+    public Vector3 Aim()
+    {
+        float x = Screen.width / 2f;
+        float y = Screen.height / 2f;
+        Ray ray = _playerCamera.ScreenPointToRay(new Vector3(x, y, 70));
+        return ray.direction;
+    }
     public void Shoot()
     {
-        //_BulletDir = _playerCamera.transform.forward;
+        Debug.Log("Shoot");
         var bullet = Instantiate(_BulletPrefab);
         bullet.transform.position = transform.position;
-        Debug.Log("Shoot");
-        //bullet.transform.forward = _BulletDir;
+        bullet.transform.forward = Aim();
     }
     public void GravityModifier()
     {
