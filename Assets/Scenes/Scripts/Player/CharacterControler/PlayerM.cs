@@ -13,28 +13,29 @@ public class PlayerM : Damage
     private float _CurrentSpeed;
     private BoxCollider _AttackBox;
     private Rigidbody _RigP;
-    [SerializeField] float _FallMultiplier;
-    [SerializeField] float VelocityFalloff;
     private Camera _playerCamera;
     private Vector3 _direction;
     //Intentar arreglarlo?
     private bool _CanRun = false;
 
     [Header("Jump")]
+    [SerializeField] bool IsJumping = false;
     [SerializeField] float _RayJumpDist;
     [SerializeField] float _JumpForce;
-    public bool IsJumping = false;
+
+    [SerializeField] float _FallMultiplier;
+    [SerializeField] float VelocityFalloff;
 
     [Header("Glide")]
     [SerializeField] float _GlideDescendSpeed;
 
     [Header("Shoot")]
     [SerializeField] GameObject _BulletPrefab;
-    private Vector3 _BulletDir;
+    [SerializeField] Vector3 _DirCamara = new Vector3(0.5f, 0.5f, 0);
 
     IController _controller;
     PlayerJump _playerJump;
-    private Vector3 _groundNormal;
+    //private Vector3 _groundNormal;
     public Action<float, float> Movement;
 
     private void Awake()
@@ -109,11 +110,16 @@ public class PlayerM : Damage
         yield return Wait;
         Debug.Log("Can Attack again");
     }
-    public Vector3 Aim()
+    public Vector3 Aim()//ScreenPointToRay(new Vector3(x, y, 70));
     {
-        float x = Screen.width / 2f;
-        float y = Screen.height / 2f;
-        Ray ray = _playerCamera.ScreenPointToRay(new Vector3(x, y, 70));
+        //float x = Screen.width / 2f;
+        //float y = Screen.height / 2f;
+        Ray ray = _playerCamera.ViewportPointToRay(_DirCamara);
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        {
+            Debug.Log(hit.collider.name + " name");
+        }
         return ray.direction;
     }
     public void Shoot()

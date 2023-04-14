@@ -17,7 +17,7 @@ public class Bullet : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        Destroy(this.gameObject);
+        if (!other.GetComponent<PlayerM>() && !other.GetComponent<Bullet>()) Destroy(this.gameObject);
     }
 
     public IEnumerator Destroy()
