@@ -31,7 +31,9 @@ public class PlayerM : Damage
 
     [Header("Shoot")]
     [SerializeField] GameObject _BulletPrefab;
-    [SerializeField] Vector3 _DirCamara = new Vector3(0.5f, 0.5f, 0);
+    [SerializeField] float _MaxRayDist;
+    private Ray _CenterRay;
+    Vector3 _DirCamara = new Vector3(Screen.width/2f, Screen.height / 2f, 0f);
 
     IController _controller;
     PlayerJump _playerJump;
@@ -110,24 +112,22 @@ public class PlayerM : Damage
         yield return Wait;
         Debug.Log("Can Attack again");
     }
-    public Vector3 Aim()//ScreenPointToRay(new Vector3(x, y, 70));
+    public void Aim()
     {
-        //float x = Screen.width / 2f;
-        //float y = Screen.height / 2f;
-        Ray ray = _playerCamera.ViewportPointToRay(_DirCamara);
-        RaycastHit hit;
-        if (Physics.Raycast(ray, out hit))
+        _CenterRay = _playerCamera.ViewportPointToRay(_DirCamara);
+        Debug.DrawLine(_CenterRay.origin, _CenterRay.origin + _CenterRay.direction * _MaxRayDist, Color.red);
+        
+        if (Physics.Raycast(_CenterRay, out RaycastHit hit, _MaxRayDist))
         {
-            Debug.Log(hit.collider.name + " name");
+            Debug.Log("name: " + hit.collider.name);
         }
-        return ray.direction;
     }
     public void Shoot()
     {
         Debug.Log("Shoot");
         var bullet = Instantiate(_BulletPrefab);
         bullet.transform.position = transform.position;
-        bullet.transform.forward = Aim();
+        bullet.transform.forward = _CenterRay.direction;
     }
     public void GravityModifier()
     {
@@ -142,7 +142,7 @@ public class PlayerM : Damage
     public void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Vector3 X = new Vector3(0, -_RayJumpDist, 0);
-        Gizmos.DrawLine(transform.position, transform.position + X);
+        Vector3 X = new Vector3(0f - _RayJumpDist, 0f);
+        Gizmos.DrawLine(transform.position, -transform.up + X);
     }
 }
