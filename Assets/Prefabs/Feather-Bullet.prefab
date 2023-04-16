@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 5669330735535927513}
   - component: {fileID: 6324913532392540052}
   - component: {fileID: -3664692802050075246}
-  m_Layer: 0
-  m_Name: Feather
+  m_Layer: 6
+  m_Name: Feather-Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -90,7 +90,7 @@ GameObject:
   - component: {fileID: 5669330735586505473}
   - component: {fileID: 5669330735586505472}
   - component: {fileID: 5669330735586505475}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Cube-PlaceHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}

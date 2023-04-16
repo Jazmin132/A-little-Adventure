@@ -5,8 +5,9 @@ using UnityEngine.UI;
 
 public class HearthDisplay : MonoBehaviour
 {
-    public Image[] hearthIcons;
-    
+    [SerializeField] Image[] hearthIcons;
+    [SerializeField] PlayerM player;
+
     private void Awake()
     {
         hearthIcons = GetComponentsInChildren<Image>();

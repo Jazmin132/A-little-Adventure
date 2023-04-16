@@ -11,11 +11,11 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
-  - 
-  - 
-  - 
-  - 
+  - PlayerBullet
+  - Player
+  - Enemies
+  - EnemyBullet
+  - Escenario
   - 
   - 
   - 

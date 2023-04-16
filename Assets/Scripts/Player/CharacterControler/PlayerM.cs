@@ -3,12 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-public class PlayerM : Damage
+public class PlayerM : MonoBehaviour
 {
-    [Header("Normal Movement")]
+    [Header("Life and Damage")]
+    [SerializeField] int _MaxLife;
+    [SerializeField] int _CurrentLife;
     [SerializeField] int _Damage;
     [SerializeField] float _AttackDuration;
     [SerializeField] float _AttackReload;
+
+    [Header("Normal Movement")]
     [SerializeField] float _Speed;
     private float _CurrentSpeed;
     private BoxCollider _AttackBox;
@@ -37,17 +41,21 @@ public class PlayerM : Damage
 
     IController _controller;
     PlayerJump _playerJump;
-    //private Vector3 _groundNormal;
-    public Action<float, float> Movement;
+    private HearthDisplay _lifeManager;
 
     private void Awake()
     {
         _RigP = GetComponent<Rigidbody>();
-        _AttackBox = GetComponent<BoxCollider>();
         _controller = new Controler(this, GetComponent<View>());
         _playerJump = new PlayerJump().SetJump(_RayJumpDist, _JumpForce).SetRigidbody(_RigP);
+    }
+    private void Start()
+    {
         _CurrentSpeed = _Speed;
+        _CurrentLife = _MaxLife;
         _playerCamera = Camera.main;
+        _AttackBox = GetComponent<BoxCollider>();
+        _lifeManager = FindObjectOfType<HearthDisplay>();
     }
     void FixedUpdate()
     {
@@ -65,7 +73,7 @@ public class PlayerM : Damage
         //Verificar si está grounded una sola vez, no todo el tiempo
         if (H != 0 || V != 0 && _direction.magnitude >= 0.01f)
         {//Agregar una miniaceleración
-            _RigP.position += _direction * _CurrentSpeed * Time.fixedDeltaTime ;
+            _RigP.position += _direction * _CurrentSpeed * Time.fixedDeltaTime;
             //Que gire sobre su vector Y hacia la dirreción que le indico
             Quaternion Rotation = Quaternion.LookRotation(_direction.normalized, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Rotation, Time.fixedDeltaTime * 360f * 4);
@@ -129,20 +137,33 @@ public class PlayerM : Damage
         bullet.transform.position = transform.position;
         bullet.transform.forward = _CenterRay.direction;
     }
+
     public void GravityModifier()
     {
         if (_RigP.velocity.y < VelocityFalloff)
             _RigP.velocity += Vector3.up * Physics.gravity.y * (_FallMultiplier - 1) * Time.fixedDeltaTime;
     }
+
+    public void RecieveHit(int damage)
+    {
+        _CurrentLife -= damage;
+        Debug.Log("AUCH " + _CurrentLife);
+        if (_CurrentLife <= 0)
+        {
+            _CurrentLife = 0;
+            Debug.Log("Moriste");
+        }
+        _lifeManager.UpdateHealth(_CurrentLife);
+    }
     private void OnTriggerEnter(Collider other)
     {
-        var D = other.GetComponent<Damage>();
+        var D = other.GetComponent<IDamage>();
         if (D != null) D.RecieveDamage(_Damage);
     }
     public void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Vector3 X = new Vector3(0f - _RayJumpDist, 0f);
-        Gizmos.DrawLine(transform.position, -transform.up + X);
+        Vector3 X = new Vector3(0f, -_RayJumpDist, 0f);
+        Gizmos.DrawLine(transform.position, transform.position + X);
     }
 }
