@@ -15,10 +15,17 @@ public class EnemiesManager : MonoBehaviour
     }
     public bool InFieldOfView(Vector3 targetPos, float ViewRadius, float Angle)
     {
-        Vector3 dir = targetPos - transform.position;
-        if (dir.magnitude > ViewRadius) return false;
-
-        if (!InLineOffSight(transform.position, targetPos)) return false;
+        Vector3 dir = targetPos - transform.position;// EL PROBLEMA ES QUE TOMA LA POSICION DEL MANAGER, NO LA POSICION DE LOS ENEMIGOS
+        if (dir.magnitude > ViewRadius)
+        {
+            Debug.Log("FALSO 1");
+            return false;
+        }
+        if (!InLineOffSight(transform.position, targetPos))
+        {
+            Debug.Log("FALSO 2");
+            return false;
+        }
 
         return Vector3.Angle(transform.forward, dir) <= Angle / 2;
     }

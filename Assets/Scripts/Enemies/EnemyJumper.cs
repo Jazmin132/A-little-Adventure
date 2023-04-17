@@ -31,6 +31,7 @@ public class EnemyJumper : Enemies , IDamage
             Movement();
           }
     }
+
     public override void Movement()
     {
         _Dir = (_Maintarget.transform.position - transform.position);
