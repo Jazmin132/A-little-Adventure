@@ -24,16 +24,16 @@ public class EnemyJumper : Enemies , IDamage
     }
     public void FixedUpdate()
     {
-        if (EnemiesManager.instance.InFieldOfView(_target.transform.position, _ViewRadius, _Angle))
-        {//No Se activa al entrar al IFOfV, solo cuando etá muy cerca
-            if (IsGrounded()) Jump();
-            GravityModifier();
-            Movement();
-        }
+        //if (EnemiesManager.instance.InFieldOfView(_Maintarget.transform.position, _ViewRadius, _Angle))
+        //  {//No Se activa al entrar al InFieldOfView, solo cuando etá muy cerca
+        //  }
+        if (IsGrounded()) Jump();
+        GravityModifier();
+        Movement();
     }
     public override void Movement()
     {
-        _Dir = (_target.transform.position - transform.position);
+        _Dir = (_Maintarget.transform.position - transform.position);
         _LerpDir = Vector3.Lerp(transform.forward, _Dir, _SpeedRot * Time.fixedDeltaTime);
         transform.forward = _LerpDir.normalized;
         transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, 0f);

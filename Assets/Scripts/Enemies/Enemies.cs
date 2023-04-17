@@ -10,12 +10,13 @@ public class Enemies : MonoBehaviour
     public int _Attack;
     public float _ActualSpeed;
     protected PlayerM targetCollision;
-    public PlayerM _target;
+    protected PlayerM _Maintarget;
     public GameObject _Recompenzas;
     protected GameObject _RecompenzA;
 
     public virtual void Start()
     {
+        _Maintarget = EnemiesManager.instance._target;
         _CurrentLife = _MaxLife;
     }
 

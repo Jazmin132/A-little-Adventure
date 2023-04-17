@@ -5,6 +5,7 @@ using UnityEngine;
 public class EnemiesManager : MonoBehaviour
 {
     public static EnemiesManager instance;
+    public PlayerM _target;
     public LayerMask WALL;
 
     void Awake()
