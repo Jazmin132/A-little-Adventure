@@ -263,7 +263,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3de8cf758193c14f9f6f799ebf942b9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _MaxLife: 0
+  _MaxLife: 3
   _CurrentLife: 3
   _Damage: 3
   _AttackDuration: 0.8
@@ -276,7 +276,8 @@ MonoBehaviour:
   VelocityFalloff: 7.6
   _GlideDescendSpeed: 3
   _BulletPrefab: {fileID: 5669330735535927515, guid: 72572ef7dcdd36241b20edf5d828137d, type: 3}
-  _MaxRayDist: 0
+  _BulletParent: {fileID: 2579232359336100962}
+  _MaxDistAir: 500
 --- !u!136 &2579232359581328060
 CapsuleCollider:
   m_ObjectHideFlags: 0

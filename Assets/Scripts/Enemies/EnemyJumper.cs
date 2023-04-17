@@ -24,12 +24,12 @@ public class EnemyJumper : Enemies , IDamage
     }
     public void FixedUpdate()
     {
-        //if (EnemiesManager.instance.InFieldOfView(_Maintarget.transform.position, _ViewRadius, _Angle))
-        //  {//No Se activa al entrar al InFieldOfView, solo cuando etá muy cerca
-        //  }
-        if (IsGrounded()) Jump();
-        GravityModifier();
-        Movement();
+        if (EnemiesManager.instance.InFieldOfView(_Maintarget.transform.position, _ViewRadius, _Angle))
+          {//No Se activa al entrar al InFieldOfView, solo cuando etá muy cerca
+            if (IsGrounded()) Jump();
+            GravityModifier();
+            Movement();
+          }
     }
     public override void Movement()
     {

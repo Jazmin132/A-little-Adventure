@@ -17,10 +17,10 @@ public class PlayerM : MonoBehaviour
     private float _CurrentSpeed;
     private BoxCollider _AttackBox;
     private Rigidbody _RigP;
-    private Camera _playerCamera;
+    private Transform _MainCamera;
     private Vector3 _direction;
     //Intentar arreglarlo?
-    private bool _CanRun = false;
+    //private bool _CanRun = false;
 
     [Header("Jump")]
     [SerializeField] bool IsJumping = false;
@@ -35,9 +35,9 @@ public class PlayerM : MonoBehaviour
 
     [Header("Shoot")]
     [SerializeField] GameObject _BulletPrefab;
-    [SerializeField] float _MaxRayDist;
-    private Ray _CenterRay;
-    Vector3 _DirCamara = new Vector3(Screen.width/2f, Screen.height / 2f, 0f);
+    [SerializeField] GameObject _BulletParent;
+    private GameObject _bulletObject;
+    [SerializeField] float _MaxDistAir;
 
     IController _controller;
     PlayerJump _playerJump;
@@ -53,7 +53,7 @@ public class PlayerM : MonoBehaviour
     {
         _CurrentSpeed = _Speed;
         _CurrentLife = _MaxLife;
-        _playerCamera = Camera.main;
+        _MainCamera = Camera.main.transform;
         _AttackBox = GetComponent<BoxCollider>();
         _lifeManager = FindObjectOfType<HearthDisplay>();
     }
@@ -63,8 +63,8 @@ public class PlayerM : MonoBehaviour
     }
     public void MovePlayer(float H, float V)
     {//Vector3.ProjectOnPlane proyecta vector sobre una superficie plana/ Vector3.up = plano Z
-        Vector3 Forward = Vector3.ProjectOnPlane(_playerCamera.transform.forward, Vector3.up).normalized;
-        Vector3 Right = Vector3.ProjectOnPlane(_playerCamera.transform.right, Vector3.up).normalized;
+        Vector3 Forward = Vector3.ProjectOnPlane(_MainCamera.transform.forward, Vector3.up).normalized;
+        Vector3 Right = Vector3.ProjectOnPlane(_MainCamera.transform.right, Vector3.up).normalized;
         _direction = (H * Right + V * Forward).normalized;
 
         GravityModifier();
@@ -120,40 +120,40 @@ public class PlayerM : MonoBehaviour
         yield return Wait;
         Debug.Log("Can Attack again");
     }
-    public void Aim()
-    {
-        _CenterRay = _playerCamera.ViewportPointToRay(_DirCamara);
-        Debug.DrawLine(_CenterRay.origin, _CenterRay.origin + _CenterRay.direction * _MaxRayDist, Color.red);
-        
-        if (Physics.Raycast(_CenterRay, out RaycastHit hit, _MaxRayDist))
-        {
-            Debug.Log("name: " + hit.collider.name);
-        }
-    }
     public void Shoot()
     {
-        Debug.Log("Shoot");
-        var bullet = Instantiate(_BulletPrefab);
-        bullet.transform.position = transform.position;
-        bullet.transform.forward = _CenterRay.direction;
-    }
-
-    public void GravityModifier()
-    {
-        if (_RigP.velocity.y < VelocityFalloff)
-            _RigP.velocity += Vector3.up * Physics.gravity.y * (_FallMultiplier - 1) * Time.fixedDeltaTime;
+        RaycastHit hit;
+        _bulletObject = Instantiate(_BulletPrefab, transform.position, Quaternion.identity, _BulletParent.transform);
+        Bullet bullet = _bulletObject.GetComponent<Bullet>();
+        if (Physics.Raycast(_MainCamera.position, _MainCamera.forward, out hit, Mathf.Infinity))
+        {
+            Debug.Log("Shoot++");
+            bullet.target = hit.point;
+            bullet.hit = true;
+        }
+        else
+        {
+            Debug.Log("Shoot:D");
+            bullet.target = _MainCamera.position + _MainCamera.forward * _MaxDistAir;
+            bullet.hit = true;
+        }
     }
 
     public void RecieveHit(int damage)
     {
         _CurrentLife -= damage;
-        Debug.Log("AUCH " + _CurrentLife);
         if (_CurrentLife <= 0)
         {
             _CurrentLife = 0;
             Debug.Log("Moriste");
         }
+        Debug.Log("AUCH " + _CurrentLife);
         _lifeManager.UpdateHealth(_CurrentLife);
+    }
+    public void GravityModifier()
+    {
+        if (_RigP.velocity.y < VelocityFalloff)
+            _RigP.velocity += Vector3.up * Physics.gravity.y * (_FallMultiplier - 1) * Time.fixedDeltaTime;
     }
     private void OnTriggerEnter(Collider other)
     {
