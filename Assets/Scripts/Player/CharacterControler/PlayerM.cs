@@ -60,17 +60,6 @@ public class PlayerM : MonoBehaviour
         _lifeManager = FindObjectOfType<HearthDisplay>();
     }
 
-    //esto para que el disparo salga al instante, se tiene que comentar en el Controller para que no salte error
-    //  private void Update()
-    //  {
-    //      if (Input.GetKeyDown(KeyCode.C))
-    //      {
-    //          Debug.Log("KeyCode.C");
-    //          Shoot();
-    //      }
-    //  }
-
-
     void FixedUpdate()
     {
         _controller.ListenKey();
@@ -85,7 +74,7 @@ public class PlayerM : MonoBehaviour
         if(_playerJump.IsGrounded()) IsJumping = false;
 
         //Verificar si está grounded una sola vez, no todo el tiempo
-        if (H != 0 || V != 0 && _direction.magnitude >= 0.01f)
+        if (H != 0 || V != 0)
         {//Agregar una miniaceleración
             _RigP.position += _direction * _CurrentSpeed * Time.fixedDeltaTime;
             //Que gire sobre su vector Y hacia la dirreción que le indico
@@ -102,7 +91,8 @@ public class PlayerM : MonoBehaviour
             IsJumping = true;
             Debug.Log("Jumping");
         }//No salta todo el tiempo, a veces se traba, sobretodo si corro o voy a la izquierda/arriba
-    }//Lograr que el glide se active después del Jump normal, manteniendo la tecla apretada
+    }
+    //Lograr que el glide se active después del Jump normal, manteniendo la tecla apretada
     public void Run()
     {
         if (_playerJump.IsGrounded())
@@ -141,13 +131,11 @@ public class PlayerM : MonoBehaviour
         Bullet bullet = _bulletObject.GetComponent<Bullet>();
         if (Physics.Raycast(_MainCamera.position, _MainCamera.forward, out hit, Mathf.Infinity))
         {
-            Debug.Log("Shoot++");
             bullet.target = hit.point;
             bullet.hit = true;
         }
         else
         {
-            Debug.Log("Shoot:D");
             bullet.target = _MainCamera.position + _MainCamera.forward * _MaxDistAir;
             bullet.hit = true;
         }

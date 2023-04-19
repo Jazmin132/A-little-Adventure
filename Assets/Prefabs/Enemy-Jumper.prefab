@@ -86,8 +86,8 @@ MonoBehaviour:
   _FallMultiplier: 2
   _VelocityFalloff: 4
   _RayJumpDist: 1.06
-  _ViewRadius: 5
-  _Angle: 100
+  _ViewRadius: 8
+  _Angle: 120
 --- !u!1 &5395113570318395788
 GameObject:
   m_ObjectHideFlags: 0

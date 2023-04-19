@@ -7,19 +7,18 @@ public class Bullet : MonoBehaviour
     [SerializeField] float _Speed;
     [SerializeField] float _Duration;
     [SerializeField] int _Damage;
+    Rigidbody _Rig;
     public Vector3 target { get; set; }
     public bool hit { get; set; }
-    Rigidbody _Rig;
 
     void Start()
     {
         _Rig = GetComponent<Rigidbody>();
-        //_Rig.velocity = transform.forward * _Speed;
         StartCoroutine(Destroy());
     }
     private void FixedUpdate()
     {
-        transform.position = Vector3.MoveTowards(transform.position, target, _Speed * Time.fixedDeltaTime);
+        _Rig.transform.position = Vector3.MoveTowards(transform.position, target, _Speed * Time.fixedDeltaTime);
         if (!hit && Vector3.Distance(transform.position,target) < 0.1f)
         {
             Destroy(this.gameObject);
