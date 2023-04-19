@@ -28,8 +28,12 @@ public class Controler : IController
             _M.Glide();
         if (Input.GetKeyDown(KeyCode.X))
             _M.Attack();
+
+        //Comentar/eliminar esta linea para que no salte error, en caso de querer implementar -el imput en el update del playerM-
         if (Input.GetKeyDown(KeyCode.C))
             _M.Shoot();
+        //
+
         if (Input.GetKey(KeyCode.LeftShift))
             _M.Run();
         else if(Input.GetKeyUp(KeyCode.LeftShift)) _M.RunReset();

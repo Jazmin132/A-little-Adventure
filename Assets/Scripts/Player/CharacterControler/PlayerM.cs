@@ -37,6 +37,8 @@ public class PlayerM : MonoBehaviour
     [SerializeField] GameObject _BulletPrefab;
     [SerializeField] GameObject _BulletParent;
     private GameObject _bulletObject;
+    [SerializeField] private Transform _firePoint;
+
     [SerializeField] float _MaxDistAir;
 
     IController _controller;
@@ -57,6 +59,18 @@ public class PlayerM : MonoBehaviour
         _AttackBox = GetComponent<BoxCollider>();
         _lifeManager = FindObjectOfType<HearthDisplay>();
     }
+
+    //esto para que el disparo salga al instante, se tiene que comentar en el Controller para que no salte error
+    //  private void Update()
+    //  {
+    //      if (Input.GetKeyDown(KeyCode.C))
+    //      {
+    //          Debug.Log("KeyCode.C");
+    //          Shoot();
+    //      }
+    //  }
+
+
     void FixedUpdate()
     {
         _controller.ListenKey();
@@ -123,7 +137,7 @@ public class PlayerM : MonoBehaviour
     public void Shoot()
     {
         RaycastHit hit;
-        _bulletObject = Instantiate(_BulletPrefab, transform.position, Quaternion.identity, _BulletParent.transform);
+        _bulletObject = Instantiate(_BulletPrefab, _firePoint.position, Quaternion.identity);
         Bullet bullet = _bulletObject.GetComponent<Bullet>();
         if (Physics.Raycast(_MainCamera.position, _MainCamera.forward, out hit, Mathf.Infinity))
         {
