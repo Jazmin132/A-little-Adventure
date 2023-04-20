@@ -81,13 +81,13 @@ MonoBehaviour:
   _Attack: 1
   _ActualSpeed: 3
   _Recompenzas: {fileID: 3662441117973748737, guid: a96e842e5f2a5e44393198db6ee1dbd9, type: 3}
-  _SpeedRot: 0.5
+  _SpeedRot: 0.7
   _JumpForce: 5
   _FallMultiplier: 2
   _VelocityFalloff: 4
   _RayJumpDist: 1.06
-  _ViewRadius: 8
-  _Angle: 120
+  _ViewRadius: 7.3
+  _Angle: 150
 --- !u!1 &5395113570318395788
 GameObject:
   m_ObjectHideFlags: 0

@@ -24,12 +24,12 @@ public class Controler : IController
         //Mas que nada, no permite saktar al moverse (al correr)
         if (Input.GetKeyDown(KeyCode.Space))
             _M.Jump();
-        if (Input.GetKey(KeyCode.Z))
+        else if (Input.GetKey(KeyCode.Z))
             _M.Glide();
+
         if (Input.GetKeyDown(KeyCode.X))
             _M.Attack();
-
-        if (Input.GetKeyDown(KeyCode.C))
+        else if(Input.GetKeyUp(KeyCode.C))
             _M.Shoot();
 
         if (Input.GetKey(KeyCode.LeftShift))
