@@ -5,15 +5,16 @@ using System;
 
 public class PlayerM : MonoBehaviour
 {
-    [Header("Life and Damage")]
+    [Header("Life and Attack")]
     [SerializeField] int _MaxLife;
     [SerializeField] int _CurrentLife;
     [SerializeField] int _Damage;
     [SerializeField] float _AttackDuration;
     [SerializeField] float _AttackReload;
+    private bool _OnAttack = false;
 
     [Header("Normal Movement")]
-    [SerializeField] float _Speed;
+    [SerializeField] float _PlayerSpeed;
     private float _CurrentSpeed;
     private BoxCollider _AttackBox;
     private Rigidbody _RigP;
@@ -23,9 +24,9 @@ public class PlayerM : MonoBehaviour
     //private bool _CanRun = false;
 
     [Header("Jump")]
-    [SerializeField] bool IsJumping = false;
-    [SerializeField] float _RayJumpDist;
     [SerializeField] float _JumpForce;
+    [SerializeField] float _RayJumpDist;
+    [SerializeField] bool IsJumping = false;
 
     [SerializeField] float _FallMultiplier;
     [SerializeField] float VelocityFalloff;
@@ -53,7 +54,7 @@ public class PlayerM : MonoBehaviour
     }
     private void Start()
     {
-        _CurrentSpeed = _Speed;
+        _CurrentSpeed = _PlayerSpeed;
         _CurrentLife = _MaxLife;
         _MainCamera = Camera.main.transform;
         _AttackBox = GetComponent<BoxCollider>();
@@ -71,12 +72,11 @@ public class PlayerM : MonoBehaviour
         _direction = (H * Right + V * Forward).normalized;
 
         GravityModifier();
-        if(_playerJump.IsGrounded()) IsJumping = false;
+        if (_playerJump.IsGrounded()) IsJumping = false;
 
-        //Verificar si está grounded una sola vez, no todo el tiempo
         if (H != 0 || V != 0)
         {//Agregar una miniaceleración
-            _RigP.position += _direction * _CurrentSpeed * Time.fixedDeltaTime;
+            _RigP.MovePosition(transform.position + _direction * _CurrentSpeed * Time.fixedDeltaTime);
             //Que gire sobre su vector Y hacia la dirreción que le indico
             Quaternion Rotation = Quaternion.LookRotation(_direction.normalized, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Rotation, Time.fixedDeltaTime * 360f * 4);
@@ -84,7 +84,7 @@ public class PlayerM : MonoBehaviour
         }
     }
     public void Jump()
-    {
+    {//Lograr que el glide se active después del Jump normal, manteniendo la tecla apretada
         if (IsJumping == false)
         {
             _playerJump.Jump();
@@ -92,27 +92,28 @@ public class PlayerM : MonoBehaviour
             Debug.Log("Jumping");
         }//No salta todo el tiempo, a veces se traba, sobretodo si corro o voy a la izquierda/arriba
     }
-    //Lograr que el glide se active después del Jump normal, manteniendo la tecla apretada
+    
     public void Run()
     {
         if (_playerJump.IsGrounded())
         {
-            _CurrentSpeed = Math.Clamp(_CurrentSpeed, 0, _Speed * 1.5f);
-            _CurrentSpeed = _Speed * 1.5f;
+            _CurrentSpeed = Math.Clamp(_CurrentSpeed, 0, _PlayerSpeed * 1.5f);
+            _CurrentSpeed = _PlayerSpeed * 1.5f;
         }
     }
     public void RunReset()
     {
-        _CurrentSpeed = _Speed;
+        _CurrentSpeed = _PlayerSpeed;
     }
     public void Glide()
-    {//Hacer que avance por sí solo
+    {//Hacer que avance por sí solo?
         if (_RigP.velocity.y < 0)
             _RigP.velocity = new Vector3(0, -_GlideDescendSpeed, 0);
     }
     public void Attack()
     {
         _AttackBox.enabled = true;
+        _OnAttack = true;
         StartCoroutine(Recharge(_AttackDuration, _AttackReload));
     }
     IEnumerator Recharge(float AttackD, float ReloadT)
@@ -120,9 +121,14 @@ public class PlayerM : MonoBehaviour
         var Wait = new WaitForSeconds(AttackD);
         yield return Wait;
         _AttackBox.enabled = false;
+        _OnAttack = false;
         Debug.Log("Cant attack");
         yield return Wait;
         Debug.Log("Can Attack again");
+    }
+    public void UpImpulse(float ForceUp)
+    {
+        _RigP.AddForce(Vector3.up * ForceUp, ForceMode.VelocityChange);
     }
     public void Shoot()
     {
@@ -160,7 +166,9 @@ public class PlayerM : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         var D = other.GetComponent<IDamage>();
+        var I = other.GetComponent<Iingredient>();
         if (D != null) D.RecieveDamage(_Damage);
+        else if (I != null && _OnAttack) I.Activate();
     }
     public void OnDrawGizmos()
     {

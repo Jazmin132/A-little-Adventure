@@ -44,12 +44,6 @@ public class EnemyJumper : Enemies , IDamage
     {
         _Rig.AddForce(Vector3.up * _JumpForce, ForceMode.VelocityChange);
     }
-    public void OnCollisionEnter(Collision collision)
-    {
-        targetCollision = collision.transform.GetComponent<PlayerM>();
-        if (targetCollision != null)
-            targetCollision.RecieveHit(_Attack);
-    }
     
     public void RecieveDamage(int damage)
     {
@@ -57,6 +51,13 @@ public class EnemyJumper : Enemies , IDamage
         if (_CurrentLife <= 0) Destroy();
     }
     
+    public void OnCollisionEnter(Collision collision)
+    {
+        targetCollision = collision.transform.GetComponent<PlayerM>();
+        if (targetCollision != null)
+            targetCollision.RecieveHit(_Attack);
+    }
+
     public void GravityModifier()
     {
         if (_Rig.velocity.y < _VelocityFalloff)

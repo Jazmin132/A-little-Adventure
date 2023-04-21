@@ -27,7 +27,10 @@ public class Bullet : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         var D = other.GetComponent<IDamage>();
+        var I = other.GetComponent<Iingredient>();
         if (D != null) D.RecieveDamage(_Damage);
+        else if (I != null) I.Activate();
+
         Destroy(this.gameObject);
     }
 
