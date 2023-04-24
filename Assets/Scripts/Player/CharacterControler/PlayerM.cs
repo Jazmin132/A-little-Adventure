@@ -26,7 +26,7 @@ public class PlayerM : MonoBehaviour
     [Header("Jump")]
     [SerializeField] float _JumpForce;
     [SerializeField] float _RayJumpDist;
-    [SerializeField] bool IsJumping = false;
+    [SerializeField] bool IsJumping;
 
     [SerializeField] float _FallMultiplier;
     [SerializeField] float VelocityFalloff;
@@ -73,7 +73,10 @@ public class PlayerM : MonoBehaviour
         _direction = (H * Right + V * Forward).normalized;
         
         GravityModifier();
-        
+
+        if (_playerJump.IsGrounded()) IsJumping = false;
+        else IsJumping = true;
+
         if (H != 0 || V != 0)
         {//Agregar una miniaceleración
             _RigP.MovePosition(transform.position + _direction * _CurrentSpeed * Time.fixedDeltaTime);
@@ -85,20 +88,24 @@ public class PlayerM : MonoBehaviour
     }
     public void Jump()
     {//Lograr que el glide se active después del Jump normal, manteniendo la tecla apretada
+       
         Debug.Log("Jumping " + IsJumping);
-        if (_playerJump.IsGrounded())
+        if (_playerJump.IsGrounded() && IsJumping == false)
         {
-            IsJumping = true;
+           // IsJumping = true;
             _playerJump.Jump();
             StartCoroutine(JumpWait());
         }//No salta todo el tiempo, a veces se traba, sobretodo si corro o voy a la izquierda/arriba
     }
-    IEnumerator JumpWait()
-    {
-        yield return new WaitForSeconds(0.3f);
-        IsJumping = false;
-        Debug.Log("IsJumping " + IsJumping);
-    }
+   IEnumerator JumpWait()
+   {
+       yield return new WaitForSeconds(0.3f);
+       //IsJumping = false;
+       Debug.Log("IsJumping " + IsJumping);
+   }
+  
+
+
     public void Run()
     {
         var Run = _PlayerSpeed * 1.5f;
