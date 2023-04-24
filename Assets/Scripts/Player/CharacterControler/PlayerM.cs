@@ -102,11 +102,7 @@ public class PlayerM : MonoBehaviour
     public void Run()
     {
         var Run = _PlayerSpeed * 1.5f;
-        if (_playerJump.IsGrounded())
-        {
-            _CurrentSpeed = Run;
-            _CurrentSpeed = Math.Clamp(_PlayerSpeed, 0, Run);
-        }
+        if (_playerJump.IsGrounded()) _CurrentSpeed = Run;
     }
     public void RunReset()
     {
