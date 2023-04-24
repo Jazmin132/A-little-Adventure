@@ -302,7 +302,7 @@ MonoBehaviour:
   _AttackReload: 0.5
   _PlayerSpeed: 9
   _JumpForce: 10.7
-  _RayJumpDist: 0.7
+  _RayJumpDist: 0.9
   IsJumping: 0
   _FallMultiplier: 4
   VelocityFalloff: 7.6

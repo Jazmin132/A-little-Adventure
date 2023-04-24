@@ -67,12 +67,13 @@ public class PlayerM : MonoBehaviour
     }
     public void MovePlayer(float H, float V)
     {
-        GravityModifier();
         //Vector3.ProjectOnPlane proyecta vector sobre una superficie plana/ Vector3.up = plano Z
         Vector3 Forward = Vector3.ProjectOnPlane(_MainCamera.transform.forward, Vector3.up).normalized;
         Vector3 Right = Vector3.ProjectOnPlane(_MainCamera.transform.right, Vector3.up).normalized;
         _direction = (H * Right + V * Forward).normalized;
-
+        
+        GravityModifier();
+        
         if (H != 0 || V != 0)
         {//Agregar una miniaceleración
             _RigP.MovePosition(transform.position + _direction * _CurrentSpeed * Time.fixedDeltaTime);
@@ -81,7 +82,6 @@ public class PlayerM : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Rotation, Time.fixedDeltaTime * 360f * 4);
             //Que rote, a partir de su rotación actual hacia la que le indico, con una radio específico, multiplico po 4 para alentizar
         }
-        
     }
     public void Jump()
     {//Lograr que el glide se active después del Jump normal, manteniendo la tecla apretada
@@ -104,8 +104,8 @@ public class PlayerM : MonoBehaviour
         var Run = _PlayerSpeed * 1.5f;
         if (_playerJump.IsGrounded())
         {
-            _CurrentSpeed = Math.Clamp(_CurrentSpeed, 0, Run);
             _CurrentSpeed = Run;
+            _CurrentSpeed = Math.Clamp(_PlayerSpeed, 0, Run);
         }
     }
     public void RunReset()
