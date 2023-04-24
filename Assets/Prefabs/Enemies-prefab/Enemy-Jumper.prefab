@@ -88,6 +88,7 @@ MonoBehaviour:
   _RayJumpDist: 1.06
   _ViewRadius: 7.3
   _Angle: 150
+  _DamageFly: 10
 --- !u!1 &5395113570318395788
 GameObject:
   m_ObjectHideFlags: 0

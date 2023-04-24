@@ -13,6 +13,7 @@ public class EnemyJumper : Enemies , IDamage
     [Header("View")]
     [SerializeField] float _ViewRadius;
     [SerializeField] float _Angle;
+    [SerializeField] float _DamageFly;
     private Rigidbody _Rig;
     private Vector3 _Dir;
     private Vector3 _LerpDir;
@@ -25,11 +26,14 @@ public class EnemyJumper : Enemies , IDamage
     public void FixedUpdate()
     {
         if (EnemiesManager.instance.InFieldOfView(this, _ViewRadius, _Angle))
-          {//No Se activa al entrar al InFieldOfView, solo cuando etá muy cerca
-            if (IsGrounded()) Jump();
-            GravityModifier();
-            Movement();
-          }
+        {//No Se activa al entrar al InFieldOfView, solo cuando etá muy cerca
+          if (IsGrounded()) Jump();
+
+          GravityModifier();
+          Movement();
+          _IsGoing = true;
+        }
+        else _IsGoing = false;
     }
 
     public override void Movement()
@@ -38,7 +42,10 @@ public class EnemyJumper : Enemies , IDamage
         _LerpDir = Vector3.Lerp(transform.forward, _Dir, _SpeedRot * Time.fixedDeltaTime);
         transform.forward = _LerpDir.normalized;
         transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, 0f);
-        _Rig.position += transform.forward * _ActualSpeed * Time.fixedDeltaTime; 
+
+        _Rig.position += transform.forward * _ActualSpeed * Time.fixedDeltaTime;
+
+        _FlyTo = -_Dir;
     }
     public void Jump()
     {
@@ -49,6 +56,11 @@ public class EnemyJumper : Enemies , IDamage
     {
         _CurrentLife -= damage;
         if (_CurrentLife <= 0) Destroy();
+        if (_IsGoing == true) FlyTo(_FlyTo);
+    }
+    public void FlyTo(Vector3 Dir)
+    {
+        _Rig.AddForce(Dir * _DamageFly, ForceMode.VelocityChange);
     }
     
     public void OnCollisionEnter(Collision collision)
@@ -71,6 +83,13 @@ public class EnemyJumper : Enemies , IDamage
 
     public override void Destroy()
     {
+        if (_IsGoing == true) StartCoroutine(Wait());
+        else Destroy(this.gameObject);
+    }
+
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(0.3f);
         Destroy(this.gameObject);
     }
 

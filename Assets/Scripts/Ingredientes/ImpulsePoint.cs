@@ -17,13 +17,6 @@ public class ImpulsePoint : MonoBehaviour, Iingredient
         _Maintarget = EnemiesManager.instance._target;
     }
 
-    // private void OnTriggerEnter(Collider other)
-    // {
-    //     var P = other.GetComponent<PlayerM>();
-    //     if (P != null)
-    //         P.UpImpulse(_impulse);
-    // }
-
     public void Activate()
     {
         _Maintarget.UpImpulse(_impulse);

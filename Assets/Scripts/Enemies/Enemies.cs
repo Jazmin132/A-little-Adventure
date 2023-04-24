@@ -2,17 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemies : MonoBehaviour
+public abstract class Enemies : MonoBehaviour
 {
     [Header("Enemy BasicVariables")]
     public int _MaxLife;
     public int _CurrentLife;
     public int _Attack;
     public float _ActualSpeed;
+    public GameObject _Recompenzas;
     protected PlayerM targetCollision;
     protected PlayerM _Maintarget;
-    public GameObject _Recompenzas;
     protected GameObject _RecompenzA;
+    protected bool _IsGoing;
+    protected Vector3 _FlyTo;
 
     public virtual void Start()
     {

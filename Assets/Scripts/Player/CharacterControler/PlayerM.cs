@@ -61,18 +61,17 @@ public class PlayerM : MonoBehaviour
         _lifeManager = FindObjectOfType<HearthDisplay>();
     }
 
-    void FixedUpdate()
+    void Update()
     {
         _controller.ListenKey();
     }
     public void MovePlayer(float H, float V)
-    {//Vector3.ProjectOnPlane proyecta vector sobre una superficie plana/ Vector3.up = plano Z
+    {
+        GravityModifier();
+        //Vector3.ProjectOnPlane proyecta vector sobre una superficie plana/ Vector3.up = plano Z
         Vector3 Forward = Vector3.ProjectOnPlane(_MainCamera.transform.forward, Vector3.up).normalized;
         Vector3 Right = Vector3.ProjectOnPlane(_MainCamera.transform.right, Vector3.up).normalized;
         _direction = (H * Right + V * Forward).normalized;
-
-        GravityModifier();
-        if (_playerJump.IsGrounded()) IsJumping = false;
 
         if (H != 0 || V != 0)
         {//Agregar una miniaceleración
@@ -82,23 +81,31 @@ public class PlayerM : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Rotation, Time.fixedDeltaTime * 360f * 4);
             //Que rote, a partir de su rotación actual hacia la que le indico, con una radio específico, multiplico po 4 para alentizar
         }
+        
     }
     public void Jump()
     {//Lograr que el glide se active después del Jump normal, manteniendo la tecla apretada
-        if (IsJumping == false)
-        {
-            _playerJump.Jump();
-            IsJumping = true;
-            Debug.Log("Jumping");
-        }//No salta todo el tiempo, a veces se traba, sobretodo si corro o voy a la izquierda/arriba
-    }
-    
-    public void Run()
-    {
+        Debug.Log("Jumping " + IsJumping);
         if (_playerJump.IsGrounded())
         {
-            _CurrentSpeed = Math.Clamp(_CurrentSpeed, 0, _PlayerSpeed * 1.5f);
-            _CurrentSpeed = _PlayerSpeed * 1.5f;
+            IsJumping = true;
+            _playerJump.Jump();
+            StartCoroutine(JumpWait());
+        }//No salta todo el tiempo, a veces se traba, sobretodo si corro o voy a la izquierda/arriba
+    }
+    IEnumerator JumpWait()
+    {
+        yield return new WaitForSeconds(0.3f);
+        IsJumping = false;
+        Debug.Log("IsJumping " + IsJumping);
+    }
+    public void Run()
+    {
+        var Run = _PlayerSpeed * 1.5f;
+        if (_playerJump.IsGrounded())
+        {
+            _CurrentSpeed = Math.Clamp(_CurrentSpeed, 0, Run);
+            _CurrentSpeed = Run;
         }
     }
     public void RunReset()
@@ -168,7 +175,11 @@ public class PlayerM : MonoBehaviour
         var D = other.GetComponent<IDamage>();
         var I = other.GetComponent<Iingredient>();
         if (D != null) D.RecieveDamage(_Damage);
-        else if (I != null && _OnAttack) I.Activate();
+        else if (I != null && _OnAttack)
+        {
+            I.Activate();
+            Debug.Log("Nice");
+        }
     }
     public void OnDrawGizmos()
     {

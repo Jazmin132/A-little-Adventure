@@ -22,15 +22,13 @@ public class Controler : IController
         _M.MovePlayer(H, V);
         //No permite mas de dos teclas al mismo tiempo??????
         //Mas que nada, no permite saktar al moverse (al correr)
-        if (Input.GetKey(KeyCode.Space)) _M.Jump();
-        
-        if (Input.GetKey(KeyCode.Z))
+        if (Input.GetKeyDown(KeyCode.Space)) _M.Jump();
+        else if (Input.GetKey(KeyCode.Z))
             _M.Glide();
         
-        else if (Input.GetKey(KeyCode.X))
+        if (Input.GetKey(KeyCode.X))
             _M.Attack();
-        
-        else if(Input.GetKey(KeyCode.C))
+        else if(Input.GetKeyDown(KeyCode.C))
             _M.Shoot();
         
         if (Input.GetKey(KeyCode.LeftShift))
