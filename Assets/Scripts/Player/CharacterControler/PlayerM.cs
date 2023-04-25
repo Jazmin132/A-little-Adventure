@@ -60,7 +60,6 @@ public class PlayerM : MonoBehaviour
         _AttackBox = GetComponent<BoxCollider>();
         _lifeManager = FindObjectOfType<HearthDisplay>();
     }
-
     void Update()
     {
         _controller.ListenKey();
@@ -92,19 +91,9 @@ public class PlayerM : MonoBehaviour
         Debug.Log("Jumping " + IsJumping);
         if (_playerJump.IsGrounded() && IsJumping == false)
         {
-           // IsJumping = true;
             _playerJump.Jump();
-            StartCoroutine(JumpWait());
         }//No salta todo el tiempo, a veces se traba, sobretodo si corro o voy a la izquierda/arriba
     }
-   IEnumerator JumpWait()
-   {
-       yield return new WaitForSeconds(0.3f);
-       //IsJumping = false;
-       Debug.Log("IsJumping " + IsJumping);
-   }
-  
-
 
     public void Run()
     {

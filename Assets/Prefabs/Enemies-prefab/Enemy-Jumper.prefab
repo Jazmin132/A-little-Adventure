@@ -389,14 +389,14 @@ MonoBehaviour:
   _MaxLife: 1
   _CurrentLife: 0
   _Attack: 1
-  _ActualSpeed: 3
+  _ActualSpeed: 4
   _Recompenzas: {fileID: 3662441117973748737, guid: a96e842e5f2a5e44393198db6ee1dbd9, type: 3}
   _SpeedRot: 0.7
   _JumpForce: 5
   _FallMultiplier: 2
   _VelocityFalloff: 4
   _RayJumpDist: 1.06
-  _ViewRadius: 10
+  _ViewRadius: 17
   _Angle: 150
   _DamageFly: 10
 --- !u!1 &5395113570318395788
