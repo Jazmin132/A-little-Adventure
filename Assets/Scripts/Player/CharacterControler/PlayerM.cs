@@ -89,6 +89,7 @@ public class PlayerM : MonoBehaviour
     {//Lograr que el glide se active después del Jump normal, manteniendo la tecla apretada
        
         Debug.Log("Jumping " + IsJumping);
+        Debug.Log("IsGrounded " + _playerJump.IsGrounded());
         if (_playerJump.IsGrounded() && IsJumping == false)
         {
             _playerJump.Jump();

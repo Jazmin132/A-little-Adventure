@@ -304,8 +304,8 @@ MonoBehaviour:
   _JumpForce: 10.7
   _RayJumpDist: 0.9
   IsJumping: 0
-  _FallMultiplier: 1.25
-  VelocityFalloff: 7.6
+  _FallMultiplier: 4
+  VelocityFalloff: 7
   _GlideDescendSpeed: 3
   _BulletPrefab: {fileID: 5669330735535927515, guid: 72572ef7dcdd36241b20edf5d828137d, type: 3}
   _BulletParent: {fileID: 7626980609654997375}
