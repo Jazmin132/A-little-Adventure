@@ -79,6 +79,7 @@ public class PlayerM : MonoBehaviour
     public void MovePlayer(float H, float V)
     {
         GravityModifier();
+        _PlayerBounce.BounceFloat();
         //Vector3.ProjectOnPlane proyecta vector sobre una superficie plana/ Vector3.up = plano Z
         Vector3 Forward = Vector3.ProjectOnPlane(_MainCamera.transform.forward, Vector3.up).normalized;
         Vector3 Right = Vector3.ProjectOnPlane(_MainCamera.transform.right, Vector3.up).normalized;
@@ -102,8 +103,9 @@ public class PlayerM : MonoBehaviour
     {
         var RayUp = Physics.Raycast(_RigP.transform.position + _RayUpDist, dir, _RayForwardDist);
         var RayDown = Physics.Raycast(_RigP.transform.position - _RayDownDist, dir, _RayForwardDist);
-        var X = Physics.Raycast(transform.position - _RayDownDist + (dir * _RayForwardDist), Vector3.up , Vector3.Distance(_RayDownDist, _RayUpDist));
-        //Gizmos.DrawLine(transform.position - _RayDownDist + _direction, transform.position + _RayUpDist + _direction);
+        var X = Physics.Raycast(_RigP.transform.position - _RayDownDist + (dir * _RayForwardDist), Vector3.up, (transform.position + _RayUpDist + (_direction * _RayForwardDist)).magnitude);
+        //Gizmos.DrawLine(transform.position - _RayDownDist + (_direction * _RayForwardDist), transform.position + _direction * Vector3.Distance(_RayDownDist, _RayUpDist));
+        //Gizmos.DrawLine(transform.position - _RayDownDist + (_direction * _RayForwardDist), transform.position + _RayUpDist + (_direction * _RayForwardDist));
         Debug.Log(RayDown + " DetectorDown");
         Debug.Log(RayUp + " DetectorUp");
         Debug.Log(X + " DetectorMidle");
@@ -205,9 +207,9 @@ public class PlayerM : MonoBehaviour
         Vector3 Y = new Vector3(0f, -_SpringDist, 0f);
         Gizmos.DrawLine(transform.position, transform.position + Y);
        
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position + _RayUpDist, transform.position + _RayUpDist + _direction * _RayForwardDist);
         Gizmos.DrawLine(transform.position - _RayDownDist, transform.position - _RayDownDist + _direction * _RayForwardDist);
-        Gizmos.DrawLine(transform.position - _RayDownDist + _direction * _RayForwardDist, transform.position + _RayUpDist + _direction * _RayForwardDist);
+        Gizmos.DrawLine(transform.position - _RayDownDist + (_direction * _RayForwardDist), transform.position + _RayUpDist + (_direction * _RayForwardDist));
     }
 }

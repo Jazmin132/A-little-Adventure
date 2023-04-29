@@ -26,7 +26,7 @@ public class PlayerBounce
         _SpringDamper = SpringDamper;
         return this;
     }
-    public void Bounce()
+    public void BounceFloat()
     {
         RaycastHit HitPoint;
 
@@ -39,10 +39,7 @@ public class PlayerBounce
             Vector3 othervel = Vector3.zero;
             Rigidbody hitBody = HitPoint.rigidbody;
 
-            if (hitBody != null)
-            {
-                othervel = hitBody.velocity;
-            }
+            if (hitBody != null) othervel = hitBody.velocity;
 
             _RayDirvel = Vector3.Dot(RayDir, PlayerVel);
             _OtherDirvel = Vector3.Dot(RayDir, othervel);
@@ -52,12 +49,16 @@ public class PlayerBounce
             float X = HitPoint.distance - _SpringDist;
 
             _SpringForce = (X * _SpringStrength) - (_FinalDirVelocity * _SpringDamper);
-
             _RigP.AddForce(RayDir * _SpringForce);
+
             if (hitBody != null)
             {
                 hitBody.AddForceAtPosition(RayDir * -_SpringForce, HitPoint.point);
             }
         }
+    }
+    public void UpdateForce()
+    {
+
     }
 }
