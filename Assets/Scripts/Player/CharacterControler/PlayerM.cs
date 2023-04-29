@@ -15,11 +15,20 @@ public class PlayerM : MonoBehaviour
 
     [Header("Normal Movement")]
     [SerializeField] float _PlayerSpeed;
+    [SerializeField] float _RayForwardDist;
+    [SerializeField] Vector3 _RayUpDist;
+    [SerializeField] Vector3 _RayDownDist;
     private float _CurrentSpeed;
     private BoxCollider _AttackBox;
     private Rigidbody _RigP;
     private Transform _MainCamera;
     private Vector3 _direction;
+
+    [Header("Bounce Config")]
+    [SerializeField] float _SpringDist;
+    [SerializeField] float _SpringStrength;
+    [SerializeField] float _SpringDamper;
+
     //Intentar arreglarlo?
     //private bool _CanRun = false;
 
@@ -43,14 +52,17 @@ public class PlayerM : MonoBehaviour
     [SerializeField] float _MaxDistAir;
 
     IController _controller;
+    PlayerBounce _PlayerBounce;
     PlayerJump _playerJump;
     private HearthDisplay _lifeManager;
 
     private void Awake()
     {
         _RigP = GetComponent<Rigidbody>();
+
         _controller = new Controler(this, GetComponent<View>());
         _playerJump = new PlayerJump().SetJump(_RayJumpDist, _JumpForce).SetRigidbody(_RigP);
+        _PlayerBounce = new PlayerBounce().SetRigidbody(_RigP).SetSpring(_SpringDist, _SpringStrength, _SpringDamper);
     }
     private void Start()
     {
@@ -66,24 +78,36 @@ public class PlayerM : MonoBehaviour
     }
     public void MovePlayer(float H, float V)
     {
+        GravityModifier();
         //Vector3.ProjectOnPlane proyecta vector sobre una superficie plana/ Vector3.up = plano Z
         Vector3 Forward = Vector3.ProjectOnPlane(_MainCamera.transform.forward, Vector3.up).normalized;
         Vector3 Right = Vector3.ProjectOnPlane(_MainCamera.transform.right, Vector3.up).normalized;
         _direction = (H * Right + V * Forward).normalized;
-        
-        GravityModifier();
 
         if (_playerJump.IsGrounded()) IsJumping = false;
         else IsJumping = true;
 
         if (H != 0 || V != 0)
         {//Agregar una miniaceleración
+            if (WallDetecter(_direction)) return;
+
             _RigP.MovePosition(transform.position + _direction * _CurrentSpeed * Time.fixedDeltaTime);
             //Que gire sobre su vector Y hacia la dirreción que le indico
             Quaternion Rotation = Quaternion.LookRotation(_direction.normalized, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, Rotation, Time.fixedDeltaTime * 360f * 4);
             //Que rote, a partir de su rotación actual hacia la que le indico, con una radio específico, multiplico po 4 para alentizar
         }
+    }
+    public bool WallDetecter(Vector3 dir)
+    {
+        var RayUp = Physics.Raycast(_RigP.transform.position + _RayUpDist, dir, _RayForwardDist);
+        var RayDown = Physics.Raycast(_RigP.transform.position - _RayDownDist, dir, _RayForwardDist);
+        var X = Physics.Raycast(transform.position - _RayDownDist + (dir * _RayForwardDist), Vector3.up , Vector3.Distance(_RayDownDist, _RayUpDist));
+        //Gizmos.DrawLine(transform.position - _RayDownDist + _direction, transform.position + _RayUpDist + _direction);
+        Debug.Log(RayDown + " DetectorDown");
+        Debug.Log(RayUp + " DetectorUp");
+        Debug.Log(X + " DetectorMidle");
+        return RayDown;
     }
     public void Jump()
     {//Lograr que el glide se active después del Jump normal, manteniendo la tecla apretada
@@ -95,7 +119,6 @@ public class PlayerM : MonoBehaviour
             _playerJump.Jump();
         }//No salta todo el tiempo, a veces se traba, sobretodo si corro o voy a la izquierda/arriba
     }
-
     public void Run()
     {
         var Run = _PlayerSpeed * 1.5f;
@@ -146,7 +169,6 @@ public class PlayerM : MonoBehaviour
             bullet.hit = true;
         }
     }
-
     public void RecieveHit(int damage)
     {
         _CurrentLife -= damage;
@@ -176,8 +198,16 @@ public class PlayerM : MonoBehaviour
     }
     public void OnDrawGizmos()
     {
-        Gizmos.color = Color.green;
         Vector3 X = new Vector3(0f, -_RayJumpDist, 0f);
+        Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, transform.position + X);
+        Gizmos.color = Color.cyan;
+        Vector3 Y = new Vector3(0f, -_SpringDist, 0f);
+        Gizmos.DrawLine(transform.position, transform.position + Y);
+       
+        Gizmos.color = Color.blue;
+        Gizmos.DrawLine(transform.position + _RayUpDist, transform.position + _RayUpDist + _direction * _RayForwardDist);
+        Gizmos.DrawLine(transform.position - _RayDownDist, transform.position - _RayDownDist + _direction * _RayForwardDist);
+        Gizmos.DrawLine(transform.position - _RayDownDist + _direction * _RayForwardDist, transform.position + _RayUpDist + _direction * _RayForwardDist);
     }
 }

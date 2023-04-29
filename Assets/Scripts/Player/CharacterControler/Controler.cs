@@ -19,17 +19,11 @@ public class Controler : IController
         var V = Input.GetAxis("Vertical");
         var H = Input.GetAxis("Horizontal");
 
-        if (Input.GetKeyDown(KeyCode.Space))
-        {
-            Debug.Log("KeySpace");
-            _M.Jump();
-        }
         _M.MovePlayer(H, V);
-        //No permite mas de dos teclas al mismo tiempo??????
-        //Mas que nada, no permite saktar al moverse (al correr)
-        if (Input.GetKey(KeyCode.Z))
-            _M.Glide();
-        
+        //No permite mas de dos teclas al mismo tiempo, problema de windows
+        if (Input.GetKeyDown(KeyCode.Space)) _M.Jump();
+        else if (Input.GetKey(KeyCode.Z)) _M.Glide();
+
         if (Input.GetKey(KeyCode.X))
             _M.Attack();
         else if(Input.GetKeyDown(KeyCode.C))
