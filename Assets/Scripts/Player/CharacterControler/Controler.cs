@@ -24,7 +24,7 @@ public class Controler : IController
         if (Input.GetKeyDown(KeyCode.Space)) _M.Jump();
         else if (Input.GetKey(KeyCode.Z)) _M.Glide();
 
-        if (Input.GetKey(KeyCode.X))
+        if (Input.GetKey(KeyCode.E))
             _M.Attack();
         else if(Input.GetKeyDown(KeyCode.C))
             _M.Shoot();

@@ -5,7 +5,7 @@ using UnityEngine;
 public class PlayerBounce
 {
     Rigidbody _RigP;
-    float _SpringDist;
+    float _SpringHeight;
     float _SpringStrength;
     float _SpringDamper;
 
@@ -21,23 +21,24 @@ public class PlayerBounce
     }
     public PlayerBounce SetSpring(float SpringDist, float SpringStrength, float SpringDamper)
     {
-        _SpringDist = SpringDist;
+        _SpringHeight = SpringDist;
         _SpringStrength = SpringStrength;
         _SpringDamper = SpringDamper;
         return this;
     }
     public void BounceFloat()
     {
-        RaycastHit HitPoint;
+        RaycastHit RayHit;
 
-        var RayDidHit = Physics.Raycast(_RigP.transform.position, Vector3.down, out HitPoint, _SpringDist);
+        var RayDidHit = Physics.Raycast(_RigP.transform.position, Vector3.down, out RayHit, _SpringHeight);
+
         if (RayDidHit)
         {
             Vector3 PlayerVel = _RigP.velocity;
             Vector3 RayDir = Vector3.down;
 
             Vector3 othervel = Vector3.zero;
-            Rigidbody hitBody = HitPoint.rigidbody;
+            Rigidbody hitBody = RayHit.rigidbody;
 
             if (hitBody != null) othervel = hitBody.velocity;
 
@@ -46,19 +47,16 @@ public class PlayerBounce
 
             _FinalDirVelocity = _RayDirvel - _OtherDirvel;
 
-            float X = HitPoint.distance - _SpringDist;
-
+            float X = RayHit.distance - _SpringHeight;
+            
             _SpringForce = (X * _SpringStrength) - (_FinalDirVelocity * _SpringDamper);
+
             _RigP.AddForce(RayDir * _SpringForce);
 
             if (hitBody != null)
             {
-                hitBody.AddForceAtPosition(RayDir * -_SpringForce, HitPoint.point);
+                hitBody.AddForceAtPosition(RayDir * -_SpringForce, RayHit.point);
             }
         }
-    }
-    public void UpdateForce()
-    {
-
     }
 }

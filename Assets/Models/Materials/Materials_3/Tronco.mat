@@ -91,8 +91,8 @@ Material:
     - _QueueControl: 0
     - _QueueOffset: 0
     - _ReceiveShadows: 1
-    - _SPECULAR_IOR: 1.531915
-    - _SPECULAR_ROUGHNESS: 1
+    - _SPECULAR_IOR: 1.2
+    - _SPECULAR_ROUGHNESS: 1.5
     - _Smoothness: 0
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
