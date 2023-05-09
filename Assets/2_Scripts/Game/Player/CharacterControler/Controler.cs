@@ -14,21 +14,23 @@ public class Controler : IController
             //Pasarle cosas
         }
     }
-    public void ListenKey()
+    public void ListenKeyFixedUpdate()
     {
         var V = Input.GetAxis("Vertical");
         var H = Input.GetAxis("Horizontal");
 
         _M.MovePlayer(H, V);
-        //No permite mas de dos teclas al mismo tiempo, problema de windows
+    }
+    public void ListenKeyUpdate()
+    {
         if (Input.GetKeyDown(KeyCode.Space)) _M.Jump();
         else if (Input.GetKey(KeyCode.Z)) _M.Glide();
 
         if (Input.GetKey(KeyCode.E))
             _M.Attack();
-        else if(Input.GetKeyDown(KeyCode.C))
+        else if(Input.GetKeyDown(KeyCode.Mouse1))
             _M.Shoot();
-        
+
         if (Input.GetKey(KeyCode.LeftShift))
             _M.Run();
         else if(Input.GetKeyUp(KeyCode.LeftShift)) _M.RunReset();

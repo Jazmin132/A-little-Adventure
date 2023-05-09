@@ -76,13 +76,16 @@ public class PlayerM : MonoBehaviour
         _AttackBox = GetComponent<BoxCollider>();
         _lifeManager = FindObjectOfType<HearthDisplay>();
     }
-    void Update()
+    private void Update()
     {
-        _controller.ListenKey();
+        _controller.ListenKeyUpdate();
+    }
+    void FixedUpdate()
+    {
+        _controller.ListenKeyFixedUpdate();
     }
     public void MovePlayer(float H, float V)
     {
-        //_PlayerBounce.BounceFloat();
         GravityModifier();
         //Vector3.ProjectOnPlane proyecta vector sobre una superficie plana/ Vector3.up = plano Z
         Vector3 Forward = Vector3.ProjectOnPlane(_MainCamera.transform.forward, Vector3.up).normalized;
@@ -91,7 +94,7 @@ public class PlayerM : MonoBehaviour
 
         if (_playerJump.IsGrounded()) IsJumping = false;
         else IsJumping = true;
-
+        //TENER FSM PARA CAMBIAR EL MOVIMIENTO
         if (H != 0 || V != 0)
         {//Agregar una miniaceleración
             if (WallDetecter(_direction)) return;
@@ -108,8 +111,7 @@ public class PlayerM : MonoBehaviour
         var RayUp = Physics.Raycast(_RigP.transform.position + _UpDist, dir, _RayForwardDist);
         var RayDown = Physics.Raycast(_RigP.transform.position - _DownDist, dir, _RayForwardDist);
         var X = Physics.Raycast(_RigP.transform.position - _DownDist + (dir * _RayForwardDist), Vector3.up, (transform.position + _UpDist + (_direction * _RayForwardDist)).magnitude);
-        //Gizmos.DrawLine(transform.position - _DownDist + (_direction * _RayForwardDist), transform.position + _UpDist + (_direction * _RayForwardDist));
-        
+
         Debug.Log(RayDown + " DetectorDown");
         Debug.Log(RayUp + " DetectorUp");
         Debug.Log(X + " DetectorMidle");
@@ -208,11 +210,8 @@ public class PlayerM : MonoBehaviour
         Vector3 X = new Vector3(0f, -_RayJumpDist, 0f);
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, transform.position + X);
-        Gizmos.color = Color.cyan;
-        Vector3 Y = new Vector3(0f, -_SpringDist, 0f);
-        Gizmos.DrawLine(transform.position, transform.position + Y);
        
-        Gizmos.color = Color.blue;
+        Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position + _UpDist, transform.position + _UpDist + _direction * _RayForwardDist);
         Gizmos.DrawLine(transform.position - _DownDist, transform.position - _DownDist + _direction * _RayForwardDist);
         Gizmos.DrawLine(transform.position - _DownDist + (_direction * _RayForwardDist), transform.position + _UpDist + (_direction * _RayForwardDist));
