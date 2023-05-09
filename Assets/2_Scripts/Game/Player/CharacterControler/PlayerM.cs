@@ -108,7 +108,7 @@ public class PlayerM : MonoBehaviour
         var RayUp = Physics.Raycast(_RigP.transform.position + _UpDist, dir, _RayForwardDist);
         var RayDown = Physics.Raycast(_RigP.transform.position - _DownDist, dir, _RayForwardDist);
         var X = Physics.Raycast(_RigP.transform.position - _DownDist + (dir * _RayForwardDist), Vector3.up, (transform.position + _UpDist + (_direction * _RayForwardDist)).magnitude);
-        Gizmos.DrawLine(transform.position - _DownDist + (_direction * _RayForwardDist), transform.position + _UpDist + (_direction * _RayForwardDist));
+        //Gizmos.DrawLine(transform.position - _DownDist + (_direction * _RayForwardDist), transform.position + _UpDist + (_direction * _RayForwardDist));
         
         Debug.Log(RayDown + " DetectorDown");
         Debug.Log(RayUp + " DetectorUp");

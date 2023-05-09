@@ -6,7 +6,32 @@ ModelImporter:
   - first:
       74: 1827226128182048838
     second: Take 001
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: S_Planta_2
+    second: {fileID: 2100000, guid: 2b3cc17f153f1514b9f5f44fc39efbb0, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: S_Planta_3
+    second: {fileID: 2100000, guid: 97429c781d5ab0c45a439b153bc1491c, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: S_Planta_4
+    second: {fileID: 2100000, guid: 83e27a4051213d64b93d8332cca50473, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: S_Planta_5
+    second: {fileID: 2100000, guid: 735e66cbed23a9740893092599e4ff87, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: S_Planta_6
+    second: {fileID: 2100000, guid: e1ef614ed1e697e4c94f2e87dab920f9, type: 2}
   materials:
     materialImportMode: 2
     materialName: 0
