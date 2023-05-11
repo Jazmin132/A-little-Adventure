@@ -12,10 +12,12 @@ public class EnemiesManager : MonoBehaviour
     {
         if (instance == null) instance = this;
         else Destroy(gameObject);
+        //El player se pase a si mismo como referencia o tener DontDetroyOnLoad para ese objeto
+        //Sino, se elimina al cambiar de escena. Sería mejor la primera opción
     }
     public bool InFieldOfView(Enemies EnemyPos, float ViewRadius, float Angle)
     {
-        Vector3 dir = _target.transform.position - EnemyPos.transform.position;// EL PROBLEMA ES QUE TOMA LA POSICION DEL MANAGER, NO LA POSICION DE LOS ENEMIGOS
+        Vector3 dir = _target.transform.position - EnemyPos.transform.position;
         if (dir.magnitude > ViewRadius)
             return false;
         

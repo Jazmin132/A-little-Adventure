@@ -4,5 +4,6 @@ using UnityEngine;
 
 public interface IController
 {
-    public void ListenKey();
+    public void ListenKeyFixedUpdate();
+    public void ListenKeyUpdate();
 }
