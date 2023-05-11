@@ -93,9 +93,7 @@ public class PlayerM : MonoBehaviour
     {
         _FSM.FakeFixedUpdate();
         GravityModifier();
-        
     }
-
     public void Run()
     {
         var Run = _PlayerSpeed * 1.5f;
