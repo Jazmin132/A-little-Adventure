@@ -11,7 +11,10 @@ public class FiniteStateMachine
     {
         _currentState.OnUpdate();
     }
-
+    public void FakeFixedUpdate()
+    {
+        _currentState.OnFixedUpdate();
+    }
     public void ChangeState(PlayerStates state)
     {
         if (_currentState != null) _currentState.OnExit();

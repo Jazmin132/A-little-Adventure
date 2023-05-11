@@ -9,30 +9,39 @@ public class Controler : IController
     public Controler(PlayerM M, View V = null)
     {
         _M = M;
-        if (V)
-        {
-            //Pasarle cosas
-        }
+        if (V) { }
     }
-    public void ListenKeyFixedUpdate()
+    public void ListenKeyFixedUpdate() { }
+    public void ListenKeyUpdate() { }
+
+    public float Vertical()
     {
         var V = Input.GetAxis("Vertical");
-        var H = Input.GetAxis("Horizontal");
-
-        _M.MovePlayer(H, V);
+        return V;
     }
-    public void ListenKeyUpdate()
+    public float Horizontal()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) _M.Jump();
-        else if (Input.GetKey(KeyCode.Z)) _M.Glide();
-
-        if (Input.GetKey(KeyCode.E))
-            _M.Attack();
-        else if(Input.GetKeyDown(KeyCode.Mouse1))
-            _M.Shoot();
-
-        if (Input.GetKey(KeyCode.LeftShift))
-            _M.Run();
-        else if(Input.GetKeyUp(KeyCode.LeftShift)) _M.RunReset();
+        var H = Input.GetAxis("Horizontal");
+        return H;
     }
+    public bool Jump()
+    {
+        return Input.GetKeyDown(KeyCode.Space);
+    }
+    public bool Glide()
+    {
+        return Input.GetKey(KeyCode.Z);
+    }
+    public bool Attack()
+    {
+        return (Input.GetKey(KeyCode.E));
+    }
+    public bool Shoot()
+    {
+        return (Input.GetKeyDown(KeyCode.Mouse1));
+    }
+    public bool Acelerate()
+    {
+        return (Input.GetKey(KeyCode.LeftShift));
+    }//else if(Input.GetKeyUp(KeyCode.LeftShift)) _M.RunReset();
 }

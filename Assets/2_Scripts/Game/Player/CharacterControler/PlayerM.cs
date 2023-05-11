@@ -52,11 +52,9 @@ public class PlayerM : MonoBehaviour
     [SerializeField] float _MaxDistAir;
 
     IController _controller;
-    PlayerJump _playerJump;
+    public PlayerJump _playerJump;
     private HearthDisplay _lifeManager;
     private FiniteStateMachine _FSM;
-    //public event System.Action<float, float> OnEnter;
-    public event System.Action<float, float> OnStay;
 
     private void Awake()
     {
@@ -77,51 +75,25 @@ public class PlayerM : MonoBehaviour
         _lifeManager = FindObjectOfType<HearthDisplay>();
 
         _FSM = new FiniteStateMachine();
-        var groundState = new GroundState(_FSM, this)
+        var groundState = new GroundState(_FSM, this, _controller)
             .SetTransforms(transform, _MainCamera).SetRigidbody(_RigP).SetSpeed(_CurrentSpeed);
-        var AirState = new AirState(_FSM).SetRigidbody(_RigP).SetFloat(_GlideDescendSpeed);
+        var AirState = new AirState(_FSM, this, _controller).SetRigidbody(_RigP).SetFloat(_GlideDescendSpeed);
 
         _FSM.AddState(PlayerStates.Ground, groundState);
         _FSM.AddState(PlayerStates.Air, AirState);
+
+        _FSM.ChangeState(PlayerStates.Ground);
     }
     private void Update()
     {
-        _controller.ListenKeyUpdate();
+        _FSM.FakeUpdate();
     }
     void FixedUpdate()
     {
+        _FSM.FakeFixedUpdate();
         GravityModifier();
-        _controller.ListenKeyFixedUpdate();
     }
-    public void MovePlayer(float H, float V)
-    {
-        OnStay?.Invoke(H, V);
-        Debug.Log(OnStay + "Stay");
-    }
-    public void Suscribe(System.Action<float, float> method)
-    {
-        OnStay += method;
-    }
-    public void UnSuscribe(System.Action<float, float> method)
-    {
-        OnStay -= method;
-    }
-    public void Glide()
-    {
-        // SIE EL MOVIMIENTO TIENE QUE CAMBIAR CON EL EVENTO, COMO HAGO PARA QUE EN EL AIR STATE SEA DIFERENTE
-        // SOLO DEBE USAR LAS FLECHAS HORIZONTALES e ir simpre para adelante
-    }
-    //GROUND STATE
-    public void Jump()
-    {//Lograr que el glide se active después del Jump normal, manteniendo la tecla apretada
-       
-        Debug.Log("Jumping " + IsJumping);
-        Debug.Log("IsGrounded " + _playerJump.IsGrounded());
-        if (_playerJump.IsGrounded() && IsJumping == false)
-        {
-            _playerJump.Jump();
-        }//No salta todo el tiempo, a veces se traba, sobretodo si corro o voy a la izquierda/arriba
-    }
+
     public void Run()
     {
         var Run = _PlayerSpeed * 1.5f;

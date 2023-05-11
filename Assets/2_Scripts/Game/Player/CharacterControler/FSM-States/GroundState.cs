@@ -6,16 +6,18 @@ public class GroundState : IState
 {
     private FiniteStateMachine _FSM;
     private PlayerM _Player;
+    private IController _Controller;
     Rigidbody _RigP;
     Transform _transform;
     Transform _MainCamera;
     float _CurrentSpeed;
     Vector3 _direction;
 
-    public GroundState(FiniteStateMachine FSM, PlayerM Player)
+    public GroundState(FiniteStateMachine FSM, PlayerM Player, IController controller)
     {
         _FSM = FSM;
         _Player = Player;
+        _Controller = controller;
     }
     public GroundState SetRigidbody(Rigidbody Rig)
     {
@@ -35,40 +37,47 @@ public class GroundState : IState
     }
     public void OnEnter()
     {
-        Debug.Log("ENTER");
-        _Player.Suscribe(MovePlayer);
+        Debug.Log("ENTER GROUND");
     }
 
     public void OnUpdate()
     {
-        Debug.Log("UPDATE");
+
     }
 
-    public void MovePlayer(float H, float V)
+    public void OnFixedUpdate()
     {
-        _FSM.FakeUpdate();
+        Debug.Log("FixedUpdate Ground");
         //Vector3.ProjectOnPlane proyecta vector sobre una superficie plana/ Vector3.up = plano Z
+
         Vector3 Forward = Vector3.ProjectOnPlane(_MainCamera.transform.forward, Vector3.up).normalized;
         Vector3 Right = Vector3.ProjectOnPlane(_MainCamera.transform.right, Vector3.up).normalized;
-        _direction = (H * Right + V * Forward).normalized;
+        _direction = (_Controller.Horizontal() * Right + _Controller.Vertical() * Forward).normalized;
 
-        //if (_playerJump.IsGrounded()) IsJumping = false;
-        //else IsJumping = true;
-
-        //TENER FSM PARA CAMBIAR EL MOVIMIENTO
-        if (H != 0 || V != 0)
-        {//Agregar una miniaceleración
+        if (_Controller.Horizontal() != 0 || _Controller.Vertical() != 0)
+        {
             _RigP.MovePosition(_transform.position + _direction * _CurrentSpeed * Time.fixedDeltaTime);
             //Que gire sobre su vector Y hacia la dirreción que le indico
             Quaternion Rotation = Quaternion.LookRotation(_direction.normalized, Vector3.up);
             _transform.rotation = Quaternion.RotateTowards(_transform.rotation, Rotation, Time.fixedDeltaTime * 360f * 4);
             //Que rote, a partir de su rotación actual hacia la que le indico, con una radio específico, multiplico po 4 para alentizar
         }
+
+        Jump();
+
+        if (!_Player._playerJump.IsGrounded()) _FSM.ChangeState(PlayerStates.Air);
+    }
+    public void Jump()
+    {
+        if (_Controller.Jump())
+        {
+            _Player._playerJump.Jump();
+            _FSM.ChangeState(PlayerStates.Air);
+        }
     }
 
     public void OnExit()
     {
-        Debug.Log("EXIT");
-        _Player.UnSuscribe(MovePlayer);
+        Debug.Log("EXIT GROUND");
     }
 }
