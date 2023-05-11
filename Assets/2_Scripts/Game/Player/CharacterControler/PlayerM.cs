@@ -86,12 +86,14 @@ public class PlayerM : MonoBehaviour
     }
     private void Update()
     {
+        //_controller.ListenKeyUpdate();
         _FSM.FakeUpdate();
     }
     void FixedUpdate()
     {
         _FSM.FakeFixedUpdate();
         GravityModifier();
+        
     }
 
     public void Run()
@@ -139,7 +141,7 @@ public class PlayerM : MonoBehaviour
     {
         _RigP.AddForce(Vector3.up * ForceUp, ForceMode.VelocityChange);
     }
-    
+
     //LO PONGO ACÁ? O QUE HAGO? SEBERÍA ESTAR EN EN GROUNDSTATE?
     public bool WallDetecter(Vector3 dir)
     {
@@ -149,6 +151,7 @@ public class PlayerM : MonoBehaviour
         if (Down && Up) Ray = true;
         return Ray;
     }
+
     //SE QUEDA ACÁ
     public void RecieveHit(int damage)
     {
