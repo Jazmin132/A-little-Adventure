@@ -75,7 +75,22 @@ public class GroundState : IState
             _FSM.ChangeState(PlayerStates.Air);
         }
     }
-
+   /* public void Shoot()
+    {
+        RaycastHit hit; //Como hago para que el instantiate funcione?
+        _bulletObject = Instantiate(_BulletPrefab, _firePoint.position, Quaternion.identity);
+        Bullet bullet = _bulletObject.GetComponent<Bullet>();
+        if (Physics.Raycast(_MainCamera.position, _MainCamera.forward, out hit, Mathf.Infinity))
+        {
+            bullet.target = hit.point;
+            bullet.hit = true;
+        }
+        else
+        {
+            bullet.target = _MainCamera.position + _MainCamera.forward * _MaxDistAir;
+            bullet.hit = true;
+        }
+    }*/
     public void OnExit()
     {
         Debug.Log("EXIT GROUND");

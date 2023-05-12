@@ -41,7 +41,8 @@ public class PlayerM : MonoBehaviour
     [SerializeField] float VelocityFalloff;
 
     [Header("Glide")]
-    [SerializeField] float _GlideDescendSpeed;
+    [SerializeField] float _DescendSpeed;
+    [SerializeField] float _SpeedHorizontal;
 
     [Header("Shoot")]
     [SerializeField] GameObject _BulletPrefab;
@@ -77,7 +78,9 @@ public class PlayerM : MonoBehaviour
         _FSM = new FiniteStateMachine();
         var groundState = new GroundState(_FSM, this, _controller)
             .SetTransforms(transform, _MainCamera).SetRigidbody(_RigP).SetSpeed(_CurrentSpeed);
-        var AirState = new AirState(_FSM, this, _controller).SetRigidbody(_RigP).SetFloat(_GlideDescendSpeed);
+
+        var AirState = new AirState(_FSM, this, _controller).SetRigidbody(_RigP)
+            .SetTransform(_MainCamera).SetFloats(_DescendSpeed, _CurrentSpeed, _SpeedHorizontal);
 
         _FSM.AddState(PlayerStates.Ground, groundState);
         _FSM.AddState(PlayerStates.Air, AirState);
