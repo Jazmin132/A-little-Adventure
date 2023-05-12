@@ -11,6 +11,7 @@ public class GroundState : IState
     Transform _transform;
     Transform _MainCamera;
     float _CurrentSpeed;
+    float _OriginalSpeed;
     Vector3 _direction;
 
     public GroundState(FiniteStateMachine FSM, PlayerM Player, IController controller)
@@ -30,19 +31,25 @@ public class GroundState : IState
         _MainCamera = MainCamera;
         return this;
     }
-    public GroundState SetSpeed(float Speed)
+    public GroundState SetSpeed(float Speed, float PlayerSpeed)
     {
         _CurrentSpeed = Speed;
+        _OriginalSpeed = PlayerSpeed;
         return this;
     }
     public void OnEnter()
     {
         Debug.Log("ENTER GROUND");
+        _CurrentSpeed = _OriginalSpeed;
     }
 
     public void OnUpdate()
     {
-
+        if (_Controller.Jump())
+        {
+            _Player._playerJump.Jump();
+            _FSM.ChangeState(PlayerStates.Air);
+        }
     }
 
     public void OnFixedUpdate()
@@ -62,35 +69,18 @@ public class GroundState : IState
             _transform.rotation = Quaternion.RotateTowards(_transform.rotation, Rotation, Time.fixedDeltaTime * 360f * 4);
             //Que rote, a partir de su rotación actual hacia la que le indico, con una radio específico, multiplico po 4 para alentizar
         }
-
-        Jump();
-
         if (!_Player._playerJump.IsGrounded()) _FSM.ChangeState(PlayerStates.Air);
+
+        //PREGUNTAR COMO OPTIMIZAR ESTO
+        if (_Controller.Acelerate()) Run();
+        else _CurrentSpeed = _OriginalSpeed;
     }
-    public void Jump()
+    public void Run()
     {
-        if (_Controller.Jump())
-        {
-            _Player._playerJump.Jump();
-            _FSM.ChangeState(PlayerStates.Air);
-        }
+        var Run = _OriginalSpeed * 1.5f;
+        _CurrentSpeed = Run;
     }
-   /* public void Shoot()
-    {
-        RaycastHit hit; //Como hago para que el instantiate funcione?
-        _bulletObject = Instantiate(_BulletPrefab, _firePoint.position, Quaternion.identity);
-        Bullet bullet = _bulletObject.GetComponent<Bullet>();
-        if (Physics.Raycast(_MainCamera.position, _MainCamera.forward, out hit, Mathf.Infinity))
-        {
-            bullet.target = hit.point;
-            bullet.hit = true;
-        }
-        else
-        {
-            bullet.target = _MainCamera.position + _MainCamera.forward * _MaxDistAir;
-            bullet.hit = true;
-        }
-    }*/
+
     public void OnExit()
     {
         Debug.Log("EXIT GROUND");

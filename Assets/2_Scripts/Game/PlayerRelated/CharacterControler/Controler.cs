@@ -35,8 +35,7 @@ public class Controler : IController
     public bool Acelerate()
     {
         return (Input.GetKey(KeyCode.LeftShift));
-    }//else if(Input.GetKeyUp(KeyCode.LeftShift)) _M.RunReset();
-
+    }
     public bool Attack()
     {
         return (Input.GetKey(KeyCode.E));

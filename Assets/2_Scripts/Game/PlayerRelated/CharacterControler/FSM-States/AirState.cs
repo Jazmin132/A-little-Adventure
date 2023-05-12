@@ -13,6 +13,7 @@ public class AirState : IState
     float _CurrentSpeed;
     float _DescendSpeed;
     float _SpeedH;
+    bool _IsGliding;
 
     public AirState(FiniteStateMachine FSM, PlayerM Player, IController controller)
     {
@@ -44,31 +45,50 @@ public class AirState : IState
     }
     public void OnUpdate()
     {
-        if (_Controller.Glide()) Glide();
-        Debug.Log("UPDATE AIR");
+        if (_Controller.Glide())
+        {
+            Glide();
+            _IsGliding = true;
+        }
+        else _IsGliding = false;
     }
     public void OnFixedUpdate()
     {
+        if (_IsGliding == false) MoveOnAir();
+        Debug.Log("FIXEDUPDATE AIR");
         if (_Player._playerJump.IsGrounded()) _FSM.ChangeState(PlayerStates.Ground);
     }
     public void Glide()
     {
-
         if (_RigP.velocity.y < 0)
         {
-            _RigP.velocity = new Vector3(0, -_DescendSpeed, 0);
-            //_direction = _Player.transform.forward * _CurrentSpeed;
             _direction = _Player.transform.right * _Controller.Horizontal() * _SpeedH;
             _direction += _Player.transform.forward * _CurrentSpeed;
             
+            _RigP.velocity = new Vector3(0, -_DescendSpeed, 0);
+
             Quaternion Rotation = Quaternion.LookRotation(_direction.normalized, Vector3.up);
             _Player.transform.rotation = Quaternion.RotateTowards(_Player.transform.rotation, Rotation, Time.fixedDeltaTime * 360f);
             _RigP.MovePosition(_Player.transform.position + _direction * Time.fixedDeltaTime);
         }
     }
+    public void MoveOnAir()
+    {
+        Vector3 Forward = Vector3.ProjectOnPlane(_MainCamera.transform.forward, Vector3.up).normalized;
+        Vector3 Right = Vector3.ProjectOnPlane(_MainCamera.transform.right, Vector3.up).normalized;
+        _direction = (_Controller.Horizontal() * Right + _Controller.Vertical() * Forward).normalized;
+
+        if (_Controller.Horizontal() != 0 || _Controller.Vertical() != 0)
+        {
+            _RigP.MovePosition(_Player.transform.position + _direction * _CurrentSpeed * Time.fixedDeltaTime);
+            Quaternion Rotation = Quaternion.LookRotation(_direction.normalized, Vector3.up);
+            _Player.transform.rotation = Quaternion.RotateTowards(_Player.transform.rotation, Rotation, Time.fixedDeltaTime * 360f * 4);
+        }
+    }
     public void OnExit()
     {
         Debug.Log("EXIT AIR");
+        _IsGliding = false;
     }
 }
 

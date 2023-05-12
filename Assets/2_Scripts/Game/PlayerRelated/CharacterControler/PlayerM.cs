@@ -77,7 +77,7 @@ public class PlayerM : MonoBehaviour
 
         _FSM = new FiniteStateMachine();
         var groundState = new GroundState(_FSM, this, _controller)
-            .SetTransforms(transform, _MainCamera).SetRigidbody(_RigP).SetSpeed(_CurrentSpeed);
+            .SetTransforms(transform, _MainCamera).SetRigidbody(_RigP).SetSpeed(_CurrentSpeed, _PlayerSpeed);
 
         var AirState = new AirState(_FSM, this, _controller).SetRigidbody(_RigP)
             .SetTransform(_MainCamera).SetFloats(_DescendSpeed, _CurrentSpeed, _SpeedHorizontal);
@@ -96,15 +96,6 @@ public class PlayerM : MonoBehaviour
     {
         _FSM.FakeFixedUpdate();
         GravityModifier();
-    }
-    public void Run()
-    {
-        var Run = _PlayerSpeed * 1.5f;
-        if (_playerJump.IsGrounded()) _CurrentSpeed = Run;
-    }
-    public void RunReset()
-    {
-        _CurrentSpeed = _PlayerSpeed;
     }
     public void Attack()
     {
@@ -144,6 +135,7 @@ public class PlayerM : MonoBehaviour
     }
 
     //LO PONGO ACÁ? O QUE HAGO? SEBERÍA ESTAR EN EN GROUNDSTATE?
+    //LO DEBERÍA SACAR?
     public bool WallDetecter(Vector3 dir)
     {
         var Down = Physics.Raycast(_RigP.transform.position + _UpDist, dir, _RayForwardDist);
