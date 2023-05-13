@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class GroundState : IState
 {
-    private FiniteStateMachine _FSM;
-    private PlayerM _Player;
-    private IController _Controller;
+    FiniteStateMachine _FSM;
+    IController _Controller;
+    PlayerM _Player;
+    CapsuleCollider _PlayerCol;
     Rigidbody _RigP;
     Transform _transform;
     Transform _MainCamera;
@@ -20,9 +21,14 @@ public class GroundState : IState
         _Player = Player;
         _Controller = controller;
     }
-    public GroundState SetRigidbody(Rigidbody Rig)
+    public GroundState SetRig(Rigidbody Rig)
     {
         _RigP = Rig;
+        return this;
+    }
+    public GroundState SetCollider(CapsuleCollider PlayerCol)
+    {
+        _PlayerCol = PlayerCol;
         return this;
     }
     public GroundState SetTransforms(Transform T, Transform MainCamera)
@@ -37,10 +43,12 @@ public class GroundState : IState
         _OriginalSpeed = PlayerSpeed;
         return this;
     }
+
     public void OnEnter()
     {
         Debug.Log("ENTER GROUND");
         _CurrentSpeed = _OriginalSpeed;
+        _PlayerCol.material = _Player.PhysicsM[0];
     }
 
     public void OnUpdate()
@@ -54,26 +62,32 @@ public class GroundState : IState
 
     public void OnFixedUpdate()
     {
-        Debug.Log("FixedUpdate Ground");
-        //Vector3.ProjectOnPlane proyecta vector sobre una superficie plana/ Vector3.up = plano Z
+        Move();
+        //PREGUNTAR COMO OPTIMIZAR ESTO
+        if (_Controller.Shoot()) _Player.Shoot();
 
+        if (!_Player._playerJump.IsGrounded()) _FSM.ChangeState(PlayerStates.Air);
+    }
+    public void Move()
+    {
+        //Vector3.ProjectOnPlane proyecta vector sobre una superficie plana/ Vector3.up = plano Z
         Vector3 Forward = Vector3.ProjectOnPlane(_MainCamera.transform.forward, Vector3.up).normalized;
         Vector3 Right = Vector3.ProjectOnPlane(_MainCamera.transform.right, Vector3.up).normalized;
         _direction = (_Controller.Horizontal() * Right + _Controller.Vertical() * Forward).normalized;
+
+        if (_Player.WallDetecter(_direction)) return;
+
+        if (_Controller.Acelerate()) Run();
+        else _CurrentSpeed = _OriginalSpeed;
 
         if (_Controller.Horizontal() != 0 || _Controller.Vertical() != 0)
         {
             _RigP.MovePosition(_transform.position + _direction * _CurrentSpeed * Time.fixedDeltaTime);
             //Que gire sobre su vector Y hacia la dirreción que le indico
             Quaternion Rotation = Quaternion.LookRotation(_direction.normalized, Vector3.up);
-            _transform.rotation = Quaternion.RotateTowards(_transform.rotation, Rotation, Time.fixedDeltaTime * 360f * 4);
-            //Que rote, a partir de su rotación actual hacia la que le indico, con una radio específico, multiplico po 4 para alentizar
+            _transform.rotation = Quaternion.RotateTowards(_transform.rotation, Rotation, Time.fixedDeltaTime * 500f);
+            //Que rote, a partir de su rotación actual hacia la que le indico, con una radio específico, multiplico po 4 para acelerar
         }
-        if (!_Player._playerJump.IsGrounded()) _FSM.ChangeState(PlayerStates.Air);
-
-        //PREGUNTAR COMO OPTIMIZAR ESTO
-        if (_Controller.Acelerate()) Run();
-        else _CurrentSpeed = _OriginalSpeed;
     }
     public void Run()
     {

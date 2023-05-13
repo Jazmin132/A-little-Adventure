@@ -23,10 +23,12 @@ public class PlayerM : MonoBehaviour
     [SerializeField] float _RayForwardDist;
     [SerializeField] float _RayUpDist;
     [SerializeField] float _RayDownDist;
+    public PhysicMaterial[] PhysicsM;
     private Vector3 _UpDist;
     private Vector3 _DownDist;
     private float _CurrentSpeed;
     private BoxCollider _AttackBox;
+    private CapsuleCollider _PlayerCol;
     private Rigidbody _RigP;
     private Transform _MainCamera;
     private Vector3 _direction;
@@ -73,13 +75,14 @@ public class PlayerM : MonoBehaviour
         _DownDist = new Vector3(0f, _RayDownDist, 0f);
 
         _AttackBox = GetComponent<BoxCollider>();
+        _PlayerCol = GetComponent<CapsuleCollider>();
         _lifeManager = FindObjectOfType<HearthDisplay>();
 
         _FSM = new FiniteStateMachine();
-        var groundState = new GroundState(_FSM, this, _controller)
-            .SetTransforms(transform, _MainCamera).SetRigidbody(_RigP).SetSpeed(_CurrentSpeed, _PlayerSpeed);
+        var groundState = new GroundState(_FSM, this, _controller).SetCollider(_PlayerCol)
+            .SetTransforms(transform, _MainCamera).SetRig(_RigP).SetSpeed(_CurrentSpeed, _PlayerSpeed);
 
-        var AirState = new AirState(_FSM, this, _controller).SetRigidbody(_RigP)
+        var AirState = new AirState(_FSM, this, _controller).SetRig(_RigP).SetCollider(_PlayerCol)
             .SetTransform(_MainCamera).SetFloats(_DescendSpeed, _CurrentSpeed, _SpeedHorizontal);
 
         _FSM.AddState(PlayerStates.Ground, groundState);
@@ -89,7 +92,6 @@ public class PlayerM : MonoBehaviour
     }
     private void Update()
     {
-        //_controller.ListenKeyUpdate();
         _FSM.FakeUpdate();
     }
     void FixedUpdate()
@@ -97,6 +99,7 @@ public class PlayerM : MonoBehaviour
         _FSM.FakeFixedUpdate();
         GravityModifier();
     }
+    //LO CAMBIO???
     public void Attack()
     {
         _AttackBox.enabled = true;
@@ -113,6 +116,27 @@ public class PlayerM : MonoBehaviour
         yield return Wait;
         Debug.Log("Can Attack again");
     }
+    public void UpImpulse(float ForceUp)
+    {
+        _RigP.AddForce(Vector3.up * ForceUp, ForceMode.VelocityChange);
+    }
+
+    //SE QUEDA ACÁ
+    public bool WallDetecter(Vector3 dir)
+    {
+        var Down = Physics.Raycast(_RigP.transform.position + _UpDist, dir, _RayForwardDist);
+        var Up = Physics.Raycast(_RigP.transform.position - _DownDist, dir, _RayForwardDist);
+
+        if (Down && Up)
+        {
+            var X = Physics.Raycast(_RigP.transform.position - _DownDist + (dir * _RayForwardDist),
+                Vector3.up, (transform.position + _UpDist + (_direction * _RayForwardDist)).magnitude);
+            Debug.Log(X);
+            Ray = true;
+        }
+        return Ray;
+    }
+
     public void Shoot()
     {
         RaycastHit hit;
@@ -129,23 +153,6 @@ public class PlayerM : MonoBehaviour
             bullet.hit = true;
         }
     }
-    public void UpImpulse(float ForceUp)
-    {
-        _RigP.AddForce(Vector3.up * ForceUp, ForceMode.VelocityChange);
-    }
-
-    //LO PONGO ACÁ? O QUE HAGO? SEBERÍA ESTAR EN EN GROUNDSTATE?
-    //LO DEBERÍA SACAR?
-    public bool WallDetecter(Vector3 dir)
-    {
-        var Down = Physics.Raycast(_RigP.transform.position + _UpDist, dir, _RayForwardDist);
-        var Up = Physics.Raycast(_RigP.transform.position - _DownDist, dir, _RayForwardDist);
-        //if(Physics.Raycast(_RigP.transform.position - _DownDist + (dir * _RayForwardDist), Vector3.up, (transform.position + _UpDist + (_direction * _RayForwardDist)).magnitude));
-        if (Down && Up) Ray = true;
-        return Ray;
-    }
-
-    //SE QUEDA ACÁ
     public void RecieveHit(int damage)
     {
         _CurrentLife -= damage;

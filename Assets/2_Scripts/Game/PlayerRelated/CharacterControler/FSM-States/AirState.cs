@@ -4,12 +4,15 @@ using UnityEngine;
 
 public class AirState : IState
 {
-    private FiniteStateMachine _FSM;
+    FiniteStateMachine _FSM;
     IController _Controller;
+    CapsuleCollider _PlayerCol;
     PlayerM _Player;
     Rigidbody _RigP;
     Transform _MainCamera;
     Vector3 _direction;
+    Vector3 _Right;
+    Vector3 _Forward;
     float _CurrentSpeed;
     float _DescendSpeed;
     float _SpeedH;
@@ -21,9 +24,14 @@ public class AirState : IState
         _Controller = controller;
         _Player = Player;
     }
-    public AirState SetRigidbody(Rigidbody Rig)
+    public AirState SetRig(Rigidbody Rig)
     {
         _RigP = Rig;
+        return this;
+    }
+    public AirState SetCollider(CapsuleCollider PlayerCol)
+    {
+        _PlayerCol = PlayerCol;
         return this;
     }
     public AirState SetFloats(float DescendSpeed, float CurrentSpeed, float SpeedH)
@@ -42,6 +50,7 @@ public class AirState : IState
     public void OnEnter()
     {
         Debug.Log("ENTER AIR");
+        _PlayerCol.material = _Player.PhysicsM[1];
     }
     public void OnUpdate()
     {
@@ -61,28 +70,30 @@ public class AirState : IState
     public void Glide()
     {
         if (_RigP.velocity.y < 0)
-        {
+        {//_Player.transform.right
+            //_Right = Vector3.ProjectOnPlane(_MainCamera.transform.right, Vector3.up).normalized;
+
             _direction = _Player.transform.right * _Controller.Horizontal() * _SpeedH;
             _direction += _Player.transform.forward * _CurrentSpeed;
             
             _RigP.velocity = new Vector3(0, -_DescendSpeed, 0);
 
             Quaternion Rotation = Quaternion.LookRotation(_direction.normalized, Vector3.up);
-            _Player.transform.rotation = Quaternion.RotateTowards(_Player.transform.rotation, Rotation, Time.fixedDeltaTime * 360f);
+            _Player.transform.rotation = Quaternion.RotateTowards(_Player.transform.rotation, Rotation, Time.fixedDeltaTime * 500);
             _RigP.MovePosition(_Player.transform.position + _direction * Time.fixedDeltaTime);
         }
     }
     public void MoveOnAir()
     {
-        Vector3 Forward = Vector3.ProjectOnPlane(_MainCamera.transform.forward, Vector3.up).normalized;
-        Vector3 Right = Vector3.ProjectOnPlane(_MainCamera.transform.right, Vector3.up).normalized;
-        _direction = (_Controller.Horizontal() * Right + _Controller.Vertical() * Forward).normalized;
+        _Forward = Vector3.ProjectOnPlane(_MainCamera.transform.forward, Vector3.up).normalized;
+        _Right = Vector3.ProjectOnPlane(_MainCamera.transform.right, Vector3.up).normalized;
+        _direction = (_Controller.Horizontal() * _Right + _Controller.Vertical() * _Forward).normalized;
 
         if (_Controller.Horizontal() != 0 || _Controller.Vertical() != 0)
         {
             _RigP.MovePosition(_Player.transform.position + _direction * _CurrentSpeed * Time.fixedDeltaTime);
             Quaternion Rotation = Quaternion.LookRotation(_direction.normalized, Vector3.up);
-            _Player.transform.rotation = Quaternion.RotateTowards(_Player.transform.rotation, Rotation, Time.fixedDeltaTime * 360f * 4);
+            _Player.transform.rotation = Quaternion.RotateTowards(_Player.transform.rotation, Rotation, Time.fixedDeltaTime * 500);
         }
     }
     public void OnExit()
