@@ -77,7 +77,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Speed: 50
-  _Duration: 2
+  _Duration: 1
   _Damage: 1
 --- !u!1 &5669330735586505485
 GameObject:
