@@ -30,7 +30,7 @@ public class Controler : IController
     }
     public bool Glide()
     {
-        return Input.GetKey(KeyCode.Z);
+        return Input.GetKey(KeyCode.Space);
     }
     public bool Acelerate()
     {
@@ -40,9 +40,8 @@ public class Controler : IController
     {
         return (Input.GetKey(KeyCode.E));
     }
-
     public bool Shoot()
     {
-        return (Input.GetKey(KeyCode.Mouse1));
+        return (Input.GetKeyDown(KeyCode.Mouse0));
     }
 }
