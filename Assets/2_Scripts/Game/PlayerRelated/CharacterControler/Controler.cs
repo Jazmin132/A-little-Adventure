@@ -30,7 +30,7 @@ public class Controler : IController
     }
     public bool Glide()
     {
-        return Input.GetKey(KeyCode.Space);
+        return Input.GetKey(KeyCode.Mouse1);
     }
     public bool Acelerate()
     {
