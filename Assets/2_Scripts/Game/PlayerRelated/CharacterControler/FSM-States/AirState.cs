@@ -48,7 +48,7 @@ public class AirState : IState
     }
 
     public void OnEnter()
-    {
+    {//HAY UN RARO DELAY AL ENTRAR A ESTE ESTADO
         Debug.Log("ENTER AIR");
         _PlayerCol.material = _Player.PhysicsM[1];
     }
@@ -68,7 +68,8 @@ public class AirState : IState
         if (_Player._playerJump.IsGrounded()) _FSM.ChangeState(PlayerStates.Ground);
     }
     public void Glide()
-    {
+    {//HACER QUE LA DERECHA SIEMPRE SEA LA DERECHA DE LA CAMARA
+     //PERO QUE NO DEJE DE GIRAR´A MENOS QUE SUELTE LA TECLA
         if (_RigP.velocity.y < 0)
         {//_Player.transform.right
             //_Right = Vector3.ProjectOnPlane(_MainCamera.transform.right, Vector3.up).normalized;

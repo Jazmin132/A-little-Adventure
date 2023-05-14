@@ -65,6 +65,7 @@ public class GroundState : IState
         Move();
         //PREGUNTAR COMO OPTIMIZAR ESTO
         if (_Controller.Shoot()) _Player.Shoot();
+        else if (_Controller.Attack()) _Player.Attack();
 
         if (!_Player._playerJump.IsGrounded()) _FSM.ChangeState(PlayerStates.Air);
     }

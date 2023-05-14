@@ -64,6 +64,10 @@ public class PlayerM : MonoBehaviour
         _RigP = GetComponent<Rigidbody>();
         _controller = new Controler(this, GetComponent<View>());
         _playerJump = new PlayerJump().SetJump(_RayJumpDist, _JumpForce).SetRigidbody(_RigP);
+
+        _AttackBox = GetComponent<BoxCollider>();
+        _PlayerCol = GetComponent<CapsuleCollider>();
+        _lifeManager = FindObjectOfType<HearthDisplay>();
     }
     private void Start()
     {
@@ -74,10 +78,6 @@ public class PlayerM : MonoBehaviour
         _UpDist = new Vector3(0f, _RayUpDist, 0f);
         _DownDist = new Vector3(0f, _RayDownDist, 0f);
 
-        _AttackBox = GetComponent<BoxCollider>();
-        _PlayerCol = GetComponent<CapsuleCollider>();
-        _lifeManager = FindObjectOfType<HearthDisplay>();
-
         _FSM = new FiniteStateMachine();
         var groundState = new GroundState(_FSM, this, _controller).SetCollider(_PlayerCol)
             .SetTransforms(transform, _MainCamera).SetRig(_RigP).SetSpeed(_CurrentSpeed, _PlayerSpeed);
@@ -87,7 +87,6 @@ public class PlayerM : MonoBehaviour
 
         _FSM.AddState(PlayerStates.Ground, groundState);
         _FSM.AddState(PlayerStates.Air, AirState);
-
         _FSM.ChangeState(PlayerStates.Ground);
     }
     private void Update()
@@ -99,7 +98,7 @@ public class PlayerM : MonoBehaviour
         _FSM.FakeFixedUpdate();
         GravityModifier();
     }
-    //LO CAMBIO???
+   
     public void Attack()
     {
         _AttackBox.enabled = true;
@@ -127,16 +126,11 @@ public class PlayerM : MonoBehaviour
         var Down = Physics.Raycast(_RigP.transform.position + _UpDist, dir, _RayForwardDist);
         var Up = Physics.Raycast(_RigP.transform.position - _DownDist, dir, _RayForwardDist);
 
-        if (Down && Up)
-        {
-            var X = Physics.Raycast(_RigP.transform.position - _DownDist + (dir * _RayForwardDist),
-                Vector3.up, (transform.position + _UpDist + (_direction * _RayForwardDist)).magnitude);
-            Debug.Log(X);
-            Ray = true;
-        }
+        if (Down && Up) Ray = true;
+        else Ray = false;
+
         return Ray;
     }
-
     public void Shoot()
     {
         RaycastHit hit;
@@ -144,11 +138,13 @@ public class PlayerM : MonoBehaviour
         Bullet bullet = _bulletObject.GetComponent<Bullet>();
         if (Physics.Raycast(_MainCamera.position, _MainCamera.forward, out hit, Mathf.Infinity))
         {
+            _bulletObject.transform.forward = _MainCamera.forward;
             bullet.target = hit.point;
             bullet.hit = true;
         }
         else
         {
+            _bulletObject.transform.forward = _MainCamera.forward;
             bullet.target = _MainCamera.position + _MainCamera.forward * _MaxDistAir;
             bullet.hit = true;
         }
