@@ -458,6 +458,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dff23076e1c3aec4d9347849ce6ac46c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CanBeShoot: 1
+  CanBeHit: 0
   _SpherePoint: {fileID: 8730961823768900999}
   _Platform: {fileID: 8730961823599834621}
   _OnTime: 7

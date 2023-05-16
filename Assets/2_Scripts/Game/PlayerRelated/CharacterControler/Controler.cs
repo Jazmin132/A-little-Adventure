@@ -9,7 +9,11 @@ public class Controler : IController
     public Controler(PlayerM M, View V = null)
     {
         _M = M;
-        if (V) { }
+        if (V) 
+        {
+            _M.OnDamage += V.RecieveDamage;
+            _M.OnDeath += V.IsDead;
+        }
     }
     public void ListenKeyFixedUpdate() { }
     public void ListenKeyUpdate() { }

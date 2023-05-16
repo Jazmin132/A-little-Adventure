@@ -142,6 +142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3277f817be1d80241a540c8c8b7b3705, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  CanBeShoot: 0
+  CanBeHit: 1
   _impulse: 12
   _OnTime: 2
   _SpherePoint: {fileID: 3277980021420066118}

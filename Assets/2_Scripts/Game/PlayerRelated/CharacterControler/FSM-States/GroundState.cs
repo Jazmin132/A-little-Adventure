@@ -74,12 +74,11 @@ public class GroundState : IState
         //Vector3.ProjectOnPlane proyecta vector sobre una superficie plana/ Vector3.up = plano Z
         Vector3 Forward = Vector3.ProjectOnPlane(_MainCamera.transform.forward, Vector3.up).normalized;
         Vector3 Right = Vector3.ProjectOnPlane(_MainCamera.transform.right, Vector3.up).normalized;
-        _direction = (_Controller.Horizontal() * Right + _Controller.Vertical() * Forward).normalized;
+        _direction = (_Controller.Horizontal() * Right + _Controller.Vertical() * Forward);
+
+        if (_direction.sqrMagnitude > 1) _direction.Normalize();
 
         if (_Player.WallDetecter(_direction)) return;
-
-        if (_Controller.Acelerate()) Run();
-        else _CurrentSpeed = _OriginalSpeed;
 
         if (_Controller.Horizontal() != 0 || _Controller.Vertical() != 0)
         {
@@ -89,11 +88,6 @@ public class GroundState : IState
             _transform.rotation = Quaternion.RotateTowards(_transform.rotation, Rotation, Time.fixedDeltaTime * 500f);
             //Que rote, a partir de su rotación actual hacia la que le indico, con una radio específico, multiplico po 4 para acelerar
         }
-    }
-    public void Run()
-    {
-        var Run = _OriginalSpeed * 1.5f;
-        _CurrentSpeed = Run;
     }
 
     public void OnExit()

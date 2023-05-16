@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ImpulsePoint : MonoBehaviour, Iingredient
+public class ImpulsePoint : Ingredient
 {
     [Header("Impulse")]
     [SerializeField] float _impulse;
@@ -16,8 +16,7 @@ public class ImpulsePoint : MonoBehaviour, Iingredient
         _SphereCollider = GetComponentInChildren<SphereCollider>();
         _Maintarget = EnemiesManager.instance._target;
     }
-
-    public void Activate()
+    public override void Activate()
     {
         _Maintarget.UpImpulse(_impulse);
 

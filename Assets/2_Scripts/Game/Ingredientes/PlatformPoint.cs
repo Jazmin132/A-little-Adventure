@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlatformPoint : MonoBehaviour ,Iingredient
+public class PlatformPoint : Ingredient
 {
     [SerializeField] GameObject _SpherePoint;
     [SerializeField] GameObject _Platform;
@@ -18,7 +18,7 @@ public class PlatformPoint : MonoBehaviour ,Iingredient
         _BoxCollider.enabled = false;
     }
 
-    public void Activate()
+    public override void Activate()
     {
         _SpherePoint.SetActive(false);
         _SphereCollider.enabled = false;

@@ -16,6 +16,7 @@ public class AirState : IState
     float _CurrentSpeed;
     float _DescendSpeed;
     float _SpeedH;
+    float _GlidingSign;
     bool _IsGliding;
 
     public AirState(FiniteStateMachine FSM, PlayerM Player, IController controller)
@@ -56,6 +57,9 @@ public class AirState : IState
     {
         if (_Controller.Glide())
         {
+            if (!_IsGliding)
+                _GlidingSign = Mathf.Sign(Vector3.Dot(_Player.transform.forward, _MainCamera.transform.forward));
+
             Glide();
             _IsGliding = true;
         }
@@ -64,17 +68,19 @@ public class AirState : IState
     public void OnFixedUpdate()
     {
         if (_IsGliding == false) MoveOnAir();
-        Debug.Log("FIXEDUPDATE AIR");
+
+        if (_Controller.Shoot()) _Player.Shoot();
+        else if (_Controller.Attack()) _Player.Attack();
+
         if (_Player._playerJump.IsGrounded()) _FSM.ChangeState(PlayerStates.Ground);
     }
     public void Glide()
     {//HACER QUE LA DERECHA SIEMPRE SEA LA DERECHA DE LA CAMARA
      //PERO QUE NO DEJE DE GIRAR´A MENOS QUE SUELTE LA TECLA
         if (_RigP.velocity.y < 0)
-        {//_Player.transform.right
-            //_Right = Vector3.ProjectOnPlane(_MainCamera.transform.right, Vector3.up).normalized;
+        {//Devuelve +1 o -1
 
-            _direction = _Player.transform.right * _Controller.Horizontal() * _SpeedH;
+            _direction = (_Player.transform.right * _GlidingSign) * _Controller.Horizontal() * _SpeedH;
             _direction += _Player.transform.forward * _CurrentSpeed;
             
             _RigP.velocity = new Vector3(0, -_DescendSpeed, 0);

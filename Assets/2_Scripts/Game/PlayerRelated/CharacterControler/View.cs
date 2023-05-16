@@ -4,13 +4,21 @@ using UnityEngine;
 
 public class View : MonoBehaviour
 {
+    [SerializeField] ParticleSystem auch;
+
     void Start()
     {
         
     }
 
-    void Update()
+    public void RecieveDamage()
     {
-        
+        auch.Play();
+    }
+
+    public void IsDead()
+    {
+        GameManager.instance.Lose();
+        Cursor.lockState = CursorLockMode.None;
     }
 }

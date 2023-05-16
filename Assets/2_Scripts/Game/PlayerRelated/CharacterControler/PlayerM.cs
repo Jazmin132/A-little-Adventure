@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
+
 public enum PlayerStates
 {
     Ground,
@@ -50,7 +52,7 @@ public class PlayerM : MonoBehaviour
     [SerializeField] GameObject _BulletPrefab;
     [SerializeField] GameObject _BulletParent;
     private GameObject _bulletObject;
-    [SerializeField] private Transform _firePoint;
+    [SerializeField] Transform _firePoint;
 
     [SerializeField] float _MaxDistAir;
 
@@ -58,6 +60,9 @@ public class PlayerM : MonoBehaviour
     public PlayerJump _playerJump;
     private HearthDisplay _lifeManager;
     private FiniteStateMachine _FSM;
+
+    public event Action OnDamage;
+    public event Action OnDeath;
 
     private void Awake()
     {
@@ -89,6 +94,7 @@ public class PlayerM : MonoBehaviour
         _FSM.AddState(PlayerStates.Air, AirState);
         _FSM.ChangeState(PlayerStates.Ground);
     }
+
     private void Update()
     {
         _FSM.FakeUpdate();
@@ -99,6 +105,12 @@ public class PlayerM : MonoBehaviour
         GravityModifier();
     }
    
+    public void UpImpulse(float ForceUp)
+    {
+        _RigP.AddForce(Vector3.up * ForceUp, ForceMode.VelocityChange);
+    }
+
+    //SE QUEDA ACÁ
     public void Attack()
     {
         _AttackBox.enabled = true;
@@ -115,12 +127,7 @@ public class PlayerM : MonoBehaviour
         yield return Wait;
         Debug.Log("Can Attack again");
     }
-    public void UpImpulse(float ForceUp)
-    {
-        _RigP.AddForce(Vector3.up * ForceUp, ForceMode.VelocityChange);
-    }
 
-    //SE QUEDA ACÁ
     public bool WallDetecter(Vector3 dir)
     {
         var Down = Physics.Raycast(_RigP.transform.position + _UpDist, dir, _RayForwardDist);
@@ -148,14 +155,18 @@ public class PlayerM : MonoBehaviour
             bullet.target = _MainCamera.position + _MainCamera.forward * _MaxDistAir;
             bullet.hit = true;
         }
+        Vector3 camForward = _MainCamera.forward;
+        camForward.y = 0;
+        transform.forward = camForward;
     }
     public void RecieveHit(int damage)
     {
         _CurrentLife -= damage;
+        OnDamage?.Invoke();
         if (_CurrentLife <= 0)
         {
             _CurrentLife = 0;
-            Debug.Log("Moriste");
+            OnDeath?.Invoke();
         }
         Debug.Log("AUCH " + _CurrentLife);
         _lifeManager.UpdateHealth(_CurrentLife);
@@ -168,9 +179,10 @@ public class PlayerM : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         var D = other.GetComponent<IDamage>();
-        var I = other.GetComponent<Iingredient>();
+        var I = other.GetComponent<Ingredient>();
+
         if (D != null) D.RecieveDamage(_Damage);
-        else if (I != null && _OnAttack)
+        else if (I != null && _OnAttack && I.CanBeHit)
         {
             I.Activate();
             Debug.Log("Nice");
