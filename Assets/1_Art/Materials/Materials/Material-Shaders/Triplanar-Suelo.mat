@@ -55,10 +55,11 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaCutoff: 0.5
-    - _Blend: 0.75
+    - _Blend: 0.63
     - _QueueControl: 0
     - _QueueOffset: 0
-    - _Tiling: 1
+    - _Smoothness: 0
+    - _Tiling: 3.56
     - __dirty: 0
     m_Colors:
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
