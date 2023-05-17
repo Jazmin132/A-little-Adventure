@@ -60,6 +60,8 @@ public class PlayerM : MonoBehaviour
     public PlayerJump _playerJump;
     private HearthDisplay _lifeManager;
     private FiniteStateMachine _FSM;
+    Vector3 CheckPointPosition;
+    Vector3 CheckPointRotation;
 
     public event Action OnDamage;
     public event Action OnDeath;
@@ -170,6 +172,11 @@ public class PlayerM : MonoBehaviour
         }
         Debug.Log("AUCH " + _CurrentLife);
         _lifeManager.UpdateHealth(_CurrentLife);
+    }
+    public void NewCheckPoint()
+    {
+        CheckPointPosition = transform.position;
+        CheckPointRotation = transform.position;
     }
     public void GravityModifier()
     {
