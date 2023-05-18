@@ -5,15 +5,16 @@ using Cinemachine;
 
 public class Camara : MonoBehaviour
 {
-    private CinemachineVirtualCamera _VirtualCamera;
+    //[SerializeField] CinemachineVirtualCamera _VirtualCamera;
+    [SerializeField] CinemachineFreeLook _VirtualCamera;
     private CinemachineBasicMultiChannelPerlin _PerlinNoise;
-
+    
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
-        _VirtualCamera = GetComponent<CinemachineVirtualCamera>();
-        _PerlinNoise = GetComponent<CinemachineBasicMultiChannelPerlin>();
-        _PerlinNoise.m_AmplitudeGain = 0f;
+        //_VirtualCamera = GetComponent<CinemachineVirtualCamera>();
+        //_PerlinNoise = _VirtualCamera.GetComponent<CinemachineBasicMultiChannelPerlin>();
+        //_PerlinNoise.m_AmplitudeGain = 0f;
     }
     public void ShakeCamera(float intensity, float shaketime)
     {

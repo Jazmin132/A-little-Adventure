@@ -107,12 +107,18 @@ public class PlayerM : MonoBehaviour
         GravityModifier();
     }
    
-    public void UpImpulse(float ForceUp)
+    //SE QUEDA ACÁ
+    public bool WallDetecter(Vector3 dir)
     {
-        _RigP.AddForce(Vector3.up * ForceUp, ForceMode.VelocityChange);
+        var Down = Physics.Raycast(_RigP.transform.position + _UpDist, dir, _RayForwardDist);
+        var Up = Physics.Raycast(_RigP.transform.position - _DownDist, dir, _RayForwardDist);
+
+        if (Down && Up) Ray = true;
+        else Ray = false;
+
+        return Ray;
     }
 
-    //SE QUEDA ACÁ
     public void Attack()
     {
         _AttackBox.enabled = true;
@@ -129,16 +135,9 @@ public class PlayerM : MonoBehaviour
         yield return Wait;
         Debug.Log("Can Attack again");
     }
-
-    public bool WallDetecter(Vector3 dir)
+    public void UpImpulse(float ForceUp)
     {
-        var Down = Physics.Raycast(_RigP.transform.position + _UpDist, dir, _RayForwardDist);
-        var Up = Physics.Raycast(_RigP.transform.position - _DownDist, dir, _RayForwardDist);
-
-        if (Down && Up) Ray = true;
-        else Ray = false;
-
-        return Ray;
+        _RigP.AddForce(Vector3.up * ForceUp, ForceMode.VelocityChange);
     }
     public void Shoot()
     {
@@ -161,6 +160,7 @@ public class PlayerM : MonoBehaviour
         camForward.y = 0;
         transform.forward = camForward;
     }
+
     public void RecieveHit(int damage)
     {
         _CurrentLife -= damage;
@@ -173,6 +173,7 @@ public class PlayerM : MonoBehaviour
         Debug.Log("AUCH " + _CurrentLife);
         _lifeManager.UpdateHealth(_CurrentLife);
     }
+    
     public void NewCheckPoint()
     {
         CheckPointPosition = transform.position;
@@ -183,17 +184,12 @@ public class PlayerM : MonoBehaviour
         if (_RigP.velocity.y < VelocityFalloff)
             _RigP.velocity += Vector3.up * Physics.gravity.y * (_FallMultiplier - 1) * Time.fixedDeltaTime;
     }
+
     private void OnTriggerEnter(Collider other)
     {
-        var D = other.GetComponent<IDamage>();
         var I = other.GetComponent<Ingredient>();
-
-        if (D != null) D.RecieveDamage(_Damage);
-        else if (I != null && _OnAttack && I.CanBeHit)
-        {
-            I.Activate();
-            Debug.Log("Nice");
-        }
+        if (other.TryGetComponent(out IDamage D)) D.RecieveDamage(_Damage);
+        else if (I != null && _OnAttack && I.CanBeHit) I.Activate();
     }
     public void OnDrawGizmos()
     {

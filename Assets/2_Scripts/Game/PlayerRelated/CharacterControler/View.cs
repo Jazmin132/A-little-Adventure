@@ -6,13 +6,15 @@ public class View : MonoBehaviour
 {
     [SerializeField] ParticleSystem auch;
     [Header ("Camera Variables")]
-    [SerializeField] Camara CamaraScript;
     [SerializeField] float ShakeIntensity;
     [SerializeField] float ShakeTime = 1f;
+    private Camera _MainCamera;
+    private Camara CamaraScript;
 
     void Start()
     {
-        
+        _MainCamera = Camera.main;
+        CamaraScript = _MainCamera.GetComponent<Camara>();
     }
 
     public void RecieveDamage()
