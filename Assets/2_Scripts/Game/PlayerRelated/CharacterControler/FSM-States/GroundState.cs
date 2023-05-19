@@ -69,7 +69,7 @@ public class GroundState : IState
 
         if (!_Player._playerJump.IsGrounded()) _FSM.ChangeState(PlayerStates.Air);
     }
-    public void Move()
+    private void Move()
     {
         //Vector3.ProjectOnPlane proyecta vector sobre una superficie plana/ Vector3.up = plano Z
         Vector3 Forward = Vector3.ProjectOnPlane(_MainCamera.transform.forward, Vector3.up).normalized;

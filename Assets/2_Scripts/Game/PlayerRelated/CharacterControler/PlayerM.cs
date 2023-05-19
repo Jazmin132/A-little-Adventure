@@ -97,7 +97,7 @@ public class PlayerM : MonoBehaviour
         _FSM.ChangeState(PlayerStates.Ground);
     }
 
-    private void Update()
+    void Update()
     {
         _FSM.FakeUpdate();
     }
@@ -179,7 +179,7 @@ public class PlayerM : MonoBehaviour
         CheckPointPosition = transform.position;
         CheckPointRotation = transform.position;
     }
-    public void GravityModifier()
+    private void GravityModifier()
     {
         if (_RigP.velocity.y < VelocityFalloff)
             _RigP.velocity += Vector3.up * Physics.gravity.y * (_FallMultiplier - 1) * Time.fixedDeltaTime;
@@ -191,7 +191,7 @@ public class PlayerM : MonoBehaviour
         if (other.TryGetComponent(out IDamage D)) D.RecieveDamage(_Damage);
         else if (I != null && _OnAttack && I.CanBeHit) I.Activate();
     }
-    public void OnDrawGizmos()
+    private void OnDrawGizmos()
     {
         Vector3 X = new Vector3(0f, -_RayJumpDist, 0f);
         Gizmos.color = Color.green;
