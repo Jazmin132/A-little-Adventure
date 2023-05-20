@@ -4,22 +4,25 @@ using UnityEngine;
 
 public class View : MonoBehaviour
 {
-    [SerializeField] ParticleSystem auch;
+    [SerializeField] ParticleSystem _AUCH;
+    [SerializeField] ParticleSystem _WaterSplash;
     [Header ("Camera Variables")]
     [SerializeField] float ShakeIntensity;
     [SerializeField] float ShakeTime = 1f;
-    private Camera _MainCamera;
-    private Camara CamaraScript;
+    Camera _MainCamera;
+    Camara CamaraScript;
+    Rigidbody _RigP;
 
     void Start()
     {
         _MainCamera = Camera.main;
         CamaraScript = _MainCamera.GetComponent<Camara>();
+        _RigP = GetComponent<Rigidbody>();
     }
 
     public void RecieveDamage()
     {
-        auch.Play();
+        _AUCH.Play();
         CamaraScript.ShakeCamera(ShakeIntensity, ShakeTime);
     }
 
@@ -27,5 +30,10 @@ public class View : MonoBehaviour
     {
         GameManager.instance.Lose();
         Cursor.lockState = CursorLockMode.None;
+    }
+
+    public void Splash()
+    {
+        _WaterSplash.Play();
     }
 }

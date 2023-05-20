@@ -13,6 +13,7 @@ public class Controler : IController
         {
             _M.OnDamage += V.RecieveDamage;
             _M.OnDeath += V.IsDead;
+            _M.OnWater += V.Splash;
         }
     }
     public void ListenKeyFixedUpdate() { }

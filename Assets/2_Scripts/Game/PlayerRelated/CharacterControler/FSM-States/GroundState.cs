@@ -13,7 +13,9 @@ public class GroundState : IState
     Transform _MainCamera;
     float _CurrentSpeed;
     float _OriginalSpeed;
+    float _RayDownDist;
     Vector3 _direction;
+    LayerMask _Water;
 
     public GroundState(FiniteStateMachine FSM, PlayerM Player, IController controller)
     {
@@ -37,18 +39,25 @@ public class GroundState : IState
         _MainCamera = MainCamera;
         return this;
     }
-    public GroundState SetSpeed(float Speed, float PlayerSpeed)
+    public GroundState SetSpeed(float Speed, float PlayerSpeed, float RayDownDist)
     {
         _CurrentSpeed = Speed;
         _OriginalSpeed = PlayerSpeed;
+        _RayDownDist = RayDownDist;
+        return this;
+    }
+    public GroundState SetLayers(LayerMask Water)
+    {
+        _Water = Water;
         return this;
     }
 
     public void OnEnter()
-    {
+    {// A veces entra al ground al saltar
         Debug.Log("ENTER GROUND");
         _CurrentSpeed = _OriginalSpeed;
         _PlayerCol.material = _Player.PhysicsM[0];
+        _Player.CheckEnviroment();
     }
 
     public void OnUpdate()
@@ -92,6 +101,6 @@ public class GroundState : IState
 
     public void OnExit()
     {
-        Debug.Log("EXIT GROUND");
+        //Debug.Log("EXIT GROUND");
     }
 }

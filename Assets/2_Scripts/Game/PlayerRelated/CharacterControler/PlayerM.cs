@@ -26,6 +26,7 @@ public class PlayerM : MonoBehaviour
     [SerializeField] float _RayUpDist;
     [SerializeField] float _RayDownDist;
     [SerializeField] LayerMask _Wall;
+    [SerializeField] LayerMask _Water;
     public PhysicMaterial[] PhysicsM;
     private Vector3 _UpDist;
     private Vector3 _DownDist;
@@ -66,6 +67,7 @@ public class PlayerM : MonoBehaviour
 
     public event Action OnDamage;
     public event Action OnDeath;
+    public event Action OnWater;
 
     private void Awake()
     {
@@ -88,7 +90,8 @@ public class PlayerM : MonoBehaviour
 
         _FSM = new FiniteStateMachine();
         var groundState = new GroundState(_FSM, this, _controller).SetCollider(_PlayerCol)
-            .SetTransforms(transform, _MainCamera).SetRig(_RigP).SetSpeed(_CurrentSpeed, _PlayerSpeed);
+            .SetTransforms(transform, _MainCamera).SetRig(_RigP).SetLayers(_Water)
+            .SetSpeed(_CurrentSpeed, _PlayerSpeed, _RayDownDist);
 
         var AirState = new AirState(_FSM, this, _controller).SetRig(_RigP).SetCollider(_PlayerCol)
             .SetTransform(_MainCamera).SetFloats(_DescendSpeed, _CurrentSpeed, _SpeedHorizontal);
@@ -109,6 +112,7 @@ public class PlayerM : MonoBehaviour
     }
    
     //SE QUEDA ACÁ
+
     public bool WallDetecter(Vector3 dir)
     {
         var Down = Physics.Raycast(_RigP.transform.position + _UpDist, dir, _RayForwardDist, _Wall);
@@ -175,6 +179,15 @@ public class PlayerM : MonoBehaviour
         _lifeManager.UpdateHealth(_CurrentLife);
     }
     
+    public void CheckEnviroment()
+    {
+        if (Physics.Raycast(_RigP.transform.position, Vector3.down, _RayJumpDist, _Water))
+        {
+            Debug.Log("AGUA");
+            OnWater?.Invoke();
+        }
+    }
+
     public void NewCheckPoint()
     {
         CheckPointPosition = transform.position;

@@ -50,7 +50,7 @@ public class AirState : IState
 
     public void OnEnter()
     {//HAY UN RARO DELAY AL ENTRAR A ESTE ESTADO
-        Debug.Log("ENTER AIR");
+       // Debug.Log("ENTER AIR");
         _PlayerCol.material = _Player.PhysicsM[1];
     }
     public void OnUpdate()
@@ -62,7 +62,8 @@ public class AirState : IState
         if (_Controller.Glide())
         {
             _GlidingSign = Mathf.Sign(Vector3.Dot(_Player.transform.forward, _MainCamera.transform.forward));
-
+            //Devuelve +1 o -1
+            //LO ROMPÍ, no se como ;C
             Glide();
         }
         else MoveOnAir();
@@ -70,14 +71,16 @@ public class AirState : IState
         if (_Controller.Shoot()) _Player.Shoot();
         else if (_Controller.Attack()) _Player.Attack();
 
-        if (_Player._playerJump.IsGrounded()) _FSM.ChangeState(PlayerStates.Ground);
+        if (_Player._playerJump.IsGrounded() && _RigP.velocity.y < 0)
+        {//AL saltar cambia por un segundo acá, puede que provoque el delay del planeo, mas bien lo empeora
+            _FSM.ChangeState(PlayerStates.Ground);
+            Debug.Log("Cambiar al ground");
+        }
     }
     public void Glide()
-    {//HACER QUE LA DERECHA SIEMPRE SEA LA DERECHA DE LA CAMARA
-     //PERO QUE NO DEJE DE GIRAR´A MENOS QUE SUELTE LA TECLA
+    {
         if (_RigP.velocity.y < 0)
-        {//Devuelve +1 o -1
-
+        {
             _direction = (_Player.transform.right * _GlidingSign) * _Controller.Horizontal() * _SpeedH;
             _direction += _Player.transform.forward * _CurrentSpeed;
             
@@ -106,7 +109,7 @@ public class AirState : IState
     }
     public void OnExit()
     {
-        Debug.Log("EXIT AIR");
+       // Debug.Log("EXIT AIR");
         _IsGliding = false;
     }
 }
