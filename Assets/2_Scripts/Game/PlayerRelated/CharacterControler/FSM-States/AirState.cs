@@ -98,6 +98,8 @@ public class AirState : IState
         _Right = Vector3.ProjectOnPlane(_MainCamera.transform.right, Vector3.up).normalized;
         _direction = (_Controller.Horizontal() * _Right + _Controller.Vertical() * _Forward).normalized;
 
+        if (_direction.sqrMagnitude > 1) _direction.Normalize();
+
         if (_Player.WallDetecter(_direction)) return;
 
         if (_Controller.Horizontal() != 0 || _Controller.Vertical() != 0)
