@@ -18,7 +18,7 @@ public class Camara : MonoBehaviour
     }
     public void ShakeCamera(float intensity, float shaketime)
     {
-        _PerlinNoise.m_AmplitudeGain = intensity;
+        //_PerlinNoise.m_AmplitudeGain = intensity;
         StartCoroutine(Reset(shaketime));
     }
     IEnumerator Reset(float ShakeTime)

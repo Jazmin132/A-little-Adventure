@@ -63,7 +63,7 @@ public class PlayerM : MonoBehaviour
     private HearthDisplay _lifeManager;
     private FiniteStateMachine _FSM;
     Vector3 CheckPointPosition;
-    Vector3 CheckPointRotation;
+    Quaternion CheckPointRotation;
 
     public event Action OnDamage;
     public event Action OnDeath;
@@ -188,11 +188,17 @@ public class PlayerM : MonoBehaviour
         }
     }
 
-    public void NewCheckPoint()
+    public void CheckPoint()
     {
         CheckPointPosition = transform.position;
-        CheckPointRotation = transform.position;
+        CheckPointRotation = transform.rotation;
     }
+    public void ActivateCheckPoint()
+    {
+        transform.position = CheckPointPosition;
+        transform.rotation = CheckPointRotation;
+    }
+
     private void GravityModifier()
     {
         if (_RigP.velocity.y < VelocityFalloff)

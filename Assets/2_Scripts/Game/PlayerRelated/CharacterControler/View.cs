@@ -11,19 +11,18 @@ public class View : MonoBehaviour
     [SerializeField] float ShakeTime = 1f;
     Camera _MainCamera;
     Camara CamaraScript;
-    Rigidbody _RigP;
 
     void Start()
     {
         _MainCamera = Camera.main;
         CamaraScript = _MainCamera.GetComponent<Camara>();
-        _RigP = GetComponent<Rigidbody>();
+        //_RigP = GetComponent<Rigidbody>();
     }
 
     public void RecieveDamage()
     {
         _AUCH.Play();
-        CamaraScript.ShakeCamera(ShakeIntensity, ShakeTime);
+       // CamaraScript.ShakeCamera(ShakeIntensity, ShakeTime);
     }
 
     public void IsDead()
