@@ -5205,7 +5205,7 @@ MonoBehaviour:
   IsJumping: 0
   _FallMultiplier: 4.5
   VelocityFalloff: 8
-  _DescendSpeed: 2
+  _DescendSpeed: 3
   _SpeedHorizontal: 0.4
   _BulletPrefab: {fileID: 5669330735535927515, guid: 72572ef7dcdd36241b20edf5d828137d, type: 3}
   _BulletParent: {fileID: 7626980609654997375}
@@ -5238,9 +5238,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _AUCH: {fileID: 6348907463236854641}
   _WaterSplash: {fileID: 6668578992764924474}
-  _Water:
-    serializedVersion: 2
-    m_Bits: 16
   ShakeIntensity: 1
   ShakeTime: 1
 --- !u!1 &5383200500447061931
