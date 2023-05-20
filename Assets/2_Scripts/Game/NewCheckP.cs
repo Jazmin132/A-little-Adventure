@@ -6,7 +6,6 @@ public class NewCheckP : MonoBehaviour
 {
     [SerializeField] ParticleSystem _SavedCheck;
     
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out PlayerM P))
