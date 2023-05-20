@@ -25,6 +25,7 @@ public class PlayerM : MonoBehaviour
     [SerializeField] float _RayForwardDist;
     [SerializeField] float _RayUpDist;
     [SerializeField] float _RayDownDist;
+    [SerializeField] LayerMask _Wall;
     public PhysicMaterial[] PhysicsM;
     private Vector3 _UpDist;
     private Vector3 _DownDist;
@@ -110,21 +111,21 @@ public class PlayerM : MonoBehaviour
     //SE QUEDA ACÁ
     public bool WallDetecter(Vector3 dir)
     {
-        var Down = Physics.Raycast(_RigP.transform.position + _UpDist, dir, _RayForwardDist);
-        var Up = Physics.Raycast(_RigP.transform.position - _DownDist, dir, _RayForwardDist);
-
+        var Down = Physics.Raycast(_RigP.transform.position + _UpDist, dir, _RayForwardDist, _Wall);
+        var Up = Physics.Raycast(_RigP.transform.position - _DownDist, dir, _RayForwardDist, _Wall);
+        //HACER QUE SUBA LA ESCALERA, POR AHORA SE QUEDA ASÍ
         if (Down && Up) Ray = true;
         else Ray = false;
 
         return Ray;
     }
-
     public void Attack()
     {
         _AttackBox.enabled = true;
         _OnAttack = true;
         StartCoroutine(Recharge(_AttackDuration, _AttackReload));
     }
+
     IEnumerator Recharge(float AttackD, float ReloadT)
     {
         var Wait = new WaitForSeconds(AttackD);

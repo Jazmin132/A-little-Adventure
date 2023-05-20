@@ -144,6 +144,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   CanBeShoot: 0
   CanBeHit: 1
-  _impulse: 12
+  _impulse: 14
   _OnTime: 2
   _SpherePoint: {fileID: 3277980021420066118}

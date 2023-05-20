@@ -55,19 +55,17 @@ public class AirState : IState
     }
     public void OnUpdate()
     {
-        if (_Controller.Glide())
-        {
-            if (!_IsGliding)
-                _GlidingSign = Mathf.Sign(Vector3.Dot(_Player.transform.forward, _MainCamera.transform.forward));
-
-            Glide();
-            _IsGliding = true;
-        }
-        else _IsGliding = false;
+        
     }
     public void OnFixedUpdate()
     {
-        if (_IsGliding == false) MoveOnAir();
+        if (_Controller.Glide())
+        {
+            _GlidingSign = Mathf.Sign(Vector3.Dot(_Player.transform.forward, _MainCamera.transform.forward));
+
+            Glide();
+        }
+        else MoveOnAir();
 
         if (_Controller.Shoot()) _Player.Shoot();
         else if (_Controller.Attack()) _Player.Attack();
@@ -84,6 +82,7 @@ public class AirState : IState
             _direction += _Player.transform.forward * _CurrentSpeed;
             
             _RigP.velocity = new Vector3(0, -_DescendSpeed, 0);
+            if (_Player.WallDetecter(_direction)) return;
 
             Quaternion Rotation = Quaternion.LookRotation(_direction.normalized, Vector3.up);
             _Player.transform.rotation = Quaternion.RotateTowards(_Player.transform.rotation, Rotation, Time.fixedDeltaTime * 500);
@@ -95,6 +94,8 @@ public class AirState : IState
         _Forward = Vector3.ProjectOnPlane(_MainCamera.transform.forward, Vector3.up).normalized;
         _Right = Vector3.ProjectOnPlane(_MainCamera.transform.right, Vector3.up).normalized;
         _direction = (_Controller.Horizontal() * _Right + _Controller.Vertical() * _Forward).normalized;
+
+        if (_Player.WallDetecter(_direction)) return;
 
         if (_Controller.Horizontal() != 0 || _Controller.Vertical() != 0)
         {

@@ -5186,9 +5186,9 @@ MonoBehaviour:
   _Damage: 3
   _AttackDuration: 0.8
   _AttackReload: 0.5
-  _PlayerSpeed: 12
-  _RayForwardDist: 0.7
-  _RayUpDist: 1
+  _PlayerSpeed: 14
+  _RayForwardDist: 0.6
+  _RayUpDist: 0.8
   _RayDownDist: 0.5
   PhysicsM:
   - {fileID: 13400000, guid: 8f7102e1cd959e8468d713d2ad0cb08e, type: 2}
@@ -5230,6 +5230,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   auch: {fileID: 6348907463236854641}
+  ShakeIntensity: 0
+  ShakeTime: 1
 --- !u!1 &5383200500447061931
 GameObject:
   m_ObjectHideFlags: 0
