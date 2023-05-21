@@ -25,6 +25,6 @@ public class GameManager : MonoBehaviour
     }
     public void Win()
     {
-        ScreenManager.instance.Push(_CanvasLose);
+        ScreenManager.instance.Push(_CanvasWin);
     }
 }

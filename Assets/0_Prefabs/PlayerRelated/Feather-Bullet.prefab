@@ -78,8 +78,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _Speed: 50
-  _Duration: 1
   _Damage: 1
+  _maxDistance: 20
 --- !u!96 &-6308714089914806777
 TrailRenderer:
   serializedVersion: 2

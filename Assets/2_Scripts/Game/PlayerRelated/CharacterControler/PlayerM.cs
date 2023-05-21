@@ -53,7 +53,6 @@ public class PlayerM : MonoBehaviour
     [Header("Shoot")]
     [SerializeField] GameObject _BulletPrefab;
     [SerializeField] GameObject _BulletParent;
-    private GameObject _bulletObject;
     [SerializeField] Transform _firePoint;
 
     [SerializeField] float _MaxDistAir;
@@ -110,7 +109,7 @@ public class PlayerM : MonoBehaviour
         _FSM.FakeFixedUpdate();
         GravityModifier();
     }
-   
+
     //SE QUEDA ACÁ
 
     public bool WallDetecter(Vector3 dir)
@@ -147,19 +146,21 @@ public class PlayerM : MonoBehaviour
     public void Shoot()
     {
         RaycastHit hit;
-        _bulletObject = Instantiate(_BulletPrefab, _firePoint.position, Quaternion.identity);
-        Bullet bullet = _bulletObject.GetComponent<Bullet>();
+        var _bulletObject = BulletFactory._instance.pool.GetObject();
+        _bulletObject.transform.position = _firePoint.position;
+    
         if (Physics.Raycast(_MainCamera.position, _MainCamera.forward, out hit, Mathf.Infinity))
         {
+            
             _bulletObject.transform.forward = _MainCamera.forward;
-            bullet.target = hit.point;
-            bullet.hit = true;
+            _bulletObject.target = hit.point;
+            _bulletObject.hit = true;
         }
         else
         {
             _bulletObject.transform.forward = _MainCamera.forward;
-            bullet.target = _MainCamera.position + _MainCamera.forward * _MaxDistAir;
-            bullet.hit = true;
+            _bulletObject.target = _MainCamera.position + _MainCamera.forward * _MaxDistAir;
+            _bulletObject.hit = true;
         }
         Vector3 camForward = _MainCamera.forward;
         camForward.y = 0;
@@ -170,6 +171,7 @@ public class PlayerM : MonoBehaviour
     {
         _CurrentLife -= damage;
         OnDamage?.Invoke();
+
         if (_CurrentLife <= 0)
         {
             _CurrentLife = 0;
@@ -178,7 +180,6 @@ public class PlayerM : MonoBehaviour
         Debug.Log("AUCH " + _CurrentLife);
         _lifeManager.UpdateHealth(_CurrentLife);
     }
-    
     public void CheckEnviroment()
     {
         if (Physics.Raycast(_RigP.transform.position, Vector3.down, _RayJumpDist, _Water))
@@ -192,6 +193,7 @@ public class PlayerM : MonoBehaviour
     {
         CheckPointPosition = transform.position;
         CheckPointRotation = transform.rotation;
+        _CurrentLife = _MaxLife;
     }
     public void ActivateCheckPoint()
     {

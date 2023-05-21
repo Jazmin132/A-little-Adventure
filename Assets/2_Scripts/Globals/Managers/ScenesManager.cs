@@ -11,6 +11,8 @@ public class ScenesManager : MonoBehaviour
     public void ResetScene()
     {
         SceneManager.LoadScene(_NivelActual);
+        GameManager.instance.Lose();
+        Cursor.lockState = CursorLockMode.Locked;
     }
     public void GotoMenu()
     {
@@ -19,5 +21,6 @@ public class ScenesManager : MonoBehaviour
     public void GotoCheckPoint()
     {
         _player.ActivateCheckPoint();
+        Cursor.lockState = CursorLockMode.Locked;
     }
 }

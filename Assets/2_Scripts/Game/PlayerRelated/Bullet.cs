@@ -5,8 +5,10 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     [SerializeField] float _Speed;
-    [SerializeField] float _Duration;
     [SerializeField] int _Damage;
+    [SerializeField] float _maxDistance;
+    float _currentDistance;
+
     Rigidbody _Rig;
     public Vector3 target { get; set; }
     public bool hit { get; set; }
@@ -14,29 +16,38 @@ public class Bullet : MonoBehaviour
     void Start()
     {
         _Rig = GetComponent<Rigidbody>();
-        StartCoroutine(Destroy());
     }
     private void FixedUpdate()
     {
         _Rig.transform.position = Vector3.MoveTowards(transform.position, target, _Speed * Time.fixedDeltaTime);
-        if (!hit && Vector3.Distance(transform.position,target) < 0.1f)
-        {
-            Destroy(this.gameObject);
-        }
+       
+        _currentDistance += _Speed * Time.deltaTime;
+
+        if (!hit && Vector3.Distance(transform.position, target) < 0.1f)
+            BulletFactory._instance.ReturnBullet(this);
+        else if (_currentDistance > _maxDistance) 
+            BulletFactory._instance.ReturnBullet(this);
     }
     private void OnTriggerEnter(Collider other)
     {
-        var D = other.GetComponent<IDamage>();
-        var I = other.GetComponent<Ingredient>();
-        if (D != null) D.RecieveDamage(_Damage);
-        else if (I != null && I.CanBeShoot) I.Activate();
+        if (other.TryGetComponent(out IDamage D)) D.RecieveDamage(_Damage);
+        else if (other.TryGetComponent(out Ingredient I) && I.CanBeShoot) I.Activate();
 
-        Destroy(this.gameObject);
+        BulletFactory._instance.ReturnBullet(this);
     }
 
-    public IEnumerator Destroy()
+    private void Reset()
     {
-        yield return new WaitForSeconds(_Duration);
-        Destroy(this.gameObject);
+        _currentDistance = 0;
+    }
+    public static void TurnOn(Bullet b)
+    {
+        b.Reset();
+        b.gameObject.SetActive(true);
+    }
+
+    public static void TurnOff(Bullet b)
+    {
+        b.gameObject.SetActive(false);
     }
 }
