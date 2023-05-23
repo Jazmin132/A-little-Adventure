@@ -62,11 +62,7 @@ public class GroundState : IState
 
     public void OnUpdate()
     {
-        if (_Controller.Jump())
-        {
-            _Player._playerJump.Jump();
-            _FSM.ChangeState(PlayerStates.Air);
-        }
+        if (_Controller.Jump()) _Player._playerJump.Jump();
     }
 
     public void OnFixedUpdate()

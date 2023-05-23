@@ -52,21 +52,27 @@ public class AirState : IState
     {//HAY UN RARO DELAY AL ENTRAR A ESTE ESTADO
        // Debug.Log("ENTER AIR");
         _PlayerCol.material = _Player.PhysicsM[1];
+        Debug.Log("ENTER AIR");
     }
     public void OnUpdate()
     {
-        
     }
     public void OnFixedUpdate()
     {
         if (_Controller.Glide())
         {
-            _GlidingSign = Mathf.Sign(Vector3.Dot(_Player.transform.forward, _MainCamera.transform.forward));
-            //Devuelve +1 o -1
-            //LO ROMPÍ, no se como ;C
+            if (_IsGliding == false)
+            {
+                _IsGliding = true;
+                _GlidingSign = Mathf.Sign(Vector3.Dot(_Player.transform.forward, _MainCamera.transform.forward));
+            }
             Glide();
         }
-        else MoveOnAir();
+        else
+        {
+            MoveOnAir();
+            _IsGliding = false;
+        }
 
         if (_Controller.Shoot()) _Player.Shoot();
         else if (_Controller.Attack()) _Player.Attack();
@@ -74,7 +80,6 @@ public class AirState : IState
         if (_Player._playerJump.IsGrounded() && _RigP.velocity.y < 0)
         {//AL saltar cambia por un segundo acá, puede que provoque el delay del planeo, mas bien lo empeora
             _FSM.ChangeState(PlayerStates.Ground);
-            Debug.Log("Cambiar al ground");
         }
     }
     public void Glide()
@@ -96,7 +101,7 @@ public class AirState : IState
     {
         _Forward = Vector3.ProjectOnPlane(_MainCamera.transform.forward, Vector3.up).normalized;
         _Right = Vector3.ProjectOnPlane(_MainCamera.transform.right, Vector3.up).normalized;
-        _direction = (_Controller.Horizontal() * _Right + _Controller.Vertical() * _Forward).normalized;
+        _direction = (_Controller.Horizontal() * _Right + _Controller.Vertical() * _Forward);
 
         if (_direction.sqrMagnitude > 1) _direction.Normalize();
 

@@ -52,7 +52,6 @@ public class PlayerM : MonoBehaviour
 
     [Header("Shoot")]
     [SerializeField] GameObject _BulletPrefab;
-    [SerializeField] GameObject _BulletParent;
     [SerializeField] Transform _firePoint;
 
     [SerializeField] float _MaxDistAir;
