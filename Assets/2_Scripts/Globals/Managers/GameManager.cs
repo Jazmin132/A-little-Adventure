@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     [SerializeField] Transform _MainGame;
-    [SerializeField] ScreenUI _CanvasLose;
+    public ScreenUI _CanvasLose;
     [SerializeField] ScreenUI _CanvasWin;
 
     void Awake()

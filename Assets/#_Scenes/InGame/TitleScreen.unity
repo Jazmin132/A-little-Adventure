@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
+  m_IndirectSpecularColor: {r: 0.44657844, g: 0.49641222, b: 0.57481694, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -214,6 +214,7 @@ GameObject:
   - component: {fileID: 74564085}
   - component: {fileID: 74564084}
   - component: {fileID: 74564086}
+  - component: {fileID: 74564087}
   m_Layer: 0
   m_Name: ScreenManager
   m_TagString: Untagged
@@ -262,6 +263,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d3a8538bcdaebf4cb7d887c1c6a7228, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &74564087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 74564083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08cd2f87be9579e4b9d3d8838d1fed77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _NivelActual: New1
 --- !u!1 &119874556
 GameObject:
   m_ObjectHideFlags: 0
@@ -3745,7 +3759,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1651358785}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 74564087}
+        m_TargetAssemblyTypeName: MENU, Assembly-CSharp
+        m_MethodName: Play
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1651358785
 MonoBehaviour:
   m_ObjectHideFlags: 0
