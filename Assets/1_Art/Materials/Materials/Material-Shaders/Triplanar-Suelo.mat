@@ -59,7 +59,7 @@ Material:
     m_Ints: []
     m_Floats:
     - _AlphaCutoff: 0.5
-    - _Blend: 0
+    - _Blend: 0.3
     - _QueueControl: 0
     - _QueueOffset: 0
     - _Smoothness: 0
