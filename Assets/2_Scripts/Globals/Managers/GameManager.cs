@@ -6,9 +6,13 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
 
+    public event System.Action onPause;
+
+    public event System.Action onPlay;
+
     [SerializeField] Transform _MainGame;
-    public ScreenUI _CanvasLose;
-    [SerializeField] ScreenUI _CanvasWin;
+
+    public CanvasWinLoseManager canvasManager;
 
     void Awake()
     {
@@ -19,12 +23,39 @@ public class GameManager : MonoBehaviour
     {
         ScreenManager.instance.Push(new ScreenGo(_MainGame));
     }
+
+    public void Pause()
+    {
+        onPause?.Invoke();
+        UnlockCursor();
+    }
+
+    public void Play()
+    {
+        onPlay?.Invoke();
+        LockCursor();
+    }
+
     public void Lose()
     {
-        ScreenManager.instance.Push(_CanvasLose);
+        canvasManager.ShowSubMenu("Lose");
+        Pause();
+        
     }
+
     public void Win()
     {
-        ScreenManager.instance.Push(_CanvasWin);
+        canvasManager.ShowSubMenu("Win");
+        Pause();
+    }
+
+    public void LockCursor()
+    {
+        Cursor.lockState = CursorLockMode.Locked;
+    }
+
+    public void UnlockCursor()
+    {
+        Cursor.lockState = CursorLockMode.None;
     }
 }

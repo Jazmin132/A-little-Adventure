@@ -8,7 +8,7 @@ public class Ocean : MonoBehaviour
     {
         if (other.TryGetComponent(out PlayerM P))
         {
-            P.RecieveHit(1);
+            P.life.RecieveHit(1);
             P.ActivateCheckPoint();
         }
     }

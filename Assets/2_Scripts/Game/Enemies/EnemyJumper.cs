@@ -67,7 +67,7 @@ public class EnemyJumper : Enemies , IDamage
     {
         targetCollision = collision.transform.GetComponent<PlayerM>();
         if (targetCollision != null)
-            targetCollision.RecieveHit(_Attack);
+            targetCollision.life.RecieveHit(_Attack);
     }
 
     public void GravityModifier()

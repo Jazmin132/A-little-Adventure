@@ -11,8 +11,8 @@ public class Controler : IController
         _M = M;
         if (V) 
         {
-            _M.OnDamage += V.RecieveDamage;
-            _M.OnDeath += V.IsDead;
+            _M.life.OnDamage += V.RecieveDamage;
+            _M.life.OnDeath += V.IsDead;
             _M.OnWater += V.Splash;
         }
     }

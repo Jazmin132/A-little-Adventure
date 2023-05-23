@@ -11,7 +11,6 @@ public class ScenesManager : MonoBehaviour
     public void ResetScene()
     {
         SceneManager.LoadScene(_NivelActual);
-        LockCursor();
     }
     public void GotoMenu()
     {
@@ -20,11 +19,6 @@ public class ScenesManager : MonoBehaviour
     public void GotoCheckPoint()
     {
         _player.ActivateCheckPoint();//ARREGLAR EL CANVAS LOSE
-        _player.AddLife(3);
-        LockCursor();
-    }
-    private void LockCursor()
-    {
-        Cursor.lockState = CursorLockMode.Locked;
+        _player.life.AddLife(3);
     }
 }

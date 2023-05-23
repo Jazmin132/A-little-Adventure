@@ -19,7 +19,7 @@ public class View : MonoBehaviour
         //_RigP = GetComponent<Rigidbody>();
     }
 
-    public void RecieveDamage()
+    public void RecieveDamage(float dmg)
     {
         _AUCH.Play();
        // CamaraScript.ShakeCamera(ShakeIntensity, ShakeTime);
@@ -28,7 +28,6 @@ public class View : MonoBehaviour
     public void IsDead()
     {
         GameManager.instance.Lose();
-        Cursor.lockState = CursorLockMode.None;
     }
 
     public void Splash()

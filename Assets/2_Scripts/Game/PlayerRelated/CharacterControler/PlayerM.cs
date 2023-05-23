@@ -10,18 +10,17 @@ public enum PlayerStates
     Water
 }
 
-public class PlayerM : MonoBehaviour
+public class PlayerM : MonoBehaviour, IGetHealth
 {
     [Header("Life and Attack")]
-    [SerializeField] int _MaxLife;
-    [SerializeField] int _CurrentLife;
+    public Health life;
     [SerializeField] int _Damage;
     [SerializeField] float _AttackDuration;
     [SerializeField] float _AttackReload;
     private bool _OnAttack = false;
 
     [Header("Normal Movement")]
-    [SerializeField] float _PlayerSpeed;
+    [SerializeField] private float _PlayerSpeed;
     [SerializeField] float _RayForwardDist;
     [SerializeField] float _RayUpDist;
     [SerializeField] float _RayDownDist;
@@ -63,8 +62,7 @@ public class PlayerM : MonoBehaviour
     Vector3 CheckPointPosition;
     Quaternion CheckPointRotation;
 
-    public event Action OnDamage;
-    public event Action OnDeath;
+
     public event Action OnWater;
 
     private void Awake()
@@ -76,11 +74,13 @@ public class PlayerM : MonoBehaviour
         _AttackBox = GetComponent<BoxCollider>();
         _PlayerCol = GetComponent<CapsuleCollider>();
         _lifeManager = FindObjectOfType<HearthDisplay>();
+
+
     }
     private void Start()
     {
         _CurrentSpeed = _PlayerSpeed;
-        _CurrentLife = _MaxLife;
+        life._CurrentLife = life._MaxLife;
         _MainCamera = Camera.main.transform;
         CheckPoint();
         _UpDist = new Vector3(0f, _RayUpDist, 0f);
@@ -166,25 +166,8 @@ public class PlayerM : MonoBehaviour
         transform.forward = camForward;
     }
 
-    public void RecieveHit(int damage)
-    {
-        _CurrentLife -= damage;
-        OnDamage?.Invoke();
+    
 
-        if (_CurrentLife <= 0)
-        {
-            _CurrentLife = 0;
-            OnDeath?.Invoke();
-        }
-        Debug.Log("AUCH " + _CurrentLife);
-        _lifeManager.UpdateHealth(_CurrentLife);
-    }
-    public void AddLife(int restore)
-    {
-        _CurrentLife += restore;
-        if (_CurrentLife >= _MaxLife)
-            _CurrentLife = _MaxLife;
-    }
     public void CheckEnviroment()
     {
         if (Physics.Raycast(_RigP.transform.position, Vector3.down, _RayJumpDist, _Water))
@@ -198,7 +181,6 @@ public class PlayerM : MonoBehaviour
     {
         CheckPointPosition = transform.position;
         CheckPointRotation = transform.rotation;
-        _CurrentLife = _MaxLife;
     }
     public void ActivateCheckPoint()
     {
@@ -229,4 +211,52 @@ public class PlayerM : MonoBehaviour
         Gizmos.DrawLine(transform.position - _DownDist, transform.position - _DownDist + _direction * _RayForwardDist);
         Gizmos.DrawLine(transform.position - _DownDist + (_direction * _RayForwardDist), transform.position + _UpDist + (_direction * _RayForwardDist));
     }
+
+    public Health GetHealth()
+    {
+        return life;
+    }
+}
+
+
+[System.Serializable]
+public class Health
+{
+    public event Action<float> OnDamage;
+    public event Action OnDeath;
+
+    public int _MaxLife;
+    public int _CurrentLife;
+
+    public void RecieveHit(int damage)
+    {
+        _CurrentLife -= damage;
+
+        OnDamage?.Invoke(_CurrentLife/ _MaxLife);
+
+        if (_CurrentLife <= 0)
+        {
+            _CurrentLife = 0;
+            OnDeath?.Invoke();
+        }
+        Debug.Log("AUCH " + _CurrentLife);
+    }
+
+
+    public void AddLife(int restore)
+    {
+        _CurrentLife += restore;
+        if (_CurrentLife >= _MaxLife)
+            _CurrentLife = _MaxLife;
+    }
+
+    public void ResetLife()
+    {
+        _CurrentLife = _MaxLife;
+    }
+}
+
+public interface IGetHealth
+{
+    Health GetHealth();
 }
