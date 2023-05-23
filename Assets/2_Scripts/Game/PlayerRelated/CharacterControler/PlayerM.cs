@@ -83,7 +83,7 @@ public class PlayerM : MonoBehaviour
         _CurrentSpeed = _PlayerSpeed;
         _CurrentLife = _MaxLife;
         _MainCamera = Camera.main.transform;
-
+        CheckPoint();
         _UpDist = new Vector3(0f, _RayUpDist, 0f);
         _DownDist = new Vector3(0f, _RayDownDist, 0f);
 
@@ -179,6 +179,12 @@ public class PlayerM : MonoBehaviour
         }
         Debug.Log("AUCH " + _CurrentLife);
         _lifeManager.UpdateHealth(_CurrentLife);
+    }
+    public void AddLife(int restore)
+    {
+        _CurrentLife += restore;
+        if (_CurrentLife >= _MaxLife)
+            _CurrentLife = _MaxLife;
     }
     public void CheckEnviroment()
     {

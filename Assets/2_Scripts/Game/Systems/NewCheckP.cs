@@ -7,11 +7,14 @@ public class NewCheckP : MonoBehaviour
     [SerializeField] ParticleSystem _SavedCheck;
     [SerializeField] GameObject _Flag;
     [SerializeField] Material[] _Activate;
+     Material _FlafMat;
     CapsuleCollider _Capsule;
 
     private void Start()
     {
         _Capsule = GetComponent<CapsuleCollider>();
+        _FlafMat = _Flag.GetComponent<Material>();
+        _FlafMat = _Activate[0];
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -24,6 +27,7 @@ public class NewCheckP : MonoBehaviour
     }
     public void FeedBack()
     {
-        if (_SavedCheck != null) _SavedCheck.Play();
+        _SavedCheck.Play();
+        _FlafMat = _Activate[1];
     }
 }

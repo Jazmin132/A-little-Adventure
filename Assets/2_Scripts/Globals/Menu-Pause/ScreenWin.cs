@@ -9,8 +9,4 @@ public class ScreenWin : ScreenUI
     {
         ScreenManager.instance.Pop();
     }
-    public void BTN_CheckPoint()
-    {
-        _Lose.active = false;
-    }
 }

@@ -20,6 +20,7 @@ public class ScenesManager : MonoBehaviour
     public void GotoCheckPoint()
     {
         _player.ActivateCheckPoint();//ARREGLAR EL CANVAS LOSE
+        _player.AddLife(3);
         LockCursor();
     }
     private void LockCursor()
