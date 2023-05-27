@@ -14,14 +14,17 @@ public class EnemyJumper : Enemies , IDamage
     [SerializeField] float _ViewRadius;
     [SerializeField] float _Angle;
     [SerializeField] float _DamageFly;
-    private Rigidbody _Rig;
-    private Vector3 _Dir;
-    private Vector3 _LerpDir;
+    Rigidbody _Rig;
+    Vector3 _Dir;
+    Vector3 _LerpDir;
+    Behaviour _script;
+    bool _IsAlive;
 
     public override void Start()
     {
         base.Start();
         _Rig = GetComponent<Rigidbody>();
+        _script = GetComponent<Behaviour>();
     }
     public void FixedUpdate()
     {
@@ -96,6 +99,15 @@ public class EnemyJumper : Enemies , IDamage
     Vector3 GetDirFromAngle(float Angle)
     {   return new Vector3(Mathf.Sin(Angle * Mathf.Deg2Rad), 0, Mathf.Cos(Angle * Mathf.Deg2Rad)); }
 
+    public override void OnPause()
+    {
+        _script.enabled = false;
+      //Si el enemigo está muerto, el GameManager aún quiere acceder al evento
+    }
+    public override void OnPlay()
+    {
+        _script.enabled = true;
+    }
     public void OnDrawGizmos()
     {
         Gizmos.color = Color.green;

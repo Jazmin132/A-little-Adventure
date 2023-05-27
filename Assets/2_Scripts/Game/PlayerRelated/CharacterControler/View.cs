@@ -1,28 +1,29 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class View : MonoBehaviour
 {
     [SerializeField] ParticleSystem _AUCH;
     [SerializeField] ParticleSystem _WaterSplash;
+    [SerializeField] Transform LifeContainer;
+    public Image[] hearthIcons;
     [Header ("Camera Variables")]
     [SerializeField] float ShakeIntensity;
-    [SerializeField] float ShakeTime = 1f;
-    Camera _MainCamera;
-    Camara CamaraScript;
+    [SerializeField] float ShakeTime;
+    //[SerializeField] Camara CamaraScript;
 
-    void Start()
+    private void Awake()
     {
-        _MainCamera = Camera.main;
-        CamaraScript = _MainCamera.GetComponent<Camara>();
-        //_RigP = GetComponent<Rigidbody>();
+        hearthIcons = LifeContainer.GetComponentsInChildren<Image>();
     }
-
-    public void RecieveDamage(float dmg)
+    public void RecieveDamage(float currentHealth)
     {
         _AUCH.Play();
-       // CamaraScript.ShakeCamera(ShakeIntensity, ShakeTime);
+        for (int i = 0; i < hearthIcons.Length; i++)
+            hearthIcons[i].enabled = (currentHealth > i);
+        //CamaraScript.ShakeCamera(ShakeIntensity, ShakeTime);
     }
 
     public void IsDead()

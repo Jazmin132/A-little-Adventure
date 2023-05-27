@@ -165,7 +165,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7250476173027729626}
-  - component: {fileID: 7250476173027729625}
   m_Layer: 5
   m_Name: HealthContainer
   m_TagString: Untagged
@@ -198,25 +197,6 @@ RectTransform:
   m_AnchoredPosition: {x: 43.6, y: -40.5}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &7250476173027729625
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7250476173027729627}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 84bcc8e3f38dae340a596c87c75212bb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hearthIcons:
-  - {fileID: 7250476173829725071}
-  - {fileID: 7250476173532667461}
-  - {fileID: 7250476174172593535}
-  - {fileID: 6180876172682188238}
-  - {fileID: 3365442362126039618}
-  player: {fileID: 0}
 --- !u!1 &7250476173532667463
 GameObject:
   m_ObjectHideFlags: 0

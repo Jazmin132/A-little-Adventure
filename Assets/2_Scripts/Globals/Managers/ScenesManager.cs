@@ -5,12 +5,25 @@ using UnityEngine.SceneManagement;
 
 public class ScenesManager : MonoBehaviour
 {
-    [SerializeField] string _NivelActual;
-    [SerializeField] PlayerM _player;
+    public event System.Action onCheckPoint;
+    public CanvasWinLoseManager canvasManager;
 
-    public void ResetScene()
+    public static ScenesManager instance;
+
+    void Awake()
     {
-        SceneManager.LoadScene(_NivelActual);
+        if (instance == null) instance = this;
+        else Destroy(gameObject);
+    }
+
+    public void Play(string LevelName)
+    {
+        SceneManager.LoadScene(LevelName);
+        GameManager.instance.Play();
+    }
+    public void ResetScene(string ThisLevelName)
+    {
+        SceneManager.LoadScene(ThisLevelName);
     }
     public void GotoMenu()
     {
@@ -18,7 +31,9 @@ public class ScenesManager : MonoBehaviour
     }
     public void GotoCheckPoint()
     {
-        _player.ActivateCheckPoint();//ARREGLAR EL CANVAS LOSE
-        _player.life.AddLife(3);
+        onCheckPoint?.Invoke();
+        //Hacer que en en OncheckPoint también se le sume la vida al player
+        // podría usar event Manager
+        canvasManager.CloseSubMenu();
     }
 }

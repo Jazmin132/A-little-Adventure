@@ -7,10 +7,7 @@ public class GameManager : MonoBehaviour
     public static GameManager instance;
 
     public event System.Action onPause;
-
     public event System.Action onPlay;
-
-    [SerializeField] Transform _MainGame;
 
     public CanvasWinLoseManager canvasManager;
 
@@ -19,11 +16,10 @@ public class GameManager : MonoBehaviour
         if (instance == null) instance = this;
         else Destroy(gameObject);
     }
-    void Start()
+    public void Start()
     {
-        ScreenManager.instance.Push(new ScreenGo(_MainGame));
+        Play();
     }
-
     public void Pause()
     {
         onPause?.Invoke();
@@ -40,7 +36,6 @@ public class GameManager : MonoBehaviour
     {
         canvasManager.ShowSubMenu("Lose");
         Pause();
-        
     }
 
     public void Win()

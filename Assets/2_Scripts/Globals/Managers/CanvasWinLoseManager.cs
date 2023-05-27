@@ -10,6 +10,10 @@ public class CanvasWinLoseManager : MonoBehaviour
     [SerializeField]
     GameObject principalCanvas;
 
+    private void Start()
+    {
+        ScenesManager.instance.canvasManager = this;
+    }
     public void ShowSubMenu(string name)
     {
         foreach (var item in subMenus)

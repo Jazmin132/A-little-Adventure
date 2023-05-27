@@ -87,7 +87,7 @@ public class AirState : IState
         if (_RigP.velocity.y < 0)
         {
             _direction = (_Player.transform.right * _GlidingSign) * _Controller.Horizontal() * _SpeedH;
-            _direction += _Player.transform.forward * _CurrentSpeed;
+            _direction += _Player.transform.forward * (_CurrentSpeed + 3);
             
             _RigP.velocity = new Vector3(0, -_DescendSpeed, 0);
             if (_Player.WallDetecter(_direction)) return;

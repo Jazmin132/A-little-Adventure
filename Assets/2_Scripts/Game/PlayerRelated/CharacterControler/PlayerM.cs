@@ -12,13 +12,17 @@ public enum PlayerStates
 
 public class PlayerM : MonoBehaviour, IGetHealth
 {
-    [Header("Life and Attack")]
     public Health life;
+
+    [Header("Attack")]
+    //COMO HAGO PARA PONER EN OTRA CLASE A ATTACK Y QUE FUNCIONE EL IENUMERATOR
     [SerializeField] int _Damage;
     [SerializeField] float _AttackDuration;
     [SerializeField] float _AttackReload;
+    private BoxCollider _AttackBox;
     private bool _OnAttack = false;
 
+    //COMO HAGO en este caso, Rigidbody debería seguir aquí?
     [Header("Normal Movement")]
     [SerializeField] private float _PlayerSpeed;
     [SerializeField] float _RayForwardDist;
@@ -30,24 +34,16 @@ public class PlayerM : MonoBehaviour, IGetHealth
     private Vector3 _UpDist;
     private Vector3 _DownDist;
     private float _CurrentSpeed;
-    private BoxCollider _AttackBox;
     private CapsuleCollider _PlayerCol;
     private Rigidbody _RigP;
     private Transform _MainCamera;
-    private Vector3 _direction;
+    float _RayCheckDist;
+   
     bool Ray = false;
 
-    [Header("Jump")]
-    [SerializeField] float _JumpForce;
-    [SerializeField] float _RayJumpDist;
-    [SerializeField] bool IsJumping;
+    public Jump jump;
 
-    [SerializeField] float _FallMultiplier;
-    [SerializeField] float VelocityFalloff;
-
-    [Header("Glide")]
-    [SerializeField] float _DescendSpeed;
-    [SerializeField] float _SpeedHorizontal;
+    public Glide glide;
 
     [Header("Shoot")]
     [SerializeField] GameObject _BulletPrefab;
@@ -57,29 +53,28 @@ public class PlayerM : MonoBehaviour, IGetHealth
 
     IController _controller;
     public PlayerJump _playerJump;
-    private HearthDisplay _lifeManager;
     private FiniteStateMachine _FSM;
     Vector3 CheckPointPosition;
+    Vector3 _direction;
     Quaternion CheckPointRotation;
-
+    Behaviour script;
 
     public event Action OnWater;
 
     private void Awake()
     {
         _RigP = GetComponent<Rigidbody>();
+        script = GetComponent<Behaviour>();
         _controller = new Controler(this, GetComponent<View>());
-        _playerJump = new PlayerJump().SetJump(_RayJumpDist, _JumpForce).SetRigidbody(_RigP);
+        _playerJump = new PlayerJump().SetJump(jump.RayJumpDist, jump.JumpForce).SetRigidbody(_RigP);
 
         _AttackBox = GetComponent<BoxCollider>();
         _PlayerCol = GetComponent<CapsuleCollider>();
-        _lifeManager = FindObjectOfType<HearthDisplay>();
-
-
     }
     private void Start()
     {
         _CurrentSpeed = _PlayerSpeed;
+        _RayCheckDist = jump.RayJumpDist;
         life._CurrentLife = life._MaxLife;
         _MainCamera = Camera.main.transform;
         CheckPoint();
@@ -92,11 +87,15 @@ public class PlayerM : MonoBehaviour, IGetHealth
             .SetSpeed(_CurrentSpeed, _PlayerSpeed, _RayDownDist);
 
         var AirState = new AirState(_FSM, this, _controller).SetRig(_RigP).SetCollider(_PlayerCol)
-            .SetTransform(_MainCamera).SetFloats(_DescendSpeed, _CurrentSpeed, _SpeedHorizontal);
+            .SetTransform(_MainCamera).SetFloats(glide.DescendSpeed, _CurrentSpeed, glide.SpeedHorizontal);
 
         _FSM.AddState(PlayerStates.Ground, groundState);
         _FSM.AddState(PlayerStates.Air, AirState);
         _FSM.ChangeState(PlayerStates.Ground);
+
+        ScenesManager.instance.onCheckPoint += ActivateCheckPoint;
+        //GameManager.instance.onPause += Disable;
+        //GameManager.instance.onPlay += Enable; No funciona ;(
     }
 
     void Update()
@@ -108,7 +107,6 @@ public class PlayerM : MonoBehaviour, IGetHealth
         _FSM.FakeFixedUpdate();
         GravityModifier();
     }
-
     //SE QUEDA ACÁ
 
     public bool WallDetecter(Vector3 dir)
@@ -166,17 +164,14 @@ public class PlayerM : MonoBehaviour, IGetHealth
         transform.forward = camForward;
     }
 
-    
-
     public void CheckEnviroment()
     {
-        if (Physics.Raycast(_RigP.transform.position, Vector3.down, _RayJumpDist, _Water))
+        if (Physics.Raycast(_RigP.transform.position, Vector3.down, jump.RayJumpDist, _Water))
         {
             Debug.Log("AGUA");
             OnWater?.Invoke();
         }
     }
-
     public void CheckPoint()
     {
         CheckPointPosition = transform.position;
@@ -190,10 +185,9 @@ public class PlayerM : MonoBehaviour, IGetHealth
 
     private void GravityModifier()
     {
-        if (_RigP.velocity.y < VelocityFalloff)
-            _RigP.velocity += Vector3.up * Physics.gravity.y * (_FallMultiplier - 1) * Time.fixedDeltaTime;
+        if (_RigP.velocity.y < jump.VelocityFalloff)
+            _RigP.velocity += Vector3.up * Physics.gravity.y * (jump.FallMultiplier - 1) * Time.fixedDeltaTime;
     }
-
     private void OnTriggerEnter(Collider other)
     {
         var I = other.GetComponent<Ingredient>();
@@ -202,7 +196,7 @@ public class PlayerM : MonoBehaviour, IGetHealth
     }
     private void OnDrawGizmos()
     {
-        Vector3 X = new Vector3(0f, -_RayJumpDist, 0f);
+        Vector3 X = new Vector3(0f, -jump.RayJumpDist, 0f);
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, transform.position + X);
        
@@ -210,6 +204,16 @@ public class PlayerM : MonoBehaviour, IGetHealth
         Gizmos.DrawLine(transform.position + _UpDist, transform.position + _UpDist + _direction * _RayForwardDist);
         Gizmos.DrawLine(transform.position - _DownDist, transform.position - _DownDist + _direction * _RayForwardDist);
         Gizmos.DrawLine(transform.position - _DownDist + (_direction * _RayForwardDist), transform.position + _UpDist + (_direction * _RayForwardDist));
+    }
+
+    public void Disable()
+    {
+        script.enabled = false;
+    }
+
+    public void Enable()
+    {
+        script.enabled = true;
     }
 
     public Health GetHealth()
@@ -232,7 +236,7 @@ public class Health
     {
         _CurrentLife -= damage;
 
-        OnDamage?.Invoke(_CurrentLife/ _MaxLife);
+        OnDamage?.Invoke(_CurrentLife);
 
         if (_CurrentLife <= 0)
         {
@@ -241,7 +245,6 @@ public class Health
         }
         Debug.Log("AUCH " + _CurrentLife);
     }
-
 
     public void AddLife(int restore)
     {
@@ -255,8 +258,25 @@ public class Health
         _CurrentLife = _MaxLife;
     }
 }
-
 public interface IGetHealth
 {
     Health GetHealth();
+}
+
+[System.Serializable]
+public class Glide
+{
+    public float DescendSpeed;
+    public float SpeedHorizontal;
+}
+
+[System.Serializable]
+public class Jump
+{
+    public float JumpForce;//11.3
+    public float RayJumpDist;//0.87
+    public bool IsJumping;
+
+    public float FallMultiplier;//4.5
+    public float VelocityFalloff;//8
 }
