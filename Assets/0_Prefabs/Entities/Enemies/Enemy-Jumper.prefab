@@ -248,17 +248,9 @@ MonoBehaviour:
   m_Mesh: {fileID: 0}
   m_VersionIndex: 346
   m_IsSelectable: 1
-  m_SelectedFaces: 02000000
-  m_SelectedEdges:
-  - a: 8
-    b: 9
-  - a: 10
-    b: 8
-  - a: 9
-    b: 11
-  - a: 11
-    b: 10
-  m_SelectedVertices: 08000000090000000a0000000b000000
+  m_SelectedFaces: 
+  m_SelectedEdges: []
+  m_SelectedVertices: 
 --- !u!33 &5667502272984585904
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -399,6 +391,7 @@ MonoBehaviour:
   _ViewRadius: 17
   _Angle: 150
   _DamageFly: 10
+  _Explosion: {fileID: 8499580342852778793, guid: 82e49ab2346ca674ea96eacac1cf9a1e, type: 3}
 --- !u!1 &5395113570318395788
 GameObject:
   m_ObjectHideFlags: 0

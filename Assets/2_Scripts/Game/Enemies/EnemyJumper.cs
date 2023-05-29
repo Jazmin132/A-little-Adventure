@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyJumper : Enemies , IDamage
 {
+    
     [SerializeField] float _SpeedRot;
     [Header("Jump")]
     [SerializeField] float _JumpForce;
@@ -14,6 +15,7 @@ public class EnemyJumper : Enemies , IDamage
     [SerializeField] float _ViewRadius;
     [SerializeField] float _Angle;
     [SerializeField] float _DamageFly;
+    [SerializeField] GameObject _Explosion;
     Rigidbody _Rig;
     Vector3 _Dir;
     Vector3 _LerpDir;
@@ -86,13 +88,23 @@ public class EnemyJumper : Enemies , IDamage
 
     public override void Destroy()
     {
-        if (_IsGoing == true) StartCoroutine(Wait());
-        else Destroy(this.gameObject);
+        if (_IsGoing == true)
+        {
+            StartCoroutine(Wait());
+        }
+        else
+        {
+            GameObject effect = Instantiate(_Explosion, transform.position, Quaternion.identity);
+            Destroy(effect, 1f);
+            Destroy(this.gameObject);
+        }
     }
 
     IEnumerator Wait()
     {
         yield return new WaitForSeconds(0.3f);
+        GameObject effect = Instantiate(_Explosion, transform.position, Quaternion.identity);
+        Destroy(effect, 1f);
         Destroy(this.gameObject);
     }
 
