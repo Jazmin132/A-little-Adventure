@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
     public void Pause()
     {
         onPause?.Invoke();
+        //EventManager.events[EventEnun.pause].Execute();
         UnlockCursor();
     }
 

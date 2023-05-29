@@ -94,7 +94,8 @@ public class PlayerM : MonoBehaviour, IGetHealth
         _FSM.ChangeState(PlayerStates.Ground);
 
         ScenesManager.instance.onCheckPoint += ActivateCheckPoint;
-        //GameManager.instance.onPause += Disable;
+        //EventManager.events[EventEnun.pause].action += Disable;
+        //Alguna forma de hacer que la función no tengo que recibir por parámetro object params?
         //GameManager.instance.onPlay += Enable; No funciona ;(
     }
 
