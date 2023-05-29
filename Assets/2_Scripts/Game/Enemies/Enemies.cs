@@ -20,7 +20,7 @@ public abstract class Enemies : MonoBehaviour
     {
         _Maintarget = EnemiesManager.instance._target;
         GameManager.instance.onPlay += OnPlay;
-        //GameManager.instance.onPause += OnPause;
+        GameManager.instance.onPause += OnPause;
         _CurrentLife = _MaxLife;
     }
 
@@ -28,6 +28,7 @@ public abstract class Enemies : MonoBehaviour
 
     public virtual void Destroy()
     {
+        GameManager.instance.onPause -= OnPause;
         _RecompenzA = Instantiate(_Recompenzas, transform.parent);
         _RecompenzA.transform.position = transform.position;
     }

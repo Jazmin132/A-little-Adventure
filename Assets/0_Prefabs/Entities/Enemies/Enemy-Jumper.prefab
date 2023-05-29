@@ -384,14 +384,16 @@ MonoBehaviour:
   _ActualSpeed: 4
   _Recompenzas: {fileID: 3662441117973748737, guid: a96e842e5f2a5e44393198db6ee1dbd9, type: 3}
   _SpeedRot: 0.7
-  _JumpForce: 5
-  _FallMultiplier: 2
-  _VelocityFalloff: 4
-  _RayJumpDist: 1.06
-  _ViewRadius: 17
-  _Angle: 150
-  _DamageFly: 10
-  _Explosion: {fileID: 8499580342852778793, guid: 82e49ab2346ca674ea96eacac1cf9a1e, type: 3}
+  jump:
+    JumpForce: 5
+    FallMultiplier: 2
+    VelocityFalloff: 4
+    RayJumpDist: 1.06
+  view:
+    ViewRadius: 15
+    Angle: 150
+    DamageFly: 10
+    Explosion: {fileID: 8499580342852778793, guid: 82e49ab2346ca674ea96eacac1cf9a1e, type: 3}
 --- !u!1 &5395113570318395788
 GameObject:
   m_ObjectHideFlags: 0

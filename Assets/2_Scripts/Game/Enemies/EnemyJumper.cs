@@ -6,21 +6,15 @@ public class EnemyJumper : Enemies , IDamage
 {
     
     [SerializeField] float _SpeedRot;
-    [Header("Jump")]
-    [SerializeField] float _JumpForce;
-    [SerializeField] float _FallMultiplier;
-    [SerializeField] float _VelocityFalloff;
-    [SerializeField] float _RayJumpDist;
-    [Header("View")]
-    [SerializeField] float _ViewRadius;
-    [SerializeField] float _Angle;
-    [SerializeField] float _DamageFly;
-    [SerializeField] GameObject _Explosion;
+
+    public EnemyJJump jump;
+
+    public EnemyJView view;
+
     Rigidbody _Rig;
     Vector3 _Dir;
     Vector3 _LerpDir;
     Behaviour _script;
-    bool _IsAlive;
 
     public override void Start()
     {
@@ -30,7 +24,7 @@ public class EnemyJumper : Enemies , IDamage
     }
     public void FixedUpdate()
     {
-        if (EnemiesManager.instance.InFieldOfView(this, _ViewRadius, _Angle))
+        if (EnemiesManager.instance.InFieldOfView(this, view.ViewRadius, view.Angle))
         {//No Se activa al entrar al InFieldOfView, solo cuando etá muy cerca
           if (IsGrounded()) Jump();
 
@@ -54,7 +48,7 @@ public class EnemyJumper : Enemies , IDamage
     }
     public void Jump()
     {
-        _Rig.AddForce(Vector3.up * _JumpForce, ForceMode.VelocityChange);
+        _Rig.AddForce(Vector3.up * jump.JumpForce, ForceMode.VelocityChange);
     }
     
     public void RecieveDamage(int damage)
@@ -65,7 +59,7 @@ public class EnemyJumper : Enemies , IDamage
     }
     public void FlyTo(Vector3 Dir)
     {
-        _Rig.AddForce(Dir * _DamageFly, ForceMode.VelocityChange);
+        _Rig.AddForce(Dir * view.DamageFly, ForceMode.VelocityChange);
     }
     
     public void OnCollisionEnter(Collision collision)
@@ -77,13 +71,13 @@ public class EnemyJumper : Enemies , IDamage
 
     public void GravityModifier()
     {
-        if (_Rig.velocity.y < _VelocityFalloff)
-            _Rig.velocity += Vector3.up * Physics.gravity.y * (_FallMultiplier - 1) * Time.fixedDeltaTime;
+        if (_Rig.velocity.y < jump.VelocityFalloff)
+            _Rig.velocity += Vector3.up * Physics.gravity.y * (jump.FallMultiplier - 1) * Time.fixedDeltaTime;
     }
 
     public bool IsGrounded()
     {
-        return Physics.Raycast(_Rig.transform.position, Vector3.down, _RayJumpDist);
+        return Physics.Raycast(_Rig.transform.position, Vector3.down, jump.RayJumpDist);
     }
 
     public override void Destroy()
@@ -94,7 +88,7 @@ public class EnemyJumper : Enemies , IDamage
         }
         else
         {
-            GameObject effect = Instantiate(_Explosion, transform.position, Quaternion.identity);
+            GameObject effect = Instantiate(view.Explosion, transform.position, Quaternion.identity);
             Destroy(effect, 1f);
             Destroy(this.gameObject);
         }
@@ -103,7 +97,7 @@ public class EnemyJumper : Enemies , IDamage
     IEnumerator Wait()
     {
         yield return new WaitForSeconds(0.3f);
-        GameObject effect = Instantiate(_Explosion, transform.position, Quaternion.identity);
+        GameObject effect = Instantiate(view.Explosion, transform.position, Quaternion.identity);
         Destroy(effect, 1f);
         Destroy(this.gameObject);
     }
@@ -114,7 +108,6 @@ public class EnemyJumper : Enemies , IDamage
     public override void OnPause()
     {
         _script.enabled = false;
-      //Si el enemigo está muerto, el GameManager aún quiere acceder al evento
     }
     public override void OnPlay()
     {
@@ -123,17 +116,34 @@ public class EnemyJumper : Enemies , IDamage
     public void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        Vector3 X = new Vector3(0f, -_RayJumpDist, 0f);
+        Vector3 X = new Vector3(0f, -jump.RayJumpDist, 0f);
         Gizmos.DrawLine(transform.position, transform.position + X);
         
         Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, _ViewRadius);
+        Gizmos.DrawWireSphere(transform.position, view.ViewRadius);
 
-        Vector3 LineaA = GetDirFromAngle(-_Angle / 2 + transform.eulerAngles.y);
-        Vector3 LineaB = GetDirFromAngle(_Angle / 2 + transform.eulerAngles.y);
+        Vector3 LineaA = GetDirFromAngle(-view.Angle / 2 + transform.eulerAngles.y);
+        Vector3 LineaB = GetDirFromAngle(view.Angle / 2 + transform.eulerAngles.y);
 
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position, transform.position + LineaA * _ViewRadius);
-        Gizmos.DrawLine(transform.position, transform.position + LineaB * _ViewRadius);
+        Gizmos.DrawLine(transform.position, transform.position + LineaA * view.ViewRadius);
+        Gizmos.DrawLine(transform.position, transform.position + LineaB * view.ViewRadius);
     }
+}
+[System.Serializable]
+public class EnemyJJump
+{
+    public float JumpForce;//5
+    public float FallMultiplier;//2
+    public float VelocityFalloff;//4
+    public float RayJumpDist;//1.06
+
+}
+[System.Serializable]
+public class EnemyJView
+{
+    public float ViewRadius;//
+    public float Angle;//150
+    public float DamageFly;//10
+    public GameObject Explosion;//ExplosionContainer
 }
