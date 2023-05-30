@@ -351,7 +351,7 @@ MonoBehaviour:
     VelocityFalloff: 8
   glide:
     DescendSpeed: 5.5
-    SpeedHorizontal: 2
+    SpeedHorizontal: 1
   _BulletPrefab: {fileID: 5669330735535927515, guid: 72572ef7dcdd36241b20edf5d828137d, type: 3}
   _firePoint: {fileID: 1798929347511054741}
   _MaxDistAir: 50
