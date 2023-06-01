@@ -54,11 +54,14 @@ public class EnemyJumper : Enemies , IDamage
     public void RecieveDamage(int damage)
     {
         _CurrentLife -= damage;
+        FlyTo(_FlyTo);
+        _IsGoing = false;
+
         if (_CurrentLife <= 0) Destroy();
-        if (_IsGoing == true) FlyTo(_FlyTo);
     }
     public void FlyTo(Vector3 Dir)
     {
+        _IsGoing = true;
         _Rig.AddForce(Dir * view.DamageFly, ForceMode.VelocityChange);
     }
     
@@ -80,19 +83,17 @@ public class EnemyJumper : Enemies , IDamage
         return Physics.Raycast(_Rig.transform.position, Vector3.down, jump.RayJumpDist);
     }
 
-    public override void Destroy()
-    {
-        if (_IsGoing == true)
-        {
-            StartCoroutine(Wait());
-        }
+     public override void Destroy()
+     {
+        base.Destroy();
+        if (_IsGoing == true) StartCoroutine(Wait());
         else
         {
             GameObject effect = Instantiate(view.Explosion, transform.position, Quaternion.identity);
             Destroy(effect, 1f);
             Destroy(this.gameObject);
         }
-    }
+     }
 
     IEnumerator Wait()
     {

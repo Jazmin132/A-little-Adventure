@@ -12,7 +12,7 @@ public enum PlayerStates
 
 public class PlayerM : MonoBehaviour, IGetHealth
 {
-    public Health life;
+    public PlayerHealth life;
 
     [Header("Attack")]
     //COMO HAGO PARA PONER EN OTRA CLASE A ATTACK Y QUE FUNCIONE EL IENUMERATOR
@@ -31,17 +31,18 @@ public class PlayerM : MonoBehaviour, IGetHealth
     [SerializeField] LayerMask _Wall;
     [SerializeField] LayerMask _Water;
     public PhysicMaterial[] PhysicsM;
-    private Vector3 _UpDist;
-    private Vector3 _DownDist;
-    private float _CurrentSpeed;
-    private CapsuleCollider _PlayerCol;
-    private Rigidbody _RigP;
-    private Transform _MainCamera;
+    Vector3 _UpDist;
+    Vector3 _DownDist;
+    float _CurrentSpeed;
+    CapsuleCollider _PlayerCol;
+    Rigidbody _RigP;
+
+    Transform _MainCamera;
     float _RayCheckDist;
    
     bool Ray = false;
 
-    public Jump jump;
+    public PJump jump;
 
     public Glide glide;
 
@@ -96,7 +97,8 @@ public class PlayerM : MonoBehaviour, IGetHealth
         ScenesManager.instance.onCheckPoint += ActivateCheckPoint;
         //EventManager.events[EventEnun.pause].action += Disable;
         //Alguna forma de hacer que la función no tengo que recibir por parámetro object params?
-        //GameManager.instance.onPlay += Enable; No funciona ;(
+        GameManager.instance.onPlay += Enable; //No funciona ;(
+        GameManager.instance.onPause += Disable; //No funciona ;(
     }
 
     void Update()
@@ -217,7 +219,7 @@ public class PlayerM : MonoBehaviour, IGetHealth
         script.enabled = true;
     }
 
-    public Health GetHealth()
+    public PlayerHealth GetHealth()
     {
         return life;
     }
@@ -225,7 +227,7 @@ public class PlayerM : MonoBehaviour, IGetHealth
 
 
 [System.Serializable]
-public class Health
+public class PlayerHealth
 {
     public event Action<float> OnDamage;
     public event Action OnDeath;
@@ -261,7 +263,7 @@ public class Health
 }
 public interface IGetHealth
 {
-    Health GetHealth();
+    PlayerHealth GetHealth();
 }
 
 [System.Serializable]
@@ -272,7 +274,7 @@ public class Glide
 }
 
 [System.Serializable]
-public class Jump
+public class PJump
 {
     public float JumpForce;//11.3
     public float RayJumpDist;//0.87

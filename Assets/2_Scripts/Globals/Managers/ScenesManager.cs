@@ -36,4 +36,8 @@ public class ScenesManager : MonoBehaviour
         // podría usar event Manager
         canvasManager.CloseSubMenu();
     }
+    public void NextLevel()
+    {
+
+    }
 }
