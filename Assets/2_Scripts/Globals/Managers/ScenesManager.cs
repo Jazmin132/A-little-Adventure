@@ -1,24 +1,29 @@
-using System.Collections;
-using System.Collections.Generic;
+//using System.Collections;
+//using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class ScenesManager : MonoBehaviour
 {
-    public event System.Action onCheckPoint;
     public CanvasWinLoseManager canvasManager;
-
+    public event System.Action onCheckPoint;
+    public event System.Action<int> ActivateCheckPoint;
+    public string[] loadLevels;
+    //Tener las escena asincrónicas en el array  
     public static ScenesManager instance;
 
     void Awake()
     {
-        if (instance == null) instance = this;
-        else Destroy(gameObject);
+        instance = this;
     }
 
     public void Play(string LevelName)
     {
         SceneManager.LoadScene(LevelName);
+        /*for (int i = 0; i < loadLevels.Length; i++)
+        {
+            SceneManager.LoadScene(loadLevels[i].LoadScene.Additive);
+        }*/
         GameManager.instance.Play();
     }
     public void ResetScene(string ThisLevelName)
@@ -32,12 +37,7 @@ public class ScenesManager : MonoBehaviour
     public void GotoCheckPoint()
     {
         onCheckPoint?.Invoke();
-        //Hacer que en en OncheckPoint también se le sume la vida al player
-        // podría usar event Manager
+        ActivateCheckPoint?.Invoke(3);
         canvasManager.CloseSubMenu();
-    }
-    public void NextLevel()
-    {
-
     }
 }

@@ -21,6 +21,7 @@ public class EnemyJumper : Enemies , IDamage
         base.Start();
         _Rig = GetComponent<Rigidbody>();
         _script = GetComponent<Behaviour>();
+        GameManager.instance.SubscribeBehaviours(this);
     }
     public void FixedUpdate()
     {
@@ -62,7 +63,7 @@ public class EnemyJumper : Enemies , IDamage
     public void FlyTo(Vector3 Dir)
     {
         _IsGoing = true;
-        _Rig.AddForce(Dir * view.DamageFly, ForceMode.VelocityChange);
+        _Rig.AddForce(Dir.normalized * view.DamageFly, ForceMode.VelocityChange);
     }
     
     public void OnCollisionEnter(Collision collision)
@@ -85,6 +86,7 @@ public class EnemyJumper : Enemies , IDamage
 
      public override void Destroy()
      {
+        GameManager.instance.UnSubscribeBehaviours(this);
         base.Destroy();
         if (_IsGoing == true) StartCoroutine(Wait());
         else
@@ -106,14 +108,6 @@ public class EnemyJumper : Enemies , IDamage
     Vector3 GetDirFromAngle(float Angle)
     {   return new Vector3(Mathf.Sin(Angle * Mathf.Deg2Rad), 0, Mathf.Cos(Angle * Mathf.Deg2Rad)); }
 
-    public override void OnPause()
-    {
-        _script.enabled = false;
-    }
-    public override void OnPlay()
-    {
-        _script.enabled = true;
-    }
     public void OnDrawGizmos()
     {
         Gizmos.color = Color.green;

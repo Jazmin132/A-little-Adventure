@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
     public event System.Action onPause;
     public event System.Action onPlay;
 
+    List<MonoBehaviour>_listBehaviour;
+
     public CanvasWinLoseManager canvasManager;
 
     void Awake()
@@ -20,15 +22,32 @@ public class GameManager : MonoBehaviour
     {
         Play();
     }
+    public void SubscribeBehaviours(MonoBehaviour behaviour)
+    {
+        if (!_listBehaviour.Contains(behaviour))
+            _listBehaviour.Add(behaviour);
+    }
+    public void UnSubscribeBehaviours(MonoBehaviour behaviour)
+    {
+        if (!_listBehaviour.Contains(behaviour))
+            _listBehaviour.Remove(behaviour);
+    }
     public void Pause()
     {
+        foreach (var behaviour in _listBehaviour)
+        {
+            behaviour.enabled = false;
+        }
         onPause?.Invoke();
-        //EventManager.events[EventEnun.pause].Execute();
         UnlockCursor();
     }
 
     public void Play()
     {
+        foreach (var behaviour in _listBehaviour)
+        {
+            behaviour.enabled = true;
+        }
         onPlay?.Invoke();
         LockCursor();
     }

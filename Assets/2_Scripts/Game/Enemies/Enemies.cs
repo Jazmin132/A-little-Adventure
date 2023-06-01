@@ -19,19 +19,19 @@ public abstract class Enemies : MonoBehaviour
     public virtual void Start()
     {
         _Maintarget = EnemiesManager.instance._target;
+        _CurrentLife = _MaxLife;
         GameManager.instance.onPlay += OnPlay;
         GameManager.instance.onPause += OnPause;
-        _CurrentLife = _MaxLife;
     }
 
     public virtual void Movement() {}
 
     public virtual void Destroy()
     {
-        GameManager.instance.onPause -= OnPause;
-        GameManager.instance.onPlay -= OnPlay;
         _RecompenzA = Instantiate(_Recompenzas, transform.parent);
         _RecompenzA.transform.position = transform.position;
+        GameManager.instance.onPause -= OnPause;
+        GameManager.instance.onPlay -= OnPlay;
     }
 
     public virtual void OnPause() {}

@@ -58,14 +58,12 @@ public class PlayerM : MonoBehaviour, IGetHealth
     Vector3 CheckPointPosition;
     Vector3 _direction;
     Quaternion CheckPointRotation;
-    Behaviour script;
 
     public event Action OnWater;
 
     private void Awake()
     {
         _RigP = GetComponent<Rigidbody>();
-        script = GetComponent<Behaviour>();
         _controller = new Controler(this, GetComponent<View>());
         _playerJump = new PlayerJump().SetJump(jump.RayJumpDist, jump.JumpForce).SetRigidbody(_RigP);
 
@@ -95,10 +93,9 @@ public class PlayerM : MonoBehaviour, IGetHealth
         _FSM.ChangeState(PlayerStates.Ground);
 
         ScenesManager.instance.onCheckPoint += ActivateCheckPoint;
-        //EventManager.events[EventEnun.pause].action += Disable;
-        //Alguna forma de hacer que la función no tengo que recibir por parámetro object params?
-        GameManager.instance.onPlay += Enable; //No funciona ;(
-        GameManager.instance.onPause += Disable; //No funciona ;(
+        ScenesManager.instance.ActivateCheckPoint += life.AddLife;
+
+        GameManager.instance.SubscribeBehaviours(this);
     }
 
     void Update()
@@ -179,6 +176,7 @@ public class PlayerM : MonoBehaviour, IGetHealth
     {
         CheckPointPosition = transform.position;
         CheckPointRotation = transform.rotation;
+        life.ResetLife();
     }
     public void ActivateCheckPoint()
     {
@@ -209,16 +207,6 @@ public class PlayerM : MonoBehaviour, IGetHealth
         Gizmos.DrawLine(transform.position - _DownDist + (_direction * _RayForwardDist), transform.position + _UpDist + (_direction * _RayForwardDist));
     }
 
-    public void Disable()
-    {
-        script.enabled = false;
-    }
-
-    public void Enable()
-    {
-        script.enabled = true;
-    }
-
     public PlayerHealth GetHealth()
     {
         return life;
@@ -240,7 +228,7 @@ public class PlayerHealth
         _CurrentLife -= damage;
 
         OnDamage?.Invoke(_CurrentLife);
-
+        //Puedo usar OnDamage para actualizar la barrade vida cuando agrego vida?
         if (_CurrentLife <= 0)
         {
             _CurrentLife = 0;
