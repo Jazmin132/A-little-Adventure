@@ -55,6 +55,7 @@ public class EnemyJumper : Enemies , IDamage
     public void RecieveDamage(int damage)
     {
         _CurrentLife -= damage;
+        view.DamageParticle.Play();
         FlyTo(_FlyTo);
         _IsGoing = false;
 
@@ -141,4 +142,5 @@ public class EnemyJView
     public float Angle;//150
     public float DamageFly;//10
     public GameObject Explosion;//ExplosionContainer
+    public ParticleSystem DamageParticle;
 }
