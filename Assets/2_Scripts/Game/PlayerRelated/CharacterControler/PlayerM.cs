@@ -178,6 +178,7 @@ public class PlayerM : MonoBehaviour, IGetHealth
         CheckPointRotation = transform.rotation;
         life.ResetLife();
     }
+
     public void ActivateCheckPoint()
     {
         transform.position = CheckPointPosition;

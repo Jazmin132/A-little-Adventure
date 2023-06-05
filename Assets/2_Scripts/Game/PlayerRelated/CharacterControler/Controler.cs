@@ -49,4 +49,8 @@ public class Controler : IController
     {
         return (Input.GetKeyDown(KeyCode.Mouse0));
     }
+    public bool Atajo()
+    {
+        return (Input.GetKeyDown(KeyCode.T));
+    }
 }

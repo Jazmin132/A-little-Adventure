@@ -81,6 +81,8 @@ public class AirState : IState
         {//AL saltar cambia por un segundo acá, puede que provoque el delay del planeo, mas bien lo empeora
             _FSM.ChangeState(PlayerStates.Ground);
         }
+
+        if (_Controller.Atajo()) _Player.ActivateCheckPoint();
     }
     public void Glide()
     {

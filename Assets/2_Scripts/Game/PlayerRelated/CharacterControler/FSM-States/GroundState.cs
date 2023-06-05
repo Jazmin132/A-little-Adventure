@@ -73,6 +73,8 @@ public class GroundState : IState
         else if (_Controller.Attack()) _Player.Attack();
 
         if (!_Player._playerJump.IsGrounded()) _FSM.ChangeState(PlayerStates.Air);
+
+        if (_Controller.Atajo()) _Player.ActivateCheckPoint();
     }
     private void Move()
     {

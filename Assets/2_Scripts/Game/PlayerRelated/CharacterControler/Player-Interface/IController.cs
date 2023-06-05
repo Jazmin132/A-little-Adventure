@@ -13,4 +13,5 @@ public interface IController
     public bool Attack();
     public bool Shoot();
     public bool Acelerate();
+    public bool Atajo();
 }
