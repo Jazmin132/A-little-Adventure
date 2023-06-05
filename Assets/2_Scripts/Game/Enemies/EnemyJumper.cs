@@ -26,7 +26,7 @@ public class EnemyJumper : Enemies , IDamage
     public void FixedUpdate()
     {
         if (EnemiesManager.instance.InFieldOfView(this, view.ViewRadius, view.Angle))
-        {//No Se activa al entrar al InFieldOfView, solo cuando etá muy cerca
+        {
           if (IsGrounded()) Jump();
 
           GravityModifier();
@@ -56,10 +56,12 @@ public class EnemyJumper : Enemies , IDamage
     {
         _CurrentLife -= damage;
         view.DamageParticle.Play();
+
         FlyTo(_FlyTo);
         _IsGoing = false;
 
-        if (_CurrentLife <= 0) Destroy();
+        if (_CurrentLife <= 0)
+            Destroy();
     }
     public void FlyTo(Vector3 Dir)
     {

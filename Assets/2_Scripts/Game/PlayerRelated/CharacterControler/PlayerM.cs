@@ -181,6 +181,7 @@ public class PlayerM : MonoBehaviour, IGetHealth
 
     public void ActivateCheckPoint()
     {
+        _RigP.velocity = Vector3.zero;
         transform.position = CheckPointPosition;
         transform.rotation = CheckPointRotation;
     }

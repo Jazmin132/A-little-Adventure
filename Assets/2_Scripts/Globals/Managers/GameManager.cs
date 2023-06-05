@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
     public event System.Action onPause;
     public event System.Action onPlay;
 
-    List<MonoBehaviour>_listBehaviour;
+    public List<MonoBehaviour>_listBehaviour;
 
     public CanvasWinLoseManager canvasManager;
 
@@ -29,7 +29,7 @@ public class GameManager : MonoBehaviour
     }
     public void UnSubscribeBehaviours(MonoBehaviour behaviour)
     {
-        if (!_listBehaviour.Contains(behaviour))
+        if (_listBehaviour.Contains(behaviour))
             _listBehaviour.Remove(behaviour);
     }
     public void Pause()
