@@ -8,7 +8,7 @@ public abstract class Enemies : MonoBehaviour
     public int _MaxLife;
     public int _CurrentLife;
     public int _Attack;
-    public float _ActualSpeed;
+    public float _Speed;
     public GameObject _Recompenzas;
     protected PlayerM targetCollision;
     protected PlayerM _Maintarget;

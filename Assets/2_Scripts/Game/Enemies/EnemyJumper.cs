@@ -14,13 +14,11 @@ public class EnemyJumper : Enemies , IDamage
     Rigidbody _Rig;
     Vector3 _Dir;
     Vector3 _LerpDir;
-    Behaviour _script;
 
     public override void Start()
     {
         base.Start();
         _Rig = GetComponent<Rigidbody>();
-        _script = GetComponent<Behaviour>();
         GameManager.instance.SubscribeBehaviours(this);
     }
     public void FixedUpdate()
@@ -43,7 +41,7 @@ public class EnemyJumper : Enemies , IDamage
         transform.forward = _LerpDir.normalized;
         transform.rotation = Quaternion.Euler(0f, transform.rotation.eulerAngles.y, 0f);
 
-        _Rig.position += transform.forward * _ActualSpeed * Time.fixedDeltaTime;
+        _Rig.position += transform.forward * _Speed * Time.fixedDeltaTime;
 
         _FlyTo = -_Dir;
     }
@@ -89,6 +87,7 @@ public class EnemyJumper : Enemies , IDamage
 
      public override void Destroy()
      {
+        GameManager.instance.UnSubscribeBehaviours(this);
         base.Destroy();
         if (_IsGoing == true) StartCoroutine(Wait());
         else
@@ -96,7 +95,6 @@ public class EnemyJumper : Enemies , IDamage
             GameObject effect = Instantiate(view.Explosion, transform.position, Quaternion.identity);
             Destroy(effect, 1f);
             Destroy(this.gameObject);
-            GameManager.instance.UnSubscribeBehaviours(this);//CAMBIE DE LUGAR ESTO, Porque no se destruia el enemigo antes, Mensaje hecho por JULIAN
         }
      }
 
@@ -105,7 +103,6 @@ public class EnemyJumper : Enemies , IDamage
         yield return new WaitForSeconds(0.3f);
         GameObject effect = Instantiate(view.Explosion, transform.position, Quaternion.identity);
         Destroy(effect, 1f);
-        GameManager.instance.UnSubscribeBehaviours(this);//AGREGUE ESTO,Porque no se destruia el enemigo antes , Mensaje hecho por JULIAN 
         Destroy(this.gameObject);
     }
 
