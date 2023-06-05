@@ -20,8 +20,14 @@ public class BOX : MonoBehaviour, IDamage
     }
     public void Destroy()
     {
-        _RecompenzA = Instantiate(_Recompenzas, transform.parent);
-        _RecompenzA.transform.position = transform.position;
+        var random = Random.Range(0, 4);
+        for (int i = 0; i < random; i++)
+        {
+            Vector3 X = new Vector3(transform.position.x, transform.position.y, transform.position.z - (i * 2));
+            _RecompenzA = Instantiate(_Recompenzas, transform.parent);
+            _RecompenzA.transform.position = X;
+        }
         Destroy(this.gameObject);
     }
+
 }

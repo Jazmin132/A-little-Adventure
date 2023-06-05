@@ -382,7 +382,7 @@ MonoBehaviour:
   _MaxLife: 3
   _CurrentLife: 0
   _Attack: 1
-  _ActualSpeed: 4
+  _Speed: 3
   _Recompenzas: {fileID: 3662441117973748737, guid: a96e842e5f2a5e44393198db6ee1dbd9, type: 3}
   _SpeedRot: 0.7
   jump:
