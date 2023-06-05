@@ -87,7 +87,6 @@ public class EnemyJumper : Enemies , IDamage
 
      public override void Destroy()
      {
-        GameManager.instance.UnSubscribeBehaviours(this);
         base.Destroy();
         if (_IsGoing == true) StartCoroutine(Wait());
         else
@@ -95,6 +94,7 @@ public class EnemyJumper : Enemies , IDamage
             GameObject effect = Instantiate(view.Explosion, transform.position, Quaternion.identity);
             Destroy(effect, 1f);
             Destroy(this.gameObject);
+            GameManager.instance.UnSubscribeBehaviours(this);//CAMBIE DE LUGAR ESTO, Porque no se destruia el enemigo antes, Mensaje hecho por JULIAN
         }
      }
 
@@ -103,6 +103,7 @@ public class EnemyJumper : Enemies , IDamage
         yield return new WaitForSeconds(0.3f);
         GameObject effect = Instantiate(view.Explosion, transform.position, Quaternion.identity);
         Destroy(effect, 1f);
+        GameManager.instance.UnSubscribeBehaviours(this);//AGREGUE ESTO,Porque no se destruia el enemigo antes , Mensaje hecho por JULIAN 
         Destroy(this.gameObject);
     }
 
