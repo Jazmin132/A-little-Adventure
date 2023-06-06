@@ -4,16 +4,17 @@ using UnityEngine;
 
 public class CheckPoinAtajo : MonoBehaviour
 {//Agregar CheckPoints manualmente
-    Transform[] checkPoints;
-    PlayerM player;
+    public Transform[] checkPoints;
+    public PlayerM player;
+    int cont = 0;
 
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.Y))
         {
-            int cont = 0;
             player.transform.position = checkPoints[cont].position;
             cont++;
+            Debug.Log(cont + " Cantidad");
             if (cont > checkPoints.Length) cont = 0;
         }
     }
