@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 3662441117973748738}
   - component: {fileID: 3662441117973748739}
   - component: {fileID: 7322605295086271262}
-  - component: {fileID: 8455365560913701804}
   - component: {fileID: 4544449036457907046}
   m_Layer: 0
   m_Name: Tuerca
@@ -67,21 +66,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   value: 1
   anim: {fileID: 4544449036457907046}
---- !u!111 &8455365560913701804
-Animation:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3662441117973748737}
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Animation: {fileID: 7400000, guid: 9835f4c496deaad488b07750f6e521fd, type: 2}
-  m_Animations: []
-  m_WrapMode: 0
-  m_PlayAutomatically: 1
-  m_AnimatePhysics: 0
-  m_CullingType: 0
 --- !u!95 &4544449036457907046
 Animator:
   serializedVersion: 4
@@ -304,7 +288,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 79aa832323d1553499c72cff5e1d6fe8, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 073f3c6bec7782e4fb3f86b9eb3746f1, type: 2}
+      objectReference: {fileID: 2100000, guid: c7afcc7d2fd1e7c44b7d81839a5f1bbb, type: 2}
     - target: {fileID: 919132149155446097, guid: 79aa832323d1553499c72cff5e1d6fe8, type: 3}
       propertyPath: m_Name
       value: Piece 3
@@ -370,7 +354,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 84530acc0431e8b4fb69c563ed1c1d22, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 073f3c6bec7782e4fb3f86b9eb3746f1, type: 2}
+      objectReference: {fileID: 2100000, guid: c7afcc7d2fd1e7c44b7d81839a5f1bbb, type: 2}
     - target: {fileID: 919132149155446097, guid: 84530acc0431e8b4fb69c563ed1c1d22, type: 3}
       propertyPath: m_Name
       value: Nut
