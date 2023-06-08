@@ -151,6 +151,7 @@ public class PlayerM : MonoBehaviour, IGetHealth
             
             _bulletObject.transform.forward = _MainCamera.forward;
             _bulletObject.target = hit.point;
+
             _bulletObject.hit = true;
         }
         else
