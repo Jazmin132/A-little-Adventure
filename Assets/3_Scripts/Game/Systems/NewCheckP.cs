@@ -7,7 +7,7 @@ public class NewCheckP : MonoBehaviour
     [SerializeField] ParticleSystem _SavedCheck;
     [SerializeField] GameObject _Flag;
     [SerializeField] Material[] _Activate;
-     Material _FlafMat;
+    Material _FlafMat;
     CapsuleCollider _Capsule;
 
     private void Start()

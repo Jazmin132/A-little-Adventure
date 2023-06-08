@@ -2,43 +2,40 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AirState : IState
+public class GlideState : IState
 {
     FiniteStateMachine _FSM;
     IController _Controller;
-    CapsuleCollider _PlayerCol;
-    PlayerM _Player;
-    Rigidbody _RigP;
     Transform _MainCamera;
+    Rigidbody _RigP;
+    PlayerM _Player;
     Vector3 _direction;
-    Vector3 _Right;
-    Vector3 _Forward;
+    float _GlidingSign;
     float _CurrentSpeed;
+    float _DescendSpeed;
+    float _SpeedH;
     bool _IsDoubleJumping;
-    
 
-    public AirState(FiniteStateMachine FSM, PlayerM Player, IController controller)
+    public GlideState(FiniteStateMachine FSM, PlayerM Player, IController controller)
     {
         _FSM = FSM;
         _Controller = controller;
         _Player = Player;
     }
-    public AirState SetRig(Rigidbody Rig)
+    public GlideState SetRig(Rigidbody Rig)
     {
         _RigP = Rig;
         return this;
     }
-    public AirState SetCollider(CapsuleCollider PlayerCol)
+    public GlideState SetFloats(float DescendSpeed, float CurrentSpeed, float SpeedH)
     {
-        _PlayerCol = PlayerCol;
-        return this;
-    }
-    public AirState SetFloats(float CurrentSpeed)
-    {
+        _DescendSpeed = DescendSpeed;
         _CurrentSpeed = CurrentSpeed;
+        _SpeedH = SpeedH;
         return this;
     }
-    public AirState SetTransform(Transform MC)
+
+    public GlideState SetTransform(Transform MC)
     {
         _MainCamera = MC;
         return this;
@@ -46,52 +43,50 @@ public class AirState : IState
 
     public void OnEnter()
     {
-        _PlayerCol.material = _Player.PhysicsM[1];
+        Debug.Log("ENTER GLIDE");
+        _GlidingSign = Mathf.Sign(Vector3.Dot(_Player.transform.forward, _MainCamera.transform.forward));
         _IsDoubleJumping = false;
-        Debug.Log("ENTER AIR");
     }
+
     public void OnUpdate()
     {
         if (_Controller.Jump() && _Player.jump.IsDJumpActive && _IsDoubleJumping == false)
         {
-            Debug.Log("Using DoubleJump");
             _RigP.AddForce(Vector3.up * 2, ForceMode.VelocityChange);
             _IsDoubleJumping = true;
         }
     }
+
     public void OnFixedUpdate()
     {
-        if (_Controller.Glide()) _FSM.ChangeState(PlayerStates.Glide);
-        else MoveOnAir();
-
+        Glide();
         if (_Controller.Shoot()) _Player.Shoot();
         else if (_Controller.Attack()) _Player.Attack();
 
+        if (!_Controller.Glide()) _FSM.ChangeState(PlayerStates.Air);
         if (_Player._playerJump.IsGrounded() && _RigP.velocity.y < 0) _FSM.ChangeState(PlayerStates.Ground);
-
         if (_Controller.Atajo()) _Player.ActivateCheckPoint();
     }
-   
-    public void MoveOnAir()
+
+    public void Glide()
     {
-        _Forward = Vector3.ProjectOnPlane(_MainCamera.transform.forward, Vector3.up).normalized;
-        _Right = Vector3.ProjectOnPlane(_MainCamera.transform.right, Vector3.up).normalized;
-        _direction = (_Controller.Horizontal() * _Right + _Controller.Vertical() * _Forward);
-
-        if (_direction.sqrMagnitude > 1) _direction.Normalize();
-
-        if (_Player.WallDetecter(_direction)) return;
-
-        if (_Controller.Horizontal() != 0 || _Controller.Vertical() != 0)
+        if (_RigP.velocity.y < 0)
         {
-            _RigP.MovePosition(_Player.transform.position + _direction * _CurrentSpeed * Time.fixedDeltaTime);
+            _direction = (_Player.transform.right * _GlidingSign) * _Controller.Horizontal() * _SpeedH;
+            _direction += _Player.transform.forward * (_CurrentSpeed + 3);
+
+            _RigP.velocity = new Vector3(0, -_DescendSpeed, 0);
+            if (_Player.WallDetecter(_direction)) return;
+
             Quaternion Rotation = Quaternion.LookRotation(_direction.normalized, Vector3.up);
             _Player.transform.rotation = Quaternion.RotateTowards(_Player.transform.rotation, Rotation, Time.fixedDeltaTime * 500);
+            _RigP.MovePosition(_Player.transform.position + _direction * Time.fixedDeltaTime);
         }
     }
+
     public void OnExit()
     {
-       
+
     }
 }
 

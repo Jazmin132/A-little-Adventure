@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Collectables : MonoBehaviour
+public abstract class Collectables : MonoBehaviour
 {
     public int value;
     public Animator anim;
@@ -13,10 +13,18 @@ public class Collectables : MonoBehaviour
         GameManager.instance.onPlay += PlayAnim;
         GameManager.instance.onPause += StopAnim;
     }
-    public virtual void DestroyCollect()
+    public virtual void OnTriggerEnter(Collider other)
     {
-        GameManager.instance.onPlay -= PlayAnim;
-        GameManager.instance.onPause -= StopAnim;
+        var player = other.GetComponent<PlayerM>();
+        var playerBullet = other.GetComponent<BulletPlayer>();
+
+        if (player != null || playerBullet != null)
+        {
+            GameManager.instance.onPlay -= PlayAnim;
+            GameManager.instance.onPause -= StopAnim;
+            CollectablesManager.instance.AddTuerca(value);
+            Destroy(this.gameObject);
+        }
     }
     void PlayAnim()
     {

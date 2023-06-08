@@ -53,7 +53,7 @@ public class GroundState : IState
     }
 
     public void OnEnter()
-    {// A veces entra al ground al saltar
+    {
         Debug.Log("ENTER GROUND");
         _CurrentSpeed = _OriginalSpeed;
         _PlayerCol.material = _Player.PhysicsM[0];

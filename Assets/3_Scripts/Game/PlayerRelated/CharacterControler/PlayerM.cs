@@ -7,7 +7,7 @@ public enum PlayerStates
 {
     Ground,
     Air,
-    Water
+    Glide
 }
 
 public class PlayerM : MonoBehaviour, IGetHealth
@@ -81,15 +81,19 @@ public class PlayerM : MonoBehaviour, IGetHealth
         _DownDist = new Vector3(0f, _RayDownDist, 0f);
 
         _FSM = new FiniteStateMachine();
-        var groundState = new GroundState(_FSM, this, _controller).SetCollider(_PlayerCol)
+        var GroundState = new GroundState(_FSM, this, _controller).SetCollider(_PlayerCol)
             .SetTransforms(transform, _MainCamera).SetRig(_RigP).SetLayers(_Water)
             .SetSpeed(_CurrentSpeed, _PlayerSpeed, _RayDownDist);
 
         var AirState = new AirState(_FSM, this, _controller).SetRig(_RigP).SetCollider(_PlayerCol)
-            .SetTransform(_MainCamera).SetFloats(glide.DescendSpeed, _CurrentSpeed, glide.SpeedHorizontal);
+            .SetTransform(_MainCamera).SetFloats(_CurrentSpeed);
 
-        _FSM.AddState(PlayerStates.Ground, groundState);
+        var GlideState = new GlideState(_FSM, this, _controller).SetRig(_RigP).SetTransform(_MainCamera)
+            .SetFloats(glide.DescendSpeed, _CurrentSpeed, glide.SpeedHorizontal);
+
+        _FSM.AddState(PlayerStates.Ground, GroundState);
         _FSM.AddState(PlayerStates.Air, AirState);
+        _FSM.AddState(PlayerStates.Glide, GlideState);
         _FSM.ChangeState(PlayerStates.Ground);
 
         ScenesManager.instance.onCheckPoint += ActivateCheckPoint;
@@ -198,6 +202,20 @@ public class PlayerM : MonoBehaviour, IGetHealth
         if (other.TryGetComponent(out IDamage D)) D.RecieveDamage(_Damage);
         else if (I != null && _OnAttack && I.CanBeHit) I.Activate();
     }
+
+    public void DoubleJump(float time)
+    {
+        jump.IsDJumpActive = true;
+        Debug.Log("Is JumpActive = " + jump.IsDJumpActive);
+        StartCoroutine(ForHowLong(time));
+    }
+    IEnumerator ForHowLong(float time)
+    {
+        yield return new WaitForSeconds(time);
+        jump.IsDJumpActive = false;
+        Debug.Log("DeActivate DoubleJump");
+    }
+
     private void OnDrawGizmos()
     {
         Vector3 X = new Vector3(0f, -jump.RayJumpDist, 0f);
@@ -229,22 +247,18 @@ public class PlayerHealth
     public void RecieveHit(int damage)
     {
         _CurrentLife -= damage;
+        _CurrentLife = Mathf.Max(0, _CurrentLife);
+        if (_CurrentLife == 0) OnDeath?.Invoke();
 
         OnHealthChange?.Invoke(_CurrentLife);
-        //Puedo usar OnDamage para actualizar la barrade vida cuando agrego vida?
-        if (_CurrentLife <= 0)
-        {
-            _CurrentLife = 0;
-            OnDeath?.Invoke();
-        }
+
         Debug.Log("AUCH " + _CurrentLife);
     }
 
     public void AddLife(int restore)
     {
         _CurrentLife += restore;
-        if (_CurrentLife >= _MaxLife)
-            _CurrentLife = _MaxLife;
+        _CurrentLife = Mathf.Min(_CurrentLife, _MaxLife);
         OnHealthChange?.Invoke(_CurrentLife);
     }
 
@@ -253,6 +267,7 @@ public class PlayerHealth
         _CurrentLife = _MaxLife;
         OnHealthChange?.Invoke(_CurrentLife);
     }
+
 }
 public interface IGetHealth
 {
@@ -272,6 +287,7 @@ public class PJump
     public float JumpForce;//11.3
     public float RayJumpDist;//0.87
     public bool IsJumping;
+    public bool IsDJumpActive;
 
     public float FallMultiplier;//4.5
     public float VelocityFalloff;//8
