@@ -5,9 +5,10 @@ using UnityEngine;
 public class PlatformLuninese : Ingredient
 {
     public Material[] colorchange;
-    Mesh _myMesh;
-    Material _MyColor;
     public int count;
+    Mesh _myMesh;
+    //Renderer
+    Material _MyColor;
     PlatformLumineseHandler _Handler;
 
     private void Start()
@@ -15,6 +16,7 @@ public class PlatformLuninese : Ingredient
         _Handler = GetComponentInParent<PlatformLumineseHandler>();
 
         _myMesh = GetComponent<Mesh>();//????????
+        //Como haco para cambiar de material
         _MyColor = GetComponent<Material>();
     }
     private void OnTriggerEnter(Collider other)
@@ -22,22 +24,20 @@ public class PlatformLuninese : Ingredient
         if (other.GetComponent<PlayerM>())
         {
             Activate();
-            count++;
+            count++; 
         }
     }
-
     public override void Activate()
     {//Como hacer que cambie de color?
         count = Mathf.Min(count, colorchange.Length);
         _MyColor = colorchange[count];
-        _Handler.Check();
-    }
 
+        if (count == 1) _Handler.Check();
+    }
     public void SetPermanentColor(int number)
     {
         _MyColor = colorchange[number];
     }
-
     public void ResetColor()
     {
         _MyColor = colorchange[0];

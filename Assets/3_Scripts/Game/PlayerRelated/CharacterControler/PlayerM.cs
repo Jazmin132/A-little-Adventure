@@ -10,7 +10,7 @@ public enum PlayerStates
     Glide
 }
 
-public class PlayerM : MonoBehaviour, IGetHealth
+public class PlayerM : MonoBehaviour
 {
     public PlayerHealth life;
 
@@ -19,6 +19,7 @@ public class PlayerM : MonoBehaviour, IGetHealth
     [SerializeField] int _Damage;
     [SerializeField] float _AttackDuration;
     [SerializeField] float _AttackReload;
+    public bool OnPowerAttack = false;
     private BoxCollider _AttackBox;
     private bool _OnAttack = false;
 
@@ -142,6 +143,9 @@ public class PlayerM : MonoBehaviour, IGetHealth
     }
     public void UpImpulse(float ForceUp)
     {
+        var vel = _RigP.velocity;
+        vel.y = 0;
+        _RigP.velocity = vel;
         _RigP.AddForce(Vector3.up * ForceUp, ForceMode.VelocityChange);
     }
     public void Shoot()
@@ -268,10 +272,6 @@ public class PlayerHealth
         OnHealthChange?.Invoke(_CurrentLife);
     }
 
-}
-public interface IGetHealth
-{
-    PlayerHealth GetHealth();
 }
 
 [System.Serializable]

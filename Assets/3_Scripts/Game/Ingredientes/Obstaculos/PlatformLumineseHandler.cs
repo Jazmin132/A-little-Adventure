@@ -6,7 +6,9 @@ public class PlatformLumineseHandler : MonoBehaviour
 {
     public PlatformLuninese[] Platforms;
     public System.Action Change;
+    int count = 0;
     //Como checheo que todas las plataformas estén en el segundo color
+
     private void Start()
     {
         Platforms = GetComponentsInChildren<PlatformLuninese>();
@@ -15,10 +17,11 @@ public class PlatformLumineseHandler : MonoBehaviour
     {
         foreach (var platform in Platforms)
         {
-            //COMO checkeo checkeo por si todos tiene count 1
+            if (platform.count == 1) count++;
+            //COMO checkeo que todas las plataformas tiene count 1
         }
+        if (count == Platforms.Length) Win();
     }
-
     private void Win()
     {
         foreach (var platform in Platforms)
@@ -32,5 +35,10 @@ public class PlatformLumineseHandler : MonoBehaviour
         {
             platform.ResetColor();
         }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {//Ponerselo a un botón
+        if (other.TryGetComponent(out PlayerM P)) ResetPlatforms();
     }
 }

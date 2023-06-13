@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.45038265, g: 0.50039625, b: 0.57525414, a: 1}
+  m_IndirectSpecularColor: {r: 0.4503821, g: 0.50039566, b: 0.5752534, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -653,7 +653,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 2fb76f3d4b9b20b4ba13787696bfcbf5, type: 2}
+  - {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -882,7 +882,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: a0ba6846c93a2a0499b9280800c0928b, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a0ba6846c93a2a0499b9280800c0928b, type: 3}
       propertyPath: m_LocalPosition.x
@@ -4026,7 +4026,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh599654
+  m_Name: pb_Mesh46404
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -4857,11 +4857,11 @@ PrefabInstance:
     - target: {fileID: -9067648142549400382, guid: 1d8b30a886d9db64bb7a67fc06fae38d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2fb76f3d4b9b20b4ba13787696bfcbf5, type: 2}
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: -8967137059496836552, guid: 1d8b30a886d9db64bb7a67fc06fae38d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2fb76f3d4b9b20b4ba13787696bfcbf5, type: 2}
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: -8679921383154817045, guid: 1d8b30a886d9db64bb7a67fc06fae38d, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -4909,27 +4909,27 @@ PrefabInstance:
     - target: {fileID: -7955984403215160398, guid: 1d8b30a886d9db64bb7a67fc06fae38d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2fb76f3d4b9b20b4ba13787696bfcbf5, type: 2}
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: -7389785708545972461, guid: 1d8b30a886d9db64bb7a67fc06fae38d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2fb76f3d4b9b20b4ba13787696bfcbf5, type: 2}
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: -4233607502567058553, guid: 1d8b30a886d9db64bb7a67fc06fae38d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2fb76f3d4b9b20b4ba13787696bfcbf5, type: 2}
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: -2058649693458995379, guid: 1d8b30a886d9db64bb7a67fc06fae38d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2fb76f3d4b9b20b4ba13787696bfcbf5, type: 2}
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: -213217050515687947, guid: 1d8b30a886d9db64bb7a67fc06fae38d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2fb76f3d4b9b20b4ba13787696bfcbf5, type: 2}
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 425795375001332464, guid: 1d8b30a886d9db64bb7a67fc06fae38d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2fb76f3d4b9b20b4ba13787696bfcbf5, type: 2}
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 919132149155446097, guid: 1d8b30a886d9db64bb7a67fc06fae38d, type: 3}
       propertyPath: m_Name
       value: Suelo
@@ -4937,35 +4937,35 @@ PrefabInstance:
     - target: {fileID: 2002738136258385897, guid: 1d8b30a886d9db64bb7a67fc06fae38d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2fb76f3d4b9b20b4ba13787696bfcbf5, type: 2}
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 4165793997623203777, guid: 1d8b30a886d9db64bb7a67fc06fae38d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2fb76f3d4b9b20b4ba13787696bfcbf5, type: 2}
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 4524987824264549550, guid: 1d8b30a886d9db64bb7a67fc06fae38d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2fb76f3d4b9b20b4ba13787696bfcbf5, type: 2}
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 6321060992631970885, guid: 1d8b30a886d9db64bb7a67fc06fae38d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2fb76f3d4b9b20b4ba13787696bfcbf5, type: 2}
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 7211562684142138868, guid: 1d8b30a886d9db64bb7a67fc06fae38d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2fb76f3d4b9b20b4ba13787696bfcbf5, type: 2}
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 7367833509683941410, guid: 1d8b30a886d9db64bb7a67fc06fae38d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2fb76f3d4b9b20b4ba13787696bfcbf5, type: 2}
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 8897237870818366965, guid: 1d8b30a886d9db64bb7a67fc06fae38d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2fb76f3d4b9b20b4ba13787696bfcbf5, type: 2}
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 9014142012350074466, guid: 1d8b30a886d9db64bb7a67fc06fae38d, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2fb76f3d4b9b20b4ba13787696bfcbf5, type: 2}
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1d8b30a886d9db64bb7a67fc06fae38d, type: 3}
 --- !u!1 &2060053456
@@ -5718,6 +5718,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 82631493761360796, guid: f58c60e391ae8f144a6999e13881cefa, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 82631493761360799, guid: f58c60e391ae8f144a6999e13881cefa, type: 3}
       propertyPath: m_Name
       value: Tile-Normal
@@ -8142,6 +8146,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Esquina-Medio-Mitad-H4
       objectReference: {fileID: 0}
+    - target: {fileID: 414408296562722677, guid: a46c64651b077ad43a848cbd115d1f9d, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a46c64651b077ad43a848cbd115d1f9d, type: 3}
 --- !u!4 &414706644488195359
@@ -8760,6 +8768,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 759432145}
     m_Modifications:
+    - target: {fileID: 481413552518611772, guid: 666d6dd3af90e5a4fa9d05315205f692, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 481413552518611773, guid: 666d6dd3af90e5a4fa9d05315205f692, type: 3}
       propertyPath: m_Name
       value: Esquina
@@ -10357,7 +10369,7 @@ PrefabInstance:
     - target: {fileID: 724372888848331705, guid: c749b6e3abd535d4b8269e277d2c7b08, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 95ab5a87d736d01499aad835a48b46ac, type: 2}
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 724372888848331707, guid: c749b6e3abd535d4b8269e277d2c7b08, type: 3}
       propertyPath: m_Name
       value: Esquina-Medio
@@ -10905,6 +10917,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Esquina-Mitad-H2
       objectReference: {fileID: 0}
+    - target: {fileID: 802974438321318329, guid: d89945aaab6947a4999915d1f163a0ff, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 802974438321318331, guid: d89945aaab6947a4999915d1f163a0ff, type: 3}
       propertyPath: m_RootOrder
       value: 14
@@ -17342,6 +17358,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Esquina-medio-Abajo-MitadH1
       objectReference: {fileID: 0}
+    - target: {fileID: 1733039455459270809, guid: 6c72da4db17c37245b0e2150b922acc0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 1733039455459270887, guid: 6c72da4db17c37245b0e2150b922acc0, type: 3}
       propertyPath: m_RootOrder
       value: 6
@@ -17714,6 +17734,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1765917782473064734, guid: c797f9a3a8b3215479141b751f561094, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 1765917782473064735, guid: c797f9a3a8b3215479141b751f561094, type: 3}
       propertyPath: m_Name
       value: Esquina-Mitad-V1
@@ -18528,6 +18552,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Esquina-Mitad-V2
       objectReference: {fileID: 0}
+    - target: {fileID: 1888031226917110277, guid: e4aaaa3fc2caa424abe7b1b0a9d2ac04, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 1888031226917110279, guid: e4aaaa3fc2caa424abe7b1b0a9d2ac04, type: 3}
       propertyPath: m_RootOrder
       value: 2
@@ -21251,6 +21279,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tile-Normal-Mitad
       objectReference: {fileID: 0}
+    - target: {fileID: 5635971710367347772, guid: e7eaa69ee38b3dc429f37c6bb08d10dd, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 7083223572540782417, guid: e7eaa69ee38b3dc429f37c6bb08d10dd, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -24634,6 +24666,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2795110444405162720, guid: 6760f879504c0394aa0c49a5a197a4b6, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 2795110444405162723, guid: 6760f879504c0394aa0c49a5a197a4b6, type: 3}
       propertyPath: m_Name
       value: Tile-Normal-Mitad2
@@ -25526,6 +25562,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 759432145}
     m_Modifications:
+    - target: {fileID: 2973607841650693852, guid: 4371efca51df0a344af3011190a87e9f, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 2973607841650693853, guid: 4371efca51df0a344af3011190a87e9f, type: 3}
       propertyPath: m_Name
       value: Esquina-Abajo
@@ -26200,6 +26240,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 759432145}
     m_Modifications:
+    - target: {fileID: 3064022974487799364, guid: 127c63520409f6b458a9abfd99563cc0, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 3064022974487799365, guid: 127c63520409f6b458a9abfd99563cc0, type: 3}
       propertyPath: m_Name
       value: Esquina-medio-Abajo-Mitad2
@@ -28181,6 +28225,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Esquina-Medio-Mitad-1
       objectReference: {fileID: 0}
+    - target: {fileID: 3318762476262737069, guid: 700cd8831a839fb4cb07c1e7708d2f80, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 3318762476262737071, guid: 700cd8831a839fb4cb07c1e7708d2f80, type: 3}
       propertyPath: m_RootOrder
       value: 23
@@ -32468,6 +32516,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3906765691771076170, guid: 610a6132db933934296390cdb839d7fa, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 3906765691771076171, guid: 610a6132db933934296390cdb839d7fa, type: 3}
       propertyPath: m_Name
       value: Esquina-Abajo-Mitad-H1
@@ -34897,6 +34949,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4234499630646338927, guid: aff1fad0da0b55b4389d086566fcb0d1, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 4234499630646338929, guid: aff1fad0da0b55b4389d086566fcb0d1, type: 3}
       propertyPath: m_Name
       value: Esquina-Medio-Mitad-H1
@@ -35297,6 +35353,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 759432145}
     m_Modifications:
+    - target: {fileID: 4294612166920268056, guid: 3b3635e91b35c2e4eb77030bf08a0d0e, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 4294612166920268057, guid: 3b3635e91b35c2e4eb77030bf08a0d0e, type: 3}
       propertyPath: m_Name
       value: Esquina-medio-Abajo
@@ -39299,6 +39359,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 759432145}
     m_Modifications:
+    - target: {fileID: 4859110374171348408, guid: b0132fa6f0f459e45aa28a1dc03a4152, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 4859110374171348409, guid: b0132fa6f0f459e45aa28a1dc03a4152, type: 3}
       propertyPath: m_Name
       value: Tile-Normal-Mitad1
@@ -39794,6 +39858,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Esquina-Medio-Mitad-H1
       objectReference: {fileID: 0}
+    - target: {fileID: 4944022481927518267, guid: 8b08648c88796d74ab09ae00e6b613d7, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8b08648c88796d74ab09ae00e6b613d7, type: 3}
 --- !u!1001 &4945183800213511189
@@ -39803,6 +39871,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 759432145}
     m_Modifications:
+    - target: {fileID: 4945183800158352650, guid: 79147f7cffd45b943a81df401e016e35, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 4945183800158352651, guid: 79147f7cffd45b943a81df401e016e35, type: 3}
       propertyPath: m_Name
       value: Esquina-Medio-Mitad-HV2
@@ -43481,6 +43553,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Esquina-medio-Abajo-Mitad1
       objectReference: {fileID: 0}
+    - target: {fileID: 5434973538984672337, guid: aa7c43f792a21a044b611dbfd79e86e2, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 5434973538984672339, guid: aa7c43f792a21a044b611dbfd79e86e2, type: 3}
       propertyPath: m_RootOrder
       value: 5
@@ -46405,6 +46481,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Esquina-medio-Abajo-MitadH2
       objectReference: {fileID: 0}
+    - target: {fileID: 5888905103895472344, guid: 4763b9debe9d6a541bc70e377dedfbbd, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 5888905103895472346, guid: 4763b9debe9d6a541bc70e377dedfbbd, type: 3}
       propertyPath: m_RootOrder
       value: 9
@@ -49865,6 +49945,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Esquina-Abajo-Mitad-H2
       objectReference: {fileID: 0}
+    - target: {fileID: 6368106873631496339, guid: 3bff460c440864e4497542ae553d7118, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3bff460c440864e4497542ae553d7118, type: 3}
 --- !u!4 &6372711348768735666
@@ -59213,6 +59297,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Esquina-Medio-Mitad-2
       objectReference: {fileID: 0}
+    - target: {fileID: 7701076793810026978, guid: 4cdd498cc3f48744db3d3bfea630bd8a, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 7701076793810026988, guid: 4cdd498cc3f48744db3d3bfea630bd8a, type: 3}
       propertyPath: m_RootOrder
       value: 21
@@ -62524,6 +62612,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Esquina-Mitad-H1
       objectReference: {fileID: 0}
+    - target: {fileID: 8145226465658694406, guid: 7dd8e378b71adf64dbab960a7ad5abf4, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 8145226465658694424, guid: 7dd8e378b71adf64dbab960a7ad5abf4, type: 3}
       propertyPath: m_RootOrder
       value: 20
@@ -64385,6 +64477,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 759432145}
     m_Modifications:
+    - target: {fileID: 8402868768176001238, guid: 9577dadb8836304488b2373e79d95438, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 8402868768176001239, guid: 9577dadb8836304488b2373e79d95438, type: 3}
       propertyPath: m_Name
       value: Esquina-Medio-Mitad-HV1
@@ -67032,6 +67128,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 759432145}
     m_Modifications:
+    - target: {fileID: 8690462477005863213, guid: e0545eeb89fbe83489d3eac5fc047319, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 354ff233fa9a06d429603cf3eea55d2b, type: 2}
     - target: {fileID: 8690462477005863214, guid: e0545eeb89fbe83489d3eac5fc047319, type: 3}
       propertyPath: m_RootOrder
       value: 17

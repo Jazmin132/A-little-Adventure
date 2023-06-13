@@ -47,7 +47,7 @@ public class EnemyJumper : Enemies , IDamage
     }
     public void Jump()
     {
-        _Rig.AddForce(Vector3.up * jump.JumpForce, ForceMode.VelocityChange);
+        if (!(_Rig.velocity.y > 0)) _Rig.AddForce(Vector3.up * jump.JumpForce, ForceMode.VelocityChange);
     }
     
     public void RecieveDamage(int damage)
@@ -63,6 +63,7 @@ public class EnemyJumper : Enemies , IDamage
     }
     public void FlyTo(Vector3 Dir)
     {
+        _Rig.velocity = Vector3.zero;
         _IsGoing = true;
         _Rig.AddForce(Dir.normalized * view.DamageFly, ForceMode.VelocityChange);
     }
