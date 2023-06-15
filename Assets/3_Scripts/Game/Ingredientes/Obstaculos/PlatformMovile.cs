@@ -15,16 +15,14 @@ public class PlatformMovile : MonoBehaviour
     public void FixedUpdate()
     {
         _Dir = _WayPoint[_count].position - _Platform.transform.position;
-        _Platform.transform.position += _Dir.normalized * _Speed;
+        _Platform.transform.position += _Dir.normalized * _Speed * Time.fixedDeltaTime;
 
         if (Vector3.Distance(_Platform.transform.position, _WayPoint[_count].position) < 1f)
         {
             _count++;
-            _count = Mathf.Min(_count, _WayPoint.Length - 1);
-            //Porqué no pasa a cero
-            Debug.Log(_count == _WayPoint.Length - 1);
-            Debug.Log(_count + " COUNT");
-            if (_count == _WayPoint.Length - 1) _count = 0;
+            //ej _count 0-4  _WayPoint.Length 5 (empieza desde 1)
+            if (_count >= _WayPoint.Length) 
+                _count = 0;
         }
     }
 }

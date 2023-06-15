@@ -3,8 +3,7 @@ using UnityEngine;
 public class PlatformLumineseHandler : MonoBehaviour
 {
     public PlatformLuninese[] Platforms;
-    public System.Action Win = delegate { };
-    int count = 0;                       
+    public System.Action Win = delegate { };               
     bool _CanReset;                     
 
     private void Start()
@@ -13,19 +12,28 @@ public class PlatformLumineseHandler : MonoBehaviour
     }
     public void Check()
     {
+        bool active = true;
         foreach (var platform in Platforms)
         {
-            if (platform.count == 1) count++;
+            if (platform.count != 1)
+            {//Si hay alguno distinto de uno
+                active = false;
+                if (platform.count >= 2)
+                {//Si alguna plataforma se pasó de largo
+                    _CanReset = true;
+                }   
+            }
         }
-        if (count == Platforms.Length) PuzzleWin();
+        if (active) 
+            PuzzleWin();
     }
     private void PuzzleWin()
     {
         foreach (var platform in Platforms)
         {
             platform.SetPermanentColor(1);
-            _CanReset = false;
         }
+        _CanReset = false;
         Win.Invoke();
     }
     void ResetPlatforms()
@@ -37,6 +45,6 @@ public class PlatformLumineseHandler : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {//Ponerselo a un botón
-        if (other.TryGetComponent(out PlayerM P) && _CanReset) ResetPlatforms();
+        if (other.GetComponent<PlayerM>() != null && _CanReset) ResetPlatforms();
     }
 }

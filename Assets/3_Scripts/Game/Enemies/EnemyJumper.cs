@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyJumper : Enemies , IDamage
+public class EnemyJumper : Enemies , IDamage, IDamageableBomb
 {
     
     [SerializeField] float _SpeedRot;
@@ -60,6 +60,10 @@ public class EnemyJumper : Enemies , IDamage
 
         if (_CurrentLife <= 0)
             Destroy();
+    }
+    public void RecieveBombDamage(int BombD)
+    {
+        RecieveDamage(BombD);
     }
     public void FlyTo(Vector3 Dir)
     {

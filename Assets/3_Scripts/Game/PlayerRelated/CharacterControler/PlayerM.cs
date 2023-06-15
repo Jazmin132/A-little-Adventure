@@ -10,7 +10,7 @@ public enum PlayerStates
     Glide
 }
 
-public class PlayerM : MonoBehaviour
+public class PlayerM : MonoBehaviour, IDamageableBomb
 {
     public PlayerHealth life;
 
@@ -172,7 +172,10 @@ public class PlayerM : MonoBehaviour
         camForward.y = 0;
         transform.forward = camForward;
     }
-
+    public void RecieveBombDamage(int BombD)
+    {
+        life.RecieveHit(BombD);
+    }
     public void CheckEnviroment()
     {
         if (Physics.Raycast(_RigP.transform.position, Vector3.down, jump.RayJumpDist, _Water))

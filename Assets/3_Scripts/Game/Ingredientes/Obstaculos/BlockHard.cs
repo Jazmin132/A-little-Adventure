@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class BlockHard : Ingredient
+public class BlockHard : Ingredient, IDamageableBomb
 {
     public void OnTriggerEnter(Collider other)
     {
@@ -8,6 +8,10 @@ public class BlockHard : Ingredient
         else CanBeHit = false;
     }
     public override void Activate()
+    {
+        DestroyBlock();
+    }
+    public void RecieveBombDamage(int BombD)
     {
         DestroyBlock();
     }

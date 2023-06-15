@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBomb : Enemies, IDamage
+public class EnemyBomb : Enemies, IDamage, IDamageableBomb
 {
     [Header("Bomb Variables")]
     [SerializeField] SphereCollider _BombCollider;
@@ -19,7 +19,7 @@ public class EnemyBomb : Enemies, IDamage
     Rigidbody _Rig;
     Vector3 _Dir;
     Vector3 _LerpDir;
-    bool _chase;
+    bool _IsActive;
 
     public override void Start()
     {
@@ -54,28 +54,27 @@ public class EnemyBomb : Enemies, IDamage
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.TryGetComponent(out PlayerM P))
+        if (other.TryGetComponent(out PlayerM P) && _IsActive == false)
+        {
+            _IsActive = true;//Sin esto se generan mil corrutinas al mismo tiempo
             StartCoroutine(TimeToExplode(TimeBeforeExplosion)); 
+        }
     }
-
     IEnumerator TimeToExplode(int time)
     {
         yield return new WaitForSeconds(time);
         Debug.Log("CountDown: "+ time);
         Explode();
     }
-    
     void Explode()
-    {//ERROR FATAL EN EL EXPLODE, TRABA EL JUEGO Y TIRA ERRORES SIN SENTIDO
+    {
         Collider [] colliders = Physics.OverlapSphere(transform.position, RadiusExplosion);
         for (int i = 0; i < colliders.Length; i++)
         {
-            if (colliders[i].TryGetComponent(out PlayerM P))
-                P.life.RecieveHit(ExplosionDamage);
-            //else if (colliders[i].TryGetComponent(out IDamage E))
-            //    E.RecieveDamage(ExplosionDamage);
-            //else if (colliders[i].TryGetComponent(out BlockHard B))
-            //    B.DestroyBlock();
+            if (colliders[i].gameObject == gameObject)//Pregunto si soy yo
+                continue;//me Evito, paso al siguiente
+            if (colliders[i].TryGetComponent(out IDamageableBomb B))
+                B.RecieveBombDamage(ExplosionDamage);
         }
         Destroy();
     }
@@ -84,17 +83,18 @@ public class EnemyBomb : Enemies, IDamage
         _CurrentLife -= damage;
         if (_CurrentLife <= 0) Explode();
     }
-
+    public void RecieveBombDamage(int BombD)
+    {
+        RecieveDamage(BombD);
+    }
     public override void Destroy()
     {
         base.Destroy();
         GameManager.instance.UnSubscribeBehaviours(this);
         Destroy(this.gameObject);
     }
-
     Vector3 GetDirFromAngle(float Angle)
     { return new Vector3(Mathf.Sin(Angle * Mathf.Deg2Rad), 0, Mathf.Cos(Angle * Mathf.Deg2Rad)); }
-
     public void OnDrawGizmos()
     {
         Gizmos.color = Color.blue;

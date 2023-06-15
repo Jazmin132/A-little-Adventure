@@ -21,17 +21,16 @@ public class PlatformLuninese : Ingredient
     {
         if (collision.collider.GetComponent<PlayerM>() && _HasWon == false)
         {
-            Activate();
             count++;
-            Debug.Log("Collison " + count);
-        }//Debuggea collision 2 veces, se sale del array
+            Activate();
+        }
     }
     public override void Activate()
     {
-        count = Mathf.Min(count, colorchange.Length - 1);//- 1??
+        count = Mathf.Min(count, colorchange.Length - 1);
         _renderer.material = colorchange[count];
-        
-        if (count == 1) _Handler.Check();
+
+        _Handler.Check();
     }
     public void SetPermanentColor(int number)
     {

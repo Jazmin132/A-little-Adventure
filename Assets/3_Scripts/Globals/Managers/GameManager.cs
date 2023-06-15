@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-//using UnityEngine.SceneManagement; Como hago para reiniciar el nivel
+
 public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
