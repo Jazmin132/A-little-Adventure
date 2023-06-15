@@ -1,9 +1,7 @@
 using UnityEngine;
 
-public class BlockHard : Ingredient, IDamage
+public class BlockHard : Ingredient
 {
-    public int life;
-
     public void OnTriggerEnter(Collider other)
     {
         if (other.TryGetComponent(out PlayerM P) && P.OnPowerAttack) CanBeHit = true;
@@ -11,18 +9,10 @@ public class BlockHard : Ingredient, IDamage
     }
     public override void Activate()
     {
-        Destroy();
+        DestroyBlock();
     }
-    public void Destroy()
+    public void DestroyBlock()
     {
         Destroy(this.gameObject);
-    }
-    public void RecieveDamage(int damage) 
-    {
-        life -= damage;
-        if (life <= 0)
-        {
-            Destroy();
-        }
     }
 }

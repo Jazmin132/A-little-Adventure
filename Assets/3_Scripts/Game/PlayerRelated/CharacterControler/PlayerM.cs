@@ -137,9 +137,9 @@ public class PlayerM : MonoBehaviour
         yield return Wait;
         _AttackBox.enabled = false;
         _OnAttack = false;
-        Debug.Log("Cant attack");
+        //Debug.Log("Cant attack");
         yield return Wait;
-        Debug.Log("Can Attack again");
+        //Debug.Log("Can Attack again");
     }
     public void UpImpulse(float ForceUp)
     {
@@ -176,10 +176,7 @@ public class PlayerM : MonoBehaviour
     public void CheckEnviroment()
     {
         if (Physics.Raycast(_RigP.transform.position, Vector3.down, jump.RayJumpDist, _Water))
-        {
-            Debug.Log("AGUA");
             OnWater?.Invoke();
-        }
     }
     public void CheckPoint()
     {

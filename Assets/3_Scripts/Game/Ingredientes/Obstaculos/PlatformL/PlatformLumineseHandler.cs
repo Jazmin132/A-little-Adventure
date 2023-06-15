@@ -1,13 +1,11 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlatformLumineseHandler : MonoBehaviour
 {
     public PlatformLuninese[] Platforms;
-    public System.Action Change;
-    int count = 0;
-    //Como checheo que todas las plataformas estén en el segundo color
+    public System.Action Win = delegate { };
+    int count = 0;                       
+    bool _CanReset;                     
 
     private void Start()
     {
@@ -18,16 +16,17 @@ public class PlatformLumineseHandler : MonoBehaviour
         foreach (var platform in Platforms)
         {
             if (platform.count == 1) count++;
-            //COMO checkeo que todas las plataformas tiene count 1
         }
-        if (count == Platforms.Length) Win();
+        if (count == Platforms.Length) PuzzleWin();
     }
-    private void Win()
+    private void PuzzleWin()
     {
         foreach (var platform in Platforms)
         {
             platform.SetPermanentColor(1);
+            _CanReset = false;
         }
+        Win.Invoke();
     }
     void ResetPlatforms()
     {
@@ -36,9 +35,8 @@ public class PlatformLumineseHandler : MonoBehaviour
             platform.ResetColor();
         }
     }
-
     private void OnTriggerEnter(Collider other)
     {//Ponerselo a un botón
-        if (other.TryGetComponent(out PlayerM P)) ResetPlatforms();
+        if (other.TryGetComponent(out PlayerM P) && _CanReset) ResetPlatforms();
     }
 }

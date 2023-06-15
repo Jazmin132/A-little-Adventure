@@ -55,7 +55,10 @@ public class AirState : IState
         if (_Controller.Jump() && _Player.jump.IsDJumpActive && _IsDoubleJumping == false)
         {
             Debug.Log("Using DoubleJump");
-            _RigP.AddForce(Vector3.up * 2, ForceMode.VelocityChange);
+            var vel = _RigP.velocity;
+            vel.y = 0;
+            _RigP.velocity = vel;
+            _RigP.AddForce(Vector3.up * 5, ForceMode.VelocityChange);
             _IsDoubleJumping = true;
         }
     }

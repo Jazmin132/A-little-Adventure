@@ -19,6 +19,7 @@ public class EnemyBomb : Enemies, IDamage
     Rigidbody _Rig;
     Vector3 _Dir;
     Vector3 _LerpDir;
+    bool _chase;
 
     public override void Start()
     {
@@ -60,17 +61,21 @@ public class EnemyBomb : Enemies, IDamage
     IEnumerator TimeToExplode(int time)
     {
         yield return new WaitForSeconds(time);
+        Debug.Log("CountDown: "+ time);
         Explode();
     }
     
     void Explode()
-    {
+    {//ERROR FATAL EN EL EXPLODE, TRABA EL JUEGO Y TIRA ERRORES SIN SENTIDO
         Collider [] colliders = Physics.OverlapSphere(transform.position, RadiusExplosion);
         for (int i = 0; i < colliders.Length; i++)
         {
-            var P = colliders[i].GetComponent<PlayerM>();
-            var E = colliders[i].GetComponent<IDamage>();
-            if (P != null || E != null) P.life.RecieveHit(ExplosionDamage);
+            if (colliders[i].TryGetComponent(out PlayerM P))
+                P.life.RecieveHit(ExplosionDamage);
+            //else if (colliders[i].TryGetComponent(out IDamage E))
+            //    E.RecieveDamage(ExplosionDamage);
+            //else if (colliders[i].TryGetComponent(out BlockHard B))
+            //    B.DestroyBlock();
         }
         Destroy();
     }

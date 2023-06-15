@@ -1,15 +1,14 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ImpulsePoint : Ingredient
 {
     [Header("Impulse")]
     [SerializeField] float _ImpulseForce;
-    [SerializeField] float _DeActiveTime;
+    [SerializeField] float _NonActiveTime;
     [SerializeField] GameObject _SpherePoint;
-    private SphereCollider _SphereCollider;
-    private PlayerM _Maintarget;
+    SphereCollider _SphereCollider;
+    PlayerM _Maintarget;
 
     public void Start()
     {
@@ -22,7 +21,7 @@ public class ImpulsePoint : Ingredient
 
         _SpherePoint.SetActive(false);
         _SphereCollider.enabled = false;
-        StartCoroutine(NowOn(_DeActiveTime));
+        StartCoroutine(NowOn(_NonActiveTime));
     }
 
     IEnumerator NowOn(float Time)
