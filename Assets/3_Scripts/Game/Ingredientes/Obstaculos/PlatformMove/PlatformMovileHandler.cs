@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class PlatformMovile : MonoBehaviour
+public class PlatformMovileHandler : MonoBehaviour
 {
     [SerializeField] Transform[] _WayPoint;
     [SerializeField] GameObject _Platform;
