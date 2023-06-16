@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HealthRestoreP : PowerUp
@@ -9,5 +7,6 @@ public class HealthRestoreP : PowerUp
     public override void Activate(PlayerM Player)
     {
         Player.life.AddLife(HealthRestore);
+        Destroy(this.gameObject);
     }
 }

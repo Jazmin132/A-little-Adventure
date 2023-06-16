@@ -12,6 +12,7 @@ public class Controler : IController
             _M.life.OnHealthChange += V.RecieveDamage;
             _M.life.OnDeath += V.IsDead;
             _M.OnWater += V.Splash;
+            _M.OnAttack += V.Attack;
         }
     }
     public void ListenKeyFixedUpdate() { }

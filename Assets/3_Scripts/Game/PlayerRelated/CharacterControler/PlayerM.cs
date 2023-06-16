@@ -19,9 +19,9 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
     [SerializeField] int _Damage;
     [SerializeField] float _AttackDuration;
     [SerializeField] float _AttackReload;
-    public bool OnPowerAttack = false;
-    private BoxCollider _AttackBox;
-    private bool _OnAttack = false;
+    public bool IsPowerAttack = false;
+    BoxCollider _AttackBox;
+    bool _IsAttacking = false;
 
     //COMO HAGO en este caso, Rigidbody debería seguir aquí?
     [Header("Normal Movement")]
@@ -61,6 +61,7 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
     Quaternion CheckPointRotation;
 
     public event Action OnWater;
+    public event Action<float, int> OnAttack;
 
     private void Awake()
     {
@@ -127,19 +128,36 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
     public void Attack()
     {
         _AttackBox.enabled = true;
-        _OnAttack = true;
+        _IsAttacking = true;
         StartCoroutine(Recharge(_AttackDuration, _AttackReload));
-    }
 
+        if (!IsPowerAttack)
+            OnAttack.Invoke(_AttackDuration, 0);
+        else
+            OnAttack.Invoke(_AttackDuration, 1);
+    }
     IEnumerator Recharge(float AttackD, float ReloadT)
     {
         var Wait = new WaitForSeconds(AttackD);
-        yield return Wait;
+        yield return new WaitForSeconds(ReloadT);
         _AttackBox.enabled = false;
-        _OnAttack = false;
+        _IsAttacking = false;
         //Debug.Log("Cant attack");
         yield return Wait;
         //Debug.Log("Can Attack again");
+    }
+    public void SuperAttack(float time, int NewDamage)
+    {
+        IsPowerAttack = true;
+        int OldDamage = _Damage;
+        _Damage = NewDamage;
+        StartCoroutine(SuperTornadoActive(time, OldDamage));
+    }
+    IEnumerator SuperTornadoActive(float time, int OldDamage)
+    {
+        yield return new WaitForSeconds(time);
+        IsPowerAttack = false;
+        _Damage = OldDamage;
     }
     public void UpImpulse(float ForceUp)
     {
@@ -204,14 +222,14 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
     {
         var I = other.GetComponent<Ingredient>();
         if (other.TryGetComponent(out IDamage D)) D.RecieveDamage(_Damage);
-        else if (I != null && _OnAttack && I.CanBeHit) I.Activate();
+        else if (I != null && _IsAttacking && I.CanBeHit) I.Activate();
     }
-
     public void DoubleJump(float time)
     {
         jump.IsDJumpActive = true;
-        Debug.Log("Is JumpActive = " + jump.IsDJumpActive);
-        StartCoroutine(ForHowLong(time));
+        if (jump.IsDJumpActive)
+            StartCoroutine(ForHowLong(time));
+        //Debug.Log("Is JumpActive = " + jump.IsDJumpActive);
     }
     IEnumerator ForHowLong(float time)
     {
@@ -219,7 +237,6 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         jump.IsDJumpActive = false;
         Debug.Log("DeActivate DoubleJump");
     }
-
     private void OnDrawGizmos()
     {
         Vector3 X = new Vector3(0f, -jump.RayJumpDist, 0f);

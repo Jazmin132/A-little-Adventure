@@ -9,7 +9,7 @@ public abstract class PowerUp : MonoBehaviour
         if (other.TryGetComponent(out PlayerM P))
         {
             Activate(P);
-            Debug.Log("PlayerDetected");
+            //Debug.Log("PlayerDetected");
         }
     }
 
