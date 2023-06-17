@@ -4,7 +4,7 @@ public class PlatformLumineseHandler : MonoBehaviour
 {
     public PlatformLuninese[] Platforms;
     public System.Action Win = delegate { };               
-    bool _CanReset;                     
+    public bool CanReset;                     
 
     private void Start()
     {
@@ -20,7 +20,7 @@ public class PlatformLumineseHandler : MonoBehaviour
                 active = false;
                 if (platform.count >= 2)
                 {//Si alguna plataforma se pasó de largo
-                    _CanReset = true;
+                    CanReset = true;
                 }   
             }
         }
@@ -33,18 +33,18 @@ public class PlatformLumineseHandler : MonoBehaviour
         {
             platform.SetPermanentColor(1);
         }
-        _CanReset = false;
+        CanReset = false;
         Win.Invoke();
     }
-    void ResetPlatforms()
+    public void ResetPlatforms()
     {
         foreach (var platform in Platforms)
         {
             platform.ResetColor();
         }
     }
-    private void OnTriggerEnter(Collider other)
-    {//Ponerselo a un botón
-        if (other.GetComponent<PlayerM>() != null && _CanReset) ResetPlatforms();
-    }
+    //private void OnTriggerEnter(Collider other)
+    //{//Ponerselo a un botón
+    //    if (other.GetComponent<PlayerM>() != null && _CanReset) ResetPlatforms();
+    //}
 }

@@ -174,13 +174,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9f41031a1e6d40c4d897cd7df07d075a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _MaxLife: 5
+  _MaxLife: 2
   _CurrentLife: 0
   _Attack: 1
   _Speed: 0
   _Recompenzas: {fileID: 3662441117973748737, guid: a96e842e5f2a5e44393198db6ee1dbd9, type: 3}
-  _Angle: 140
-  _ViewRadius: 10
+  _Angle: 150
+  _ViewRadius: 12
   _SpeedRot: 1
   _ReloadTime: 1.5
   _DamageParticle: {fileID: 1510199536831912526}

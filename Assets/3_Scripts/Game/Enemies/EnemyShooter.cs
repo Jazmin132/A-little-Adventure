@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyShooter : Enemies
+public class EnemyShooter : Enemies, IDamage
 {
     [Header("View Variables")]
     [SerializeField] float _Angle;
@@ -66,6 +66,7 @@ public class EnemyShooter : Enemies
     public override void Destroy()
     {
         GameManager.instance.UnSubscribeBehaviours(this);
+        Destroy(this.gameObject);
     }
 
     Vector3 GetDirFromAngle(float Angle)
