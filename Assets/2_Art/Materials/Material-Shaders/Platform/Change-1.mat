@@ -7,7 +7,7 @@ Material:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Color_Change
+  m_Name: Change-1
   m_Shader: {fileID: -6465566751694194690, guid: 31fbe8e2ae883a44f9d1a96a97126b57, type: 3}
   m_ValidKeywords: []
   m_InvalidKeywords: []
@@ -33,9 +33,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Ints: []
-    m_Floats:
-    - Vector1_fb89bb47a05048d9800c3da6008d132f: 0
+    m_Floats: []
     m_Colors:
-    - Color_bebe493591db4a2fbb2555c0eba74c8a: {r: 0.8490566, g: 0.7700747, b: 0.04405483, a: 0}
+    - Color_bebe493591db4a2fbb2555c0eba74c8a: {r: 0.8867924, g: 0.1756514, b: 0.1296725, a: 0}
+    - Color_fa1ba072e246465094987c20d54f8f29: {r: 0.2223398, g: 0.8392157, b: 0.1137255, a: 0}
+    - Color_fa2c4e3144dc41d39ee4389e7b4dd29f: {r: 1, g: 0.9369166, b: 0.2688679, a: 0}
     - Vector3_1704f55a4e7440c9bf213e6654bb0892: {r: 0, g: 0, b: 0, a: 0}
   m_BuildTextureStacks: []
