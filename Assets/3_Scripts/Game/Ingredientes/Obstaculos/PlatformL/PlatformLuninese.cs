@@ -4,11 +4,9 @@ using UnityEngine;
 
 public class PlatformLuninese : Ingredient
 {
-    //public Material[] colorchange;
+    public Material[] colorchange;
     public int count = 0;
-    Renderer _RenderMat;
-    public GameObject M;
-    //Renderer _renderer;
+    Renderer _renderer;
     PlatformLumineseHandler _Handler;
     bool _HasWon = false;
 
@@ -16,10 +14,8 @@ public class PlatformLuninese : Ingredient
     {
         GameManager.instance.SubscribeBehaviours(this);
         _Handler = GetComponentInParent<PlatformLumineseHandler>();
-        //_renderer = GetComponentInParent<Renderer>();
-
-        _RenderMat = M.GetComponent<Renderer>();
-        _RenderMat.material.SetFloat("Vector1_f4e6155ccc7242fd891606cc4eea181c", 0);
+        _renderer = GetComponentInParent<Renderer>();
+        _renderer.material = colorchange[0];
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -31,19 +27,20 @@ public class PlatformLuninese : Ingredient
     }
     public override void Activate()
     {
-        count = Mathf.Min(count, 2);//colorchange.Length - 1
-        _RenderMat.material.SetFloat("Vector1_f4e6155ccc7242fd891606cc4eea181c", count);
+        count = Mathf.Min(count, colorchange.Length - 1);
+        _renderer.material = colorchange[count];
+
         _Handler.Check();
     }
     public void SetPermanentColor(int number)
     {
         _HasWon = true;
-        _RenderMat.material.SetFloat("Vector1_f4e6155ccc7242fd891606cc4eea181c", number);
+        _renderer.material = colorchange[number];
     }
     public void ResetColor()
     {
         count = 0;
-        _RenderMat.material.SetFloat("Vector1_f4e6155ccc7242fd891606cc4eea181c", count);
+        _renderer.material = colorchange[count];
     }
     
 }
