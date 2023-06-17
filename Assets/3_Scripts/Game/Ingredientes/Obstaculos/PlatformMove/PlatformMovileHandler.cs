@@ -8,10 +8,6 @@ public class PlatformMovileHandler : MonoBehaviour
     int _count = 0;
     Vector3 _Dir;
 
-    private void Start()
-    {
-        Debug.Log(_WayPoint.Length + " Length");
-    }
     public void FixedUpdate()
     {
         _Dir = _WayPoint[_count].position - _Platform.transform.position;

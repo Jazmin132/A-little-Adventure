@@ -73,10 +73,11 @@ public class GlideState : IState
         if (_RigP.velocity.y < 0)
         {
             _direction = (_Player.transform.right * _GlidingSign) * _Controller.Horizontal() * _SpeedH;
-            _direction += _Player.transform.forward * (_CurrentSpeed + 3);
+            _direction += _Player.transform.forward * (_CurrentSpeed);
 
             _RigP.velocity = new Vector3(0, -_DescendSpeed, 0);
             if (_Player.WallDetecter(_direction)) return;
+            //if (_direction.sqrMagnitude > 1) _direction.Normalize();
 
             Quaternion Rotation = Quaternion.LookRotation(_direction.normalized, Vector3.up);
             _Player.transform.rotation = Quaternion.RotateTowards(_Player.transform.rotation, Rotation, Time.fixedDeltaTime * 500);

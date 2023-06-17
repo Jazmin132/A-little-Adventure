@@ -10,11 +10,6 @@ public class View : MonoBehaviour
     [SerializeField] GameObject[] _Attacks;
     [SerializeField] Transform LifeContainer;
     Image[] hearthIcons;
-    //[Header ("Camera Variables")]
-    //[SerializeField] float ShakeIntensity;
-    //[SerializeField] float ShakeTime;
-
-    //[SerializeField] Camara CamaraScript;
 
     private void Awake()
     {
