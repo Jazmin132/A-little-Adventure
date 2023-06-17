@@ -8,6 +8,10 @@ public class PlatformMovileHandler : MonoBehaviour
     int _count = 0;
     Vector3 _Dir;
 
+    private void Start()
+    {
+        GameManager.instance.SubscribeBehaviours(this);
+    }
     public void FixedUpdate()
     {
         _Dir = _WayPoint[_count].position - _Platform.transform.position;

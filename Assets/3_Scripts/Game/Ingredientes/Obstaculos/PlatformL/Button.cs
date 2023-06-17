@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Button : MonoBehaviour
@@ -8,6 +6,7 @@ public class Button : MonoBehaviour
 
     void Start()
     {
+        GameManager.instance.SubscribeBehaviours(this);
         _Handler = GetComponentInParent<PlatformLumineseHandler>();
     }
 

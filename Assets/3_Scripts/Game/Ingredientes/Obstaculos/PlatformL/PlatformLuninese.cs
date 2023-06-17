@@ -12,9 +12,9 @@ public class PlatformLuninese : Ingredient
 
     private void Start()
     {
+        GameManager.instance.SubscribeBehaviours(this);
         _Handler = GetComponentInParent<PlatformLumineseHandler>();
         _renderer = GetComponentInParent<Renderer>();
-
         _renderer.material = colorchange[0];
     }
     private void OnCollisionEnter(Collision collision)

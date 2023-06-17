@@ -9,6 +9,7 @@ public class PlatformLumineseHandler : MonoBehaviour
     private void Start()
     {
         Platforms = GetComponentsInChildren<PlatformLuninese>();
+        GameManager.instance.SubscribeBehaviours(this);
     }
     public void Check()
     {
