@@ -48,7 +48,6 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
     public Glide glide;
 
     [Header("Shoot")]
-    [SerializeField] GameObject _BulletPrefab;
     [SerializeField] Transform _firePoint;
 
     [SerializeField] float _MaxDistAir;
@@ -169,22 +168,22 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
     public void Shoot()
     {
         RaycastHit hit;
-        var _bulletObject = BulletFactory._instance.pool.GetObject();
-        _bulletObject.transform.position = _firePoint.position;
+        var _bulletObjectP = BulletFactory._instance.pool.GetObject();
+        _bulletObjectP.transform.position = _firePoint.position;
     
         if (Physics.Raycast(_MainCamera.position, _MainCamera.forward, out hit, Mathf.Infinity))
         {
             
-            _bulletObject.transform.forward = _MainCamera.forward;
-            _bulletObject.target = hit.point;
+            _bulletObjectP.transform.forward = _MainCamera.forward;
+            _bulletObjectP.target = hit.point;
 
-            _bulletObject.hit = true;
+            _bulletObjectP.hit = true;
         }
         else
         {
-            _bulletObject.transform.forward = _MainCamera.forward;
-            _bulletObject.target = _MainCamera.position + _MainCamera.forward * _MaxDistAir;
-            _bulletObject.hit = true;
+            _bulletObjectP.transform.forward = _MainCamera.forward;
+            _bulletObjectP.target = _MainCamera.position + _MainCamera.forward * _MaxDistAir;
+            _bulletObjectP.hit = true;
         }
         Vector3 camForward = _MainCamera.forward;
         camForward.y = 0;

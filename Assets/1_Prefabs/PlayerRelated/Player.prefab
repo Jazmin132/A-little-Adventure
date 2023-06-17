@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1798929347511054741}
   m_Layer: 0
-  m_Name: FirePoint
+  m_Name: BulletFirePoint
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -355,7 +355,6 @@ MonoBehaviour:
   glide:
     DescendSpeed: 5.5
     SpeedHorizontal: 1
-  _BulletPrefab: {fileID: 5669330735535927515, guid: 72572ef7dcdd36241b20edf5d828137d, type: 3}
   _firePoint: {fileID: 1798929347511054741}
   _MaxDistAir: 50
 --- !u!114 &4905413815145528365
@@ -376,8 +375,6 @@ MonoBehaviour:
   - {fileID: 2613939131897031442}
   - {fileID: 2613939131897031442}
   LifeContainer: {fileID: 0}
-  ShakeIntensity: 1
-  ShakeTime: 1
 --- !u!1 &5383200500447061931
 GameObject:
   m_ObjectHideFlags: 0
