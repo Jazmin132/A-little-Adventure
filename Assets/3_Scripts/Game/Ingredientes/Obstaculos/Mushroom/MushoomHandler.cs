@@ -7,14 +7,6 @@ public class MushoomHandler : MonoBehaviour
     [SerializeField] float TimeBeforeReset;
     int count = 0;
 
-    private void Start()
-    {
-        for (int i = 0; i < _Mushrooms.Length; i++)
-        {
-            if (i != 0)
-                _Mushrooms[i].gameObject.SetActive(false);
-        }
-    }
     public void ActivateNextMushroom()
     {
         if (_Mushrooms[count].PlayerDetected)
@@ -23,7 +15,14 @@ public class MushoomHandler : MonoBehaviour
             _Mushrooms[count].PlayerDetected = false;
 
             if (count == 0)
+            {
                 StartCoroutine(HowLongActive(TimeBeforeReset));
+                for (int i = 0; i < _Mushrooms.Length; i++)
+                {
+                    if (i != 0)
+                        _Mushrooms[i].gameObject.SetActive(false);
+                }
+            }
 
             count++;
             if (count >= _Mushrooms.Length)

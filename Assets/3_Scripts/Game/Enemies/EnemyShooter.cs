@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyShooter : Enemies, IDamage
+public class EnemyShooter : Enemies, IDamage, IDamageableBomb
 {
     [Header("View Variables")]
     [SerializeField] float _Angle;
@@ -62,6 +62,11 @@ public class EnemyShooter : Enemies, IDamage
 
         if (_CurrentLife <= 0)
             Destroy();
+    }
+
+    public void RecieveBombDamage(int BombD)
+    {
+        RecieveDamage(BombD);
     }
     public override void Destroy()
     {

@@ -6,6 +6,7 @@ public class PlatformLuninese : Ingredient
 {
     public Material[] colorchange;
     public int count = 0;
+    public GameObject Model;
     Renderer _renderer;
     PlatformLumineseHandler _Handler;
     bool _HasWon = false;
@@ -14,7 +15,7 @@ public class PlatformLuninese : Ingredient
     {
         GameManager.instance.SubscribeBehaviours(this);
         _Handler = GetComponentInParent<PlatformLumineseHandler>();
-        _renderer = GetComponentInParent<Renderer>();
+        _renderer = Model.GetComponentInParent<Renderer>();
         _renderer.material = colorchange[0];
     }
     private void OnCollisionEnter(Collision collision)
