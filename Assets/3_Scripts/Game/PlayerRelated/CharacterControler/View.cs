@@ -28,7 +28,6 @@ public class View : MonoBehaviour
     }
     public void Attack(float Time, int Num)
     {
-        //_Attacks[1].SetActive(true);
         StartCoroutine(AttackActiveT(Time, Num));
     }
     public IEnumerator AttackActiveT(float Time, int setD)
@@ -42,7 +41,7 @@ public class View : MonoBehaviour
                 currentI = setD;
             }
             else
-                _Attacks[setD].SetActive(false);
+                _Attacks[i].SetActive(false);
         }
         yield return new WaitForSeconds(Time);
         _Attacks[currentI].SetActive(false);
