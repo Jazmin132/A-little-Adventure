@@ -19843,7 +19843,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 799701155}
-  m_LocalRotation: {x: 0.11177945, y: 0.00000001709855, z: -0.0000000019233204, w: 0.99373305}
+  m_LocalRotation: {x: 0.11177945, y: -0.000000017098547, z: 0.00000000192332, w: 0.99373305}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -22246,14 +22246,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Version: 1
   m_UsePipelineSettings: 1
-  m_AdditionalLightsShadowResolutionTier: 2
-  m_LightLayerMask: 1
-  m_CustomShadowLayers: 0
-  m_ShadowLayerMask: 1
-  m_LightCookieSize: {x: 1, y: 1}
-  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!43 &866751761
 Mesh:
   m_ObjectHideFlags: 0
@@ -30836,7 +30829,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
@@ -34955,6 +34947,14 @@ PrefabInstance:
       propertyPath: loadLevels.Array.data[1]
       value: Terrain
       objectReference: {fileID: 0}
+    - target: {fileID: 2065603711387903469, guid: 30b17a7da6a54ee42b25fd2c9dc748e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2065603711387903469, guid: 30b17a7da6a54ee42b25fd2c9dc748e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: GotoMenu
+      objectReference: {fileID: 0}
     - target: {fileID: 3256668502373168097, guid: 30b17a7da6a54ee42b25fd2c9dc748e3, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -35036,6 +35036,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 3256668503857365295, guid: 30b17a7da6a54ee42b25fd2c9dc748e3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5201405490278683261, guid: 30b17a7da6a54ee42b25fd2c9dc748e3, type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}

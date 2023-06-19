@@ -22215,14 +22215,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Version: 1
   m_UsePipelineSettings: 1
-  m_AdditionalLightsShadowResolutionTier: 2
-  m_LightLayerMask: 1
-  m_CustomShadowLayers: 0
-  m_ShadowLayerMask: 1
-  m_LightCookieSize: {x: 1, y: 1}
-  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!43 &866751761
 Mesh:
   m_ObjectHideFlags: 0
@@ -30912,7 +30905,6 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
-  m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
@@ -35131,21 +35123,9 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1192025022201627708, guid: 30b17a7da6a54ee42b25fd2c9dc748e3, type: 3}
-      propertyPath: loadLevels.Array.size
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1192025022201627708, guid: 30b17a7da6a54ee42b25fd2c9dc748e3, type: 3}
-      propertyPath: loadLevels.Array.data[0]
-      value: New1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1192025022201627708, guid: 30b17a7da6a54ee42b25fd2c9dc748e3, type: 3}
-      propertyPath: loadLevels.Array.data[1]
-      value: Terrain
-      objectReference: {fileID: 0}
-    - target: {fileID: 3256668502373168097, guid: 30b17a7da6a54ee42b25fd2c9dc748e3, type: 3}
-      propertyPath: m_IsActive
-      value: 0
+    - target: {fileID: 2065603711387903469, guid: 30b17a7da6a54ee42b25fd2c9dc748e3, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: Nivel_2
       objectReference: {fileID: 0}
     - target: {fileID: 3256668502905131986, guid: 30b17a7da6a54ee42b25fd2c9dc748e3, type: 3}
       propertyPath: m_RootOrder
@@ -35195,45 +35175,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: ManagerWinLose
       objectReference: {fileID: 0}
-    - target: {fileID: 3256668502905131989, guid: 30b17a7da6a54ee42b25fd2c9dc748e3, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3256668503087354919, guid: 30b17a7da6a54ee42b25fd2c9dc748e3, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3256668503224601000, guid: 30b17a7da6a54ee42b25fd2c9dc748e3, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3256668503303626065, guid: 30b17a7da6a54ee42b25fd2c9dc748e3, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3256668503479425853, guid: 30b17a7da6a54ee42b25fd2c9dc748e3, type: 3}
-      propertyPath: _Lose
-      value: 
-      objectReference: {fileID: 1553333194}
     - target: {fileID: 3256668503479425855, guid: 30b17a7da6a54ee42b25fd2c9dc748e3, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 3256668503539189780, guid: 30b17a7da6a54ee42b25fd2c9dc748e3, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 3256668503857365295, guid: 30b17a7da6a54ee42b25fd2c9dc748e3, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 30b17a7da6a54ee42b25fd2c9dc748e3, type: 3}
---- !u!1 &1553333194 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3256668503479425855, guid: 30b17a7da6a54ee42b25fd2c9dc748e3, type: 3}
-  m_PrefabInstance: {fileID: 1553333193}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1564786738 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3662441117973748738, guid: a96e842e5f2a5e44393198db6ee1dbd9, type: 3}
