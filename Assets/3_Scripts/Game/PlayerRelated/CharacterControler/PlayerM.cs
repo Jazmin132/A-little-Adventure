@@ -126,14 +126,12 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
     }
     public void Attack()
     {
+        if (IsPowerAttack) return;
+  
         _AttackBox.enabled = true;
         _IsAttacking = true;
         StartCoroutine(Recharge(_AttackDuration, _AttackReload));
-
-        if (!IsPowerAttack)
-            OnAttack.Invoke(_AttackDuration, 0);
-        else
-            OnAttack.Invoke(_AttackDuration, 1);
+        OnAttack.Invoke(_AttackDuration, 0);
     }
     IEnumerator Recharge(float AttackD, float ReloadT)
     {
@@ -150,11 +148,16 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         IsPowerAttack = true;
         int OldDamage = _Damage;
         _Damage = NewDamage;
+
+        OnAttack.Invoke(time, 1);
         StartCoroutine(SuperTornadoActive(time, OldDamage));
     }
     IEnumerator SuperTornadoActive(float time, int OldDamage)
     {
+        _AttackBox.enabled = true;
+        _IsAttacking = true;
         yield return new WaitForSeconds(time);
+        _AttackBox.enabled = false;
         IsPowerAttack = false;
         _Damage = OldDamage;
     }
