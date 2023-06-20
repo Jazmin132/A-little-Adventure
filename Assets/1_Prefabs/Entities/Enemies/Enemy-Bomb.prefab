@@ -56,7 +56,7 @@ MonoBehaviour:
   _Recompenzas: {fileID: 3662441117973748737, guid: a96e842e5f2a5e44393198db6ee1dbd9, type: 3}
   _BombCollider: {fileID: 2788284964073603128}
   _VisibleRadious: {fileID: 8017567010180128573}
-  TimeBeforeExplosion: 3
+  TimeBeforeExplosion: 5
   ExplosionDamage: 3
   RadiusExplosion: 6.14
   _ViewRadius: 8
@@ -200,7 +200,7 @@ GameObject:
   - component: {fileID: 7166244392788390570}
   - component: {fileID: 1865627634035561983}
   - component: {fileID: 2788284964073603128}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}

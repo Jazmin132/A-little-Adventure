@@ -23,4 +23,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/0_Scenes/InGame/Nivel 2/Terrain_2.unity
     guid: b8642aa0884209a44807c3b633010d78
+  - enabled: 1
+    path: Assets/0_Scenes/InGame/Nivel 3/Nivel_3.unity
+    guid: 757f7b5fe69f4fb499ef805ceb23fe15
+  - enabled: 1
+    path: Assets/0_Scenes/InGame/Nivel 3/Terrain_3.unity
+    guid: cbc97ffa3da640a498f57ddb51de919d
   m_configObjects: {}
