@@ -14650,6 +14650,10 @@ PrefabInstance:
       propertyPath: _CanvasLose
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 4739500314112095638, guid: 24a15629d38a3f741aaafcf9e22ca683, type: 3}
+      propertyPath: canvasManager
+      value: 
+      objectReference: {fileID: 1553333195}
     - target: {fileID: 4739500314610883951, guid: 24a15629d38a3f741aaafcf9e22ca683, type: 3}
       propertyPath: _target
       value: 
@@ -19881,7 +19885,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 799701155}
-  m_LocalRotation: {x: 0.11177944, y: 0.000000017098548, z: -0.0000000019233197, w: 0.99373305}
+  m_LocalRotation: {x: 0.11177944, y: -0.000000017098548, z: 0.0000000019233197, w: 0.99373305}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -35198,6 +35202,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ed8fdc7b8fd0b884188c700b95ca6839, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1553333195 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8159069420596456300, guid: 30b17a7da6a54ee42b25fd2c9dc748e3, type: 3}
+  m_PrefabInstance: {fileID: 1553333193}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43fa0199be95dcc499efe0c09504545c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &1564786738 stripped
