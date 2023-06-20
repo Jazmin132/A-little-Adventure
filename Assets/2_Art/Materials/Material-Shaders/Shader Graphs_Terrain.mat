@@ -44,6 +44,7 @@ Material:
     m_Floats:
     - Vector1_56615c960d984fdcbfc94738defa9762: 5
     - Vector1_6a9325d6c2064c80b932863f329c93b4: 0.5
+    - Vector1_81abfd50bce64abdbc2293412d8014eb: 0.5
     - Vector1_cca3e3aa11e84aeb863e1c67c38ac596: 20
     - _QueueControl: 0
     - _QueueOffset: 0
