@@ -81,7 +81,7 @@ public class EnemyBomb : Enemies, IDamage, IDamageableBomb
     public void RecieveDamage(int damage)
     {
         _CurrentLife -= damage;
-        if (_CurrentLife <= 0) Explode();
+        if (_CurrentLife <= 0) Destroy();
     }
     public void RecieveBombDamage(int BombD)
     {
