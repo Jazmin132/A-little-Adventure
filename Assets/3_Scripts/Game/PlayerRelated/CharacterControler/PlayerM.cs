@@ -116,8 +116,8 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
 
     public bool WallDetecter(Vector3 dir)
     {
-        var Down = Physics.Raycast(_RigP.transform.position + _UpDist, dir, _RayForwardDist, _Wall);
-        var Up = Physics.Raycast(_RigP.transform.position - _DownDist, dir, _RayForwardDist, _Wall);
+        var Down = Physics.Raycast(_RigP.transform.position + _UpDist, dir, _RayForwardDist);
+        var Up = Physics.Raycast(_RigP.transform.position - _DownDist, dir, _RayForwardDist);
         //HACER QUE SUBA LA ESCALERA, POR AHORA SE QUEDA ASÍ
         if (Down && Up) Ray = true;
         else Ray = false;
@@ -242,13 +242,13 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
     private void OnDrawGizmos()
     {
         Vector3 X = new Vector3(0f, -jump.RayJumpDist, 0f);
+        Vector3 Y = new Vector3(transform.forward.x, 0f, transform.forward.z);
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, transform.position + X);
-       
+
         Gizmos.color = Color.red;
         Gizmos.DrawLine(transform.position + _UpDist, transform.position + _UpDist + _direction * _RayForwardDist);
-        Gizmos.DrawLine(transform.position - _DownDist, transform.position - _DownDist + _direction * _RayForwardDist);
-        Gizmos.DrawLine(transform.position - _DownDist + (_direction * _RayForwardDist), transform.position + _UpDist + (_direction * _RayForwardDist));
+        Gizmos.DrawLine(transform.position, transform.position - _DownDist );
     }
 
     public PlayerHealth GetHealth()
