@@ -123,22 +123,22 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 0.2
+  m_Time: 0.25
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.5073618
+    widthMultiplier: 0.3
     widthCurve:
       serializedVersion: 2
       m_Curve:
       - serializedVersion: 3
         time: 0
-        value: 1
-        inSlope: -0.8653234
-        outSlope: -0.8653234
+        value: 0.83561707
+        inSlope: 0.14699458
+        outSlope: 0.14699458
         tangentMode: 0
         weightedMode: 0
         inWeight: 0
-        outWeight: 0.226601
+        outWeight: 0.28094712
       - serializedVersion: 3
         time: 0.99509794
         value: 0
@@ -284,6 +284,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 48d1d4691e8bbfc4d9d70508f1edc4b2, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.1645
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 48d1d4691e8bbfc4d9d70508f1edc4b2, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.0000000036879
       objectReference: {fileID: 0}
@@ -297,7 +301,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 48d1d4691e8bbfc4d9d70508f1edc4b2, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 48d1d4691e8bbfc4d9d70508f1edc4b2, type: 3}
       propertyPath: m_LocalRotation.x
@@ -305,7 +309,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 48d1d4691e8bbfc4d9d70508f1edc4b2, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 48d1d4691e8bbfc4d9d70508f1edc4b2, type: 3}
       propertyPath: m_LocalRotation.z
@@ -317,7 +321,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 48d1d4691e8bbfc4d9d70508f1edc4b2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 180
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 48d1d4691e8bbfc4d9d70508f1edc4b2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
