@@ -176,7 +176,7 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
     
         if (Physics.Raycast(_MainCamera.position, _MainCamera.forward, out hit, Mathf.Infinity))
         {
-            
+
             _bulletObjectP.transform.forward = _MainCamera.forward;
             _bulletObjectP.target = hit.point;
 
