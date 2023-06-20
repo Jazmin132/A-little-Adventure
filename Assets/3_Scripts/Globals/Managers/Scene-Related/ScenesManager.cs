@@ -17,7 +17,7 @@ public class ScenesManager : MonoBehaviour
     {//Le pasamos el nombre del nivel siguiente a ManagerLoading
         ManagerLoading.instance.NextLevel = LevelName;
         SceneManager.LoadScene("LoadingScene");
-        GameManager.instance.Play();
+        //GameManager.instance.Play();
     }
 
     public void ResetScene(string ThisLevelName)

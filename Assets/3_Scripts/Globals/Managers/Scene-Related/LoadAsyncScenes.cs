@@ -10,6 +10,7 @@ public class LoadAsyncScenes : MonoBehaviour
     void Start()
     {
         StartCoroutine(LoadYourAsyncScene());
+        GameManager.instance.Play();
     }
 
     IEnumerator LoadYourAsyncScene()
