@@ -77,9 +77,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 038d5003bc965a1458a950456eed5692, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _Speed: 8
+  _Speed: 15
   _Damage: 1
-  _maxDistance: 10
+  _maxDistance: 15
 --- !u!96 &8441947162210357720
 TrailRenderer:
   serializedVersion: 2
@@ -139,8 +139,8 @@ TrailRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 1
-        value: 0.023255825
+        time: 0.50891113
+        value: 0
         inSlope: -1.3050469
         outSlope: -1.3050469
         tangentMode: 0
