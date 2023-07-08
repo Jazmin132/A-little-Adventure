@@ -7,11 +7,13 @@ public class PlayerJump
     Rigidbody _Rig;
     float _RayJumpDist;
     float _ForceJ;
+    float _ForceJOriginal;
 
     public PlayerJump SetJump(float MaxJumpDist, float ForceJ)
     {
         _RayJumpDist = MaxJumpDist;
         _ForceJ = ForceJ;
+        _ForceJOriginal = ForceJ;
         return this;
     }
     public PlayerJump SetRigidbody(Rigidbody Rig)
@@ -23,12 +25,13 @@ public class PlayerJump
     {
         _Rig.AddForce(Vector3.up * _ForceJ, ForceMode.VelocityChange);
     }
-    public void Doublejump(float ForceDoubleJ)
+    public void Superjump(float ForceSuperJ)
     {
-        var vel = _Rig.velocity;
-        vel.y = 0;
-        _Rig.velocity = vel;
-        _Rig.AddForce(Vector3.up * ForceDoubleJ, ForceMode.VelocityChange);
+        _ForceJ += ForceSuperJ;
+    }
+    public void Resetjump()
+    {
+        _ForceJ = _ForceJOriginal;
     }
     public bool IsGrounded()
     {

@@ -47,17 +47,10 @@ public class AirState : IState
     public void OnEnter()
     {
         _PlayerCol.material = _Player.PhysicsM[1];
-        _IsDoubleJumping = false;
         Debug.Log("ENTER AIR");
     }
     public void OnUpdate()
     {
-        if (_Controller.Jump() && _Player.jump.IsDJumpActive && _IsDoubleJumping == false)
-        {
-            _Player._playerJump.Doublejump(10);
-            Debug.Log("Using DoubleJump");
-            _IsDoubleJumping = true;
-        }
     }
     public void OnFixedUpdate()
     {

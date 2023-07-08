@@ -116,8 +116,8 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
 
     public bool WallDetecter(Vector3 dir)
     {
-        var Down = Physics.Raycast(_RigP.transform.position + _UpDist, dir, _RayForwardDist);
-        var Up = Physics.Raycast(_RigP.transform.position - _DownDist, dir, _RayForwardDist);
+        var Down = Physics.Raycast(_RigP.transform.position + _UpDist, dir, _RayForwardDist, _Wall);
+        var Up = Physics.Raycast(_RigP.transform.position - _DownDist, dir, _RayForwardDist, _Wall);
         //HACER QUE SUBA LA ESCALERA, POR AHORA SE QUEDA ASÍ
         if (Down && Up) Ray = true;
         else Ray = false;
@@ -207,12 +207,22 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         CheckPointRotation = transform.rotation;
         life.ResetLife();
     }
-
     public void ActivateCheckPoint()
     {
         _RigP.velocity = Vector3.zero;
         transform.position = CheckPointPosition;
         transform.rotation = CheckPointRotation;
+    }
+    public void DoubleJump(float time, float NewForce)
+    {
+        _playerJump.Superjump(NewForce);
+        StartCoroutine(ForHowLong(time));
+    }
+    IEnumerator ForHowLong(float time)
+    {
+        yield return new WaitForSeconds(time);
+        _playerJump.Resetjump();
+        Debug.Log("DeActivate DoubleJump");
     }
 
     private void GravityModifier()
@@ -226,34 +236,17 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         if (other.TryGetComponent(out IDamage D)) D.RecieveDamage(_Damage);
         else if (I != null && _IsAttacking && I.CanBeHit) I.Activate();
     }
-    public void DoubleJump(float time)
-    {
-        jump.IsDJumpActive = true;
-        if (jump.IsDJumpActive)
-            StartCoroutine(ForHowLong(time));
-        //Debug.Log("Is JumpActive = " + jump.IsDJumpActive);
-    }
-    IEnumerator ForHowLong(float time)
-    {
-        yield return new WaitForSeconds(time);
-        jump.IsDJumpActive = false;
-        Debug.Log("DeActivate DoubleJump");
-    }
     private void OnDrawGizmos()
     {
         Vector3 X = new Vector3(0f, -jump.RayJumpDist, 0f);
-        Vector3 Y = new Vector3(transform.forward.x, 0f, transform.forward.z);
         Gizmos.color = Color.green;
         Gizmos.DrawLine(transform.position, transform.position + X);
 
+        
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position + _UpDist, transform.position + _UpDist + _direction * _RayForwardDist);
-        Gizmos.DrawLine(transform.position, transform.position - _DownDist );
-    }
+        Gizmos.DrawLine(transform.position + _UpDist, (transform.position + _UpDist) + (transform.forward *_RayForwardDist));
+        Gizmos.DrawLine(transform.position - _DownDist, (transform.position - _DownDist) + (transform.forward * _RayForwardDist));
 
-    public PlayerHealth GetHealth()
-    {
-        return life;
     }
 }
 
