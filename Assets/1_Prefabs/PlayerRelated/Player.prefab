@@ -302,7 +302,7 @@ MonoBehaviour:
   _AttackReload: 0.5
   IsPowerAttack: 0
   _PlayerSpeed: 14
-  _RayForwardDist: 0.72
+  _RayForwardDist: 0.51
   _RayUpDist: 0.85
   _RayDownDist: 0.5
   _Wall:
