@@ -93,8 +93,8 @@ GameObject:
   m_Component:
   - component: {fileID: 5407625845180391434}
   - component: {fileID: 5407625845180391435}
-  - component: {fileID: 5407625845180391432}
   - component: {fileID: 5870944956903981174}
+  - component: {fileID: 424972731079758172}
   m_Layer: 0
   m_Name: VitalPiece
   m_TagString: Untagged
@@ -131,18 +131,6 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.6076873, y: 0.9404132, z: 0.6027212}
   m_Center: {x: 0.091871805, y: 0.45687413, z: -0.03476258}
---- !u!114 &5407625845180391432
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5407625845180391437}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 68fa39664f78fd1479a3d15e8918d8e2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!95 &5870944956903981174
 Animator:
   serializedVersion: 4
@@ -163,6 +151,18 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &424972731079758172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5407625845180391437}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68fa39664f78fd1479a3d15e8918d8e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5564104803727104641
 GameObject:
   m_ObjectHideFlags: 0
@@ -172,7 +172,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8408437175948414873}
-  - component: {fileID: 4359876723978684164}
   m_Layer: 0
   m_Name: Decal Projector
   m_TagString: Untagged
@@ -195,29 +194,6 @@ Transform:
   m_Father: {fileID: 290601534047518153}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 90}
---- !u!114 &4359876723978684164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5564104803727104641}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0777d029ed3dffa4692f417d4aba19ca, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 2100000, guid: 19db47f7833b7e348a1543bd0e1fbf13, type: 2}
-  m_DrawDistance: 1000
-  m_FadeScale: 0.9
-  m_StartAngleFade: 180
-  m_EndAngleFade: 180
-  m_UVScale: {x: 1, y: 1}
-  m_UVBias: {x: 0, y: 0}
-  m_ScaleMode: 0
-  m_Offset: {x: 0, y: 0, z: 0.04}
-  m_Size: {x: 0.5, y: 0.5, z: 0.08}
-  m_FadeFactor: 1
 --- !u!1 &6396912185160995056
 GameObject:
   m_ObjectHideFlags: 0

@@ -46,6 +46,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db4d650f9dd3d534d98b1de02b139ee5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  handler: {fileID: 2349113485858697486}
 --- !u!65 &2349113484024976490
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -171,7 +172,7 @@ MonoBehaviour:
   _WayPoint:
   - {fileID: 2349113485749535249}
   - {fileID: 2349113484087315921}
-  _Platform: {fileID: 2349113484024976487}
+  _Platform: {fileID: 2349113484024976484}
   _Speed: 3
 --- !u!1001 &2349113485037979512
 PrefabInstance:
