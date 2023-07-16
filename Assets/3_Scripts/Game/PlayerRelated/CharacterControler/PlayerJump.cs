@@ -8,6 +8,7 @@ public class PlayerJump
     float _RayJumpDist;
     float _ForceJ;
     float _ForceJOriginal;
+    LayerMask _Ground;
 
     public PlayerJump SetJump(float MaxJumpDist, float ForceJ)
     {
@@ -19,6 +20,11 @@ public class PlayerJump
     public PlayerJump SetRigidbody(Rigidbody Rig)
     {
         _Rig = Rig;
+        return this;
+    }
+    public PlayerJump SetGround(LayerMask Ground)
+    {
+        _Ground = Ground;
         return this;
     }
     public void Jump()
@@ -35,6 +41,6 @@ public class PlayerJump
     }
     public bool IsGrounded()
     {
-        return Physics.Raycast(_Rig.transform.position, Vector3.down, _RayJumpDist);
+        return Physics.Raycast(_Rig.transform.position, Vector3.down, _RayJumpDist, _Ground);
     }
 }

@@ -67,16 +67,18 @@ public class EnemyJumper : Enemies , IDamage, IDamageableBomb
     }
     public void FlyTo(Vector3 Dir)
     {
-        _Rig.velocity = Vector3.zero;
         _IsGoing = true;
+        _Rig.velocity = Vector3.zero;
         _Rig.AddForce(Dir.normalized * view.DamageFly, ForceMode.VelocityChange);
     }
     
     public void OnCollisionEnter(Collision collision)
     {
-        targetCollision = collision.transform.GetComponent<PlayerM>();
-        if (targetCollision != null)
-            targetCollision.life.RecieveHit(_Attack);
+        if (collision.transform.TryGetComponent(out PlayerM P))
+            P.life.RecieveHit(_Attack);
+        else if (collision.transform.TryGetComponent(out IDamage D) 
+            && collision.transform.GetComponent<Enemies>()._IsGoing)
+            D.RecieveDamage(_Attack);
     }
 
     public void GravityModifier()

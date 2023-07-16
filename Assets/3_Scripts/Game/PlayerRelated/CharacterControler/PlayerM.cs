@@ -13,7 +13,7 @@ public enum PlayerStates
 public class PlayerM : MonoBehaviour, IDamageableBomb
 {
     public PlayerHealth life;
-
+#region Variable "Attack"
     [Header("Attack")]
     //COMO HAGO PARA PONER EN OTRA CLASE A ATTACK Y QUE FUNCIONE EL IENUMERATOR
     [SerializeField] int _Damage;
@@ -22,8 +22,10 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
     public bool IsPowerAttack = false;
     BoxCollider _AttackBox;
     bool _IsAttacking = false;
+    #endregion
 
     //COMO HAGO en este caso, Rigidbody debería seguir aquí?
+#region Variables "Normal Movement"
     [Header("Normal Movement")]
     [SerializeField] private float _PlayerSpeed;
     [SerializeField] float _RayForwardDist;
@@ -37,24 +39,23 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
     float _CurrentSpeed;
     CapsuleCollider _PlayerCol;
     Rigidbody _RigP;
+    #endregion
 
-    Transform _MainCamera;
-    float _RayCheckDist;
-   
-    bool Ray = false;
-
+    public PlayerJump _playerJump;
     public PJump jump;
 
     public Glide glide;
 
     [Header("Shoot")]
     [SerializeField] Transform _firePoint;
+    [SerializeField] float _MaxBulletDistAir;
 
-    [SerializeField] float _MaxDistAir;
-
-    IController _controller;
-    public PlayerJump _playerJump;
     private FiniteStateMachine _FSM;
+    IController _controller;
+    Transform _MainCamera;
+    float _RayCheckDist;
+    bool Ray = false;
+
     Vector3 CheckPointPosition;
     Vector3 _direction;
     Quaternion CheckPointRotation;
@@ -66,7 +67,8 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
     {
         _RigP = GetComponent<Rigidbody>();
         _controller = new Controler(this, GetComponent<View>());
-        _playerJump = new PlayerJump().SetJump(jump.RayJumpDist, jump.JumpForce).SetRigidbody(_RigP);
+        _playerJump = new PlayerJump().SetJump(jump.RayJumpDist, jump.JumpForce)
+            .SetRigidbody(_RigP).SetGround(_Wall);
 
         _AttackBox = GetComponent<BoxCollider>();
         _PlayerCol = GetComponent<CapsuleCollider>();
@@ -77,25 +79,33 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         _RayCheckDist = jump.RayJumpDist;
         life._CurrentLife = life._MaxLife;
         _MainCamera = Camera.main.transform;
-        CheckPoint();
+
         _UpDist = new Vector3(0f, _RayUpDist, 0f);
         _DownDist = new Vector3(0f, _RayDownDist, 0f);
+        CheckPoint();
 
+        #region "States"
         _FSM = new FiniteStateMachine();
         var GroundState = new GroundState(_FSM, this, _controller).SetCollider(_PlayerCol)
-            .SetTransforms(transform, _MainCamera).SetRig(_RigP).SetLayers(_Water)
-            .SetSpeed(_CurrentSpeed, _PlayerSpeed, _RayDownDist);
+                                                                  .SetTransforms(transform, _MainCamera)
+                                                                  .SetRig(_RigP)
+                                                                  .SetLayers(_Water)
+                                                                  .SetSpeed(_CurrentSpeed, _PlayerSpeed, _RayDownDist);
 
-        var AirState = new AirState(_FSM, this, _controller).SetRig(_RigP).SetCollider(_PlayerCol)
-            .SetTransform(_MainCamera).SetFloats(_CurrentSpeed);
+        var AirState = new AirState(_FSM, this, _controller).SetRig(_RigP)
+                                                            .SetCollider(_PlayerCol)
+                                                            .SetTransform(_MainCamera)
+                                                            .SetFloats(_CurrentSpeed);
 
-        var GlideState = new GlideState(_FSM, this, _controller).SetRig(_RigP).SetTransform(_MainCamera)
-            .SetFloats(glide.DescendSpeed, _CurrentSpeed, glide.SpeedHorizontal);
+        var GlideState = new GlideState(_FSM, this, _controller).SetRig(_RigP)
+                                        .SetTransform(_MainCamera)
+                                        .SetFloats(glide.DescendSpeed, _CurrentSpeed, glide.SpeedHorizontal);
 
         _FSM.AddState(PlayerStates.Ground, GroundState);
         _FSM.AddState(PlayerStates.Air, AirState);
         _FSM.AddState(PlayerStates.Glide, GlideState);
         _FSM.ChangeState(PlayerStates.Ground);
+        # endregion
 
         ScenesManager.instance.onCheckPoint += ActivateCheckPoint;
         ScenesManager.instance.ActivateCheckPoint += life.AddLife;
@@ -112,18 +122,8 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         _FSM.FakeFixedUpdate();
         GravityModifier();
     }
-    //SE QUEDA ACÁ
 
-    public bool WallDetecter(Vector3 dir)
-    {
-        var Down = Physics.Raycast(_RigP.transform.position + _UpDist, dir, _RayForwardDist, _Wall);
-        var Up = Physics.Raycast(_RigP.transform.position - _DownDist, dir, _RayForwardDist, _Wall);
-        //HACER QUE SUBA LA ESCALERA, POR AHORA SE QUEDA ASÍ
-        if (Down && Up) Ray = true;
-        else Ray = false;
-
-        return Ray;
-    }
+    #region "Attack Related"
     public void Attack()
     {
         if (IsPowerAttack) return;
@@ -132,6 +132,15 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         _IsAttacking = true;
         StartCoroutine(Recharge(_AttackDuration, _AttackReload));
         OnAttack.Invoke(_AttackDuration, 0);
+    }
+    public void SuperAttack(float time, int NewDamage)
+    {
+        IsPowerAttack = true;
+        int OldDamage = _Damage;
+        _Damage = NewDamage;
+
+        OnAttack.Invoke(time, 1);
+        StartCoroutine(SuperTornadoActive(time, OldDamage));
     }
     IEnumerator Recharge(float AttackD, float ReloadT)
     {
@@ -143,15 +152,6 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         yield return Wait;
         //Debug.Log("Can Attack again");
     }
-    public void SuperAttack(float time, int NewDamage)
-    {
-        IsPowerAttack = true;
-        int OldDamage = _Damage;
-        _Damage = NewDamage;
-
-        OnAttack.Invoke(time, 1);
-        StartCoroutine(SuperTornadoActive(time, OldDamage));
-    }
     IEnumerator SuperTornadoActive(float time, int OldDamage)
     {
         _AttackBox.enabled = true;
@@ -160,13 +160,6 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         _AttackBox.enabled = false;
         IsPowerAttack = false;
         _Damage = OldDamage;
-    }
-    public void UpImpulse(float ForceUp)
-    {
-        var vel = _RigP.velocity;
-        vel.y = 0;
-        _RigP.velocity = vel;
-        _RigP.AddForce(Vector3.up * ForceUp, ForceMode.VelocityChange);
     }
     public void Shoot()
     {
@@ -185,16 +178,25 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         else
         {
             _bulletObjectP.transform.forward = _MainCamera.forward;
-            _bulletObjectP.target = _MainCamera.position + _MainCamera.forward * _MaxDistAir;
+            _bulletObjectP.target = _MainCamera.position + _MainCamera.forward * _MaxBulletDistAir;
             _bulletObjectP.hit = true;
         }
         Vector3 camForward = _MainCamera.forward;
         camForward.y = 0;
         transform.forward = camForward;
     }
-    public void RecieveBombDamage(int BombD)
+#endregion
+
+    #region "Detecters and Checkers"
+    public bool WallDetecter(Vector3 dir)
     {
-        life.RecieveHit(BombD);
+        var Down = Physics.Raycast(_RigP.transform.position + _UpDist, dir, _RayForwardDist, _Wall);
+        var Up = Physics.Raycast(_RigP.transform.position - _DownDist, dir, _RayForwardDist, _Wall);
+        //HACER QUE SUBA LA ESCALERA, POR AHORA SE QUEDA ASÍ
+        if (Down && Up) Ray = true;
+        else Ray = false;
+
+        return Ray;
     }
     public void CheckEnviroment()
     {
@@ -212,6 +214,19 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         _RigP.velocity = Vector3.zero;
         transform.position = CheckPointPosition;
         transform.rotation = CheckPointRotation;
+    }
+#endregion
+
+    public void UpImpulse(float ForceUp)
+    {
+        var vel = _RigP.velocity;
+        vel.y = 0;
+        _RigP.velocity = vel;
+        _RigP.AddForce(Vector3.up * ForceUp, ForceMode.VelocityChange);
+    }
+    public void RecieveBombDamage(int BombD)
+    {
+        life.RecieveHit(BombD);
     }
     public void DoubleJump(float time, float NewForce)
     {
@@ -291,6 +306,7 @@ public class Glide
 {
     public float DescendSpeed;
     public float SpeedHorizontal;
+    public bool IsOnVent;
 }
 
 [System.Serializable]

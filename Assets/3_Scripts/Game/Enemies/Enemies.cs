@@ -13,7 +13,7 @@ public abstract class Enemies : MonoBehaviour
     protected PlayerM targetCollision;
     protected PlayerM _Maintarget;
     protected GameObject _RecompenzA;
-    protected bool _IsGoing;
+    public bool _IsGoing;
     protected Vector3 _FlyTo;
 
     public virtual void Start()

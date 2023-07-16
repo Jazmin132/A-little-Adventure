@@ -14,7 +14,6 @@ public class GlideState : IState
     float _CurrentSpeed;
     float _DescendSpeed;
     float _SpeedH;
-    bool _IsDoubleJumping;
 
     public GlideState(FiniteStateMachine FSM, PlayerM Player, IController controller)
     {
@@ -45,16 +44,11 @@ public class GlideState : IState
     {
         Debug.Log("ENTER GLIDE");
         _GlidingSign = Mathf.Sign(Vector3.Dot(_Player.transform.forward, _MainCamera.transform.forward));
-        _IsDoubleJumping = false;
     }
 
     public void OnUpdate()
     {
-        if (_Controller.Jump() && _Player.jump.IsDJumpActive && _IsDoubleJumping == false)
-        {
-            _RigP.AddForce(Vector3.up * 2, ForceMode.VelocityChange);
-            _IsDoubleJumping = true;
-        }
+
     }
 
     public void OnFixedUpdate()
@@ -87,7 +81,6 @@ public class GlideState : IState
 
     public void OnExit()
     {
-
     }
 }
 

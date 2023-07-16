@@ -27,7 +27,6 @@ public class EnemyShooter : Enemies, IDamage, IDamageableBomb
         if (EnemiesManager.instance.InFieldOfView(this, _ViewRadius, _Angle))
         {
             LookTowards();
-            Debug.Log("_IsReloading " + _IsReloading);
             if (_IsReloading) Shoot();
         }
     }
