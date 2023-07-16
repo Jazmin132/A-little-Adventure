@@ -2623,7 +2623,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 146270926}
-  m_LocalRotation: {x: 0.20755798, y: 0.000000023355941, z: -0.0000000049556323, w: 0.9782227}
+  m_LocalRotation: {x: 0.20755799, y: -5.9400237e-22, z: 8.187968e-23, w: 0.9782227}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -7327,7 +7327,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 318658022}
-  m_LocalRotation: {x: 0.13735138, y: -0.000000017043304, z: 0.00000000236332, w: 0.9905224}
+  m_LocalRotation: {x: 0.13735138, y: 0.000000016276498, z: -0.0000000022569904, w: 0.9905224}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -22518,7 +22518,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474bcb49853aa07438625e644c072ee6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_Version: 1
   m_UsePipelineSettings: 1
+  m_AdditionalLightsShadowResolutionTier: 2
+  m_LightLayerMask: 1
+  m_CustomShadowLayers: 0
+  m_ShadowLayerMask: 1
+  m_LightCookieSize: {x: 1, y: 1}
+  m_LightCookieOffset: {x: 0, y: 0}
 --- !u!43 &866751761
 Mesh:
   m_ObjectHideFlags: 0
@@ -25220,7 +25227,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 937899133}
-  m_LocalRotation: {x: 0.17168045, y: -1e-45, z: -0, w: 0.9851527}
+  m_LocalRotation: {x: 0.17168045, y: -3.0867064e-22, z: 4.7713135e-23, w: 0.9851527}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -28826,6 +28833,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
   m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
@@ -28894,7 +28902,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1117400819}
-  m_LocalRotation: {x: 0.13735141, y: -0.00000003408661, z: 0.0000000047266413, w: 0.99052244}
+  m_LocalRotation: {x: 0.13735141, y: 0.00000003370975, z: -0.0000000046743835, w: 0.99052244}
   m_LocalPosition: {x: 101.78, y: 9.689079, z: -228.409}
   m_LocalScale: {x: 1, y: 0.99999994, z: 0.99999994}
   m_ConstrainProportionsScale: 0
