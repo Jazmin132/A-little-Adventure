@@ -47,7 +47,7 @@ public class AirState : IState
     public void OnEnter()
     {
         _PlayerCol.material = _Player.PhysicsM[1];
-        Debug.Log("ENTER AIR");
+        //Debug.Log("ENTER AIR");
         _Falling = true;
     }
     public void OnUpdate() { }

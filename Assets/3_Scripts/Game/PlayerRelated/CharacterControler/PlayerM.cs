@@ -224,21 +224,13 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         if (Physics.Raycast(_RigP.transform.position, Vector3.down, jump.RayJumpDist, _Water))
             OnWater?.Invoke();
     }
-    public void Check(bool IsOnGround, bool IsActive)
+    public void Check(string CurrentState, bool IsActive)
     {
-        if (IsOnGround)
+        if (CurrentState == "Ground")
             OnMove.Invoke(IsActive);
-        else
+        else if (CurrentState == "Glide")
             OnGlide.Invoke(IsActive);
     }
-    //public void CheckMove(bool IsMoving)
-    //{
-    //    
-    //}
-    //public void CheckOnGlide(bool IsFlying)
-    //{
-    //    
-    //}
     public void CheckOnAir()
     { 
         OnFall.Invoke();

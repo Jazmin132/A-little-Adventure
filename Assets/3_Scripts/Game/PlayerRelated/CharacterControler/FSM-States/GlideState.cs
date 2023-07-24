@@ -57,16 +57,18 @@ public class GlideState : IState
         if (_Controller.Shoot()) _Player.Shoot();
         else if (_Controller.Attack()) _Player.Attack();
 
-        if (!_Controller.Glide()) _FSM.ChangeState(PlayerStates.Air);
-        if (_Player._playerJump.IsGrounded() && _RigP.velocity.y < 0) _FSM.ChangeState(PlayerStates.Ground);
+        if (!_Controller.Glide())
+            _FSM.ChangeState(PlayerStates.Air);
+        else if (_Player._playerJump.IsGrounded() && _RigP.velocity.y < 0) 
+            _FSM.ChangeState(PlayerStates.Ground);
         if (_Controller.Atajo()) _Player.ActivateCheckPoint();
     }
 
     public void Glide()
     {
-        _Player.Check(false, _RigP.velocity.y < 0);
         if (_RigP.velocity.y < 0)
         {
+             _Player.Check("Glide", true);
 
             _direction = (_Player.transform.right * _GlidingSign) * _Controller.Horizontal() * _SpeedH;
             _direction += _Player.transform.forward * (_CurrentSpeed);
@@ -82,8 +84,8 @@ public class GlideState : IState
     }
     public void OnExit()
     {
-       //_Player.CheckOnGlide(false);
-       _Player.Check(false, false);
+        Debug.Log("EXIT GLIDE");
+        _Player.Check("Glide", false);
     }
 }
 

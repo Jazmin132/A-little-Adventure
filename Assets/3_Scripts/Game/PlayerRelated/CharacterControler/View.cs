@@ -45,21 +45,17 @@ public class View : MonoBehaviour
         yield return new WaitForSeconds(Time);
         _Attacks[currentI].SetActive(false);
     }
- #region Bools
+  #region Bools
     public void SetRunning(bool IsRunning)
     {
         _animator.SetBool("IsRunning", IsRunning);
-    }
-    public void SetJumping(bool IsJumping)
-    {
-        _animator.SetBool("IsJumping", IsJumping);
     }
     public void SetFlying(bool IsFlying)
     {
         _animator.SetBool("IsFlying", IsFlying);
     }
     #endregion
-    #region Triggers
+  #region Triggers
     public void TriggerLand()
     {
         _animator.SetTrigger("Land");

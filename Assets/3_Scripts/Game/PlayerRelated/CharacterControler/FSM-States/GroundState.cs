@@ -54,7 +54,7 @@ public class GroundState : IState
 
     public void OnEnter()
     {
-        Debug.Log("ENTER GROUND");
+        //Debug.Log("ENTER GROUND");
         _CurrentSpeed = _OriginalSpeed;
         _PlayerCol.material = _Player.PhysicsM[0];
         _Player.CheckEnviroment();
@@ -93,16 +93,18 @@ public class GroundState : IState
 
         if (_Player.WallDetecter(_direction)) return;
 
-        _Player.Check(true, _Controller.Horizontal() != 0 || _Controller.Vertical() != 0);
-
         if (_Controller.Horizontal() != 0 || _Controller.Vertical() != 0)
         {
+            _Player.Check("Ground", true);
+
             _RigP.MovePosition(_transform.position + _direction * _CurrentSpeed * Time.fixedDeltaTime);
             //Que gire sobre su vector Y hacia la dirreción que le indico
             Quaternion Rotation = Quaternion.LookRotation(_direction.normalized, Vector3.up);
             _transform.rotation = Quaternion.RotateTowards(_transform.rotation, Rotation, Time.fixedDeltaTime * 500f);
             //Que rote, a partir de su rotación actual hacia la que le indico, con una radio específico, multiplico po 4 para acelerar
         }
+        else
+            _Player.Check("Ground", false);
     }
 
     public void OnExit()
