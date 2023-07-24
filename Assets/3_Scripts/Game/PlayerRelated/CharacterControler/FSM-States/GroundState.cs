@@ -66,9 +66,9 @@ public class GroundState : IState
     }
 
     public void OnFixedUpdate()
-    {
+    {//PREGUNTAR COMO OPTIMIZAR ESTO
         Move();
-        //PREGUNTAR COMO OPTIMIZAR ESTO
+        
         if (_Controller.Shoot())
             _Player.Shoot();
         else if (_Controller.Attack())
@@ -93,7 +93,8 @@ public class GroundState : IState
 
         if (_Player.WallDetecter(_direction)) return;
 
-        _Player.CheckMove(_Controller.Horizontal() != 0 || _Controller.Vertical() != 0);
+        _Player.Check(true, _Controller.Horizontal() != 0 || _Controller.Vertical() != 0);
+
         if (_Controller.Horizontal() != 0 || _Controller.Vertical() != 0)
         {
             _RigP.MovePosition(_transform.position + _direction * _CurrentSpeed * Time.fixedDeltaTime);

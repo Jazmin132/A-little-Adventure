@@ -60,12 +60,16 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
     Vector3 _direction;
     Quaternion CheckPointRotation;
 
+ #region Actions
     public event Action OnWater;
     public event Action OnFloor;
     public event Action OnFall;
     public event Action OnJump;
+    public event Action OnShoot;
     public event Action<float, int> OnAttack;
     public event Action<bool> OnMove;
+    public event Action<bool> OnGlide;
+    #endregion
 
     private void Awake()
     {
@@ -170,7 +174,7 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         RaycastHit hit;
         var _bulletObjectP = BulletFactory._instance.pool.GetObject();
         _bulletObjectP.transform.position = _firePoint.position;
-    
+        OnShoot.Invoke();
         if (Physics.Raycast(_MainCamera.position, _MainCamera.forward, out hit, Mathf.Infinity))
         {
 
@@ -220,10 +224,21 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         if (Physics.Raycast(_RigP.transform.position, Vector3.down, jump.RayJumpDist, _Water))
             OnWater?.Invoke();
     }
-    public void CheckMove(bool IsMoving)
+    public void Check(bool IsOnGround, bool IsActive)
     {
-        OnMove.Invoke(IsMoving);
+        if (IsOnGround)
+            OnMove.Invoke(IsActive);
+        else
+            OnGlide.Invoke(IsActive);
     }
+    //public void CheckMove(bool IsMoving)
+    //{
+    //    
+    //}
+    //public void CheckOnGlide(bool IsFlying)
+    //{
+    //    
+    //}
     public void CheckOnAir()
     { 
         OnFall.Invoke();

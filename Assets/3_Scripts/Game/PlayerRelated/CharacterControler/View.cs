@@ -46,17 +46,20 @@ public class View : MonoBehaviour
         _Attacks[currentI].SetActive(false);
     }
  #region Bools
-    public void SetRunning(bool IsDoing)
+    public void SetRunning(bool IsRunning)
     {
-        _animator.SetBool("IsRunning", IsDoing);
+        _animator.SetBool("IsRunning", IsRunning);
     }
-    public void SetJumping(bool IsDoing)
+    public void SetJumping(bool IsJumping)
     {
-        _animator.SetBool("IsJumping", IsDoing);
+        _animator.SetBool("IsJumping", IsJumping);
     }
-
+    public void SetFlying(bool IsFlying)
+    {
+        _animator.SetBool("IsFlying", IsFlying);
+    }
     #endregion
- #region Triggers
+    #region Triggers
     public void TriggerLand()
     {
         _animator.SetTrigger("Land");
@@ -68,6 +71,10 @@ public class View : MonoBehaviour
     public void TriggerFalling()
     {
         _animator.SetTrigger("Falling");
+    }
+    public void TriggerShoot()
+    {
+        _animator.SetTrigger("Shoot");
     }
     public void Splash()
     {
