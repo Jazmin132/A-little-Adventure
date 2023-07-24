@@ -9,11 +9,13 @@ public class View : MonoBehaviour
     [SerializeField] ParticleSystem _WaterSplash;
     [SerializeField] GameObject[] _Attacks;
     [SerializeField] Transform LifeContainer;
+    Animator _animator;
     Image[] hearthIcons;
 
     private void Awake()
     {
         hearthIcons = LifeContainer.GetComponentsInChildren<Image>();
+        _animator = GetComponent<Animator>();
     }
     public void RecieveDamage(float currentHealth)
     {
@@ -22,12 +24,9 @@ public class View : MonoBehaviour
             hearthIcons[i].enabled = (currentHealth > i);
         //CamaraScript.ShakeCamera(ShakeIntensity, ShakeTime);
     }
-    public void IsDead()
-    {
-        GameManager.instance.Lose();
-    }
     public void Attack(float Time, int Num)
     {
+        _animator.SetTrigger("Attack");
         StartCoroutine(AttackActiveT(Time, Num));
     }
     public IEnumerator AttackActiveT(float Time, int setD)
@@ -46,8 +45,37 @@ public class View : MonoBehaviour
         yield return new WaitForSeconds(Time);
         _Attacks[currentI].SetActive(false);
     }
+ #region Bools
+    public void SetRunning(bool IsDoing)
+    {
+        _animator.SetBool("IsRunning", IsDoing);
+    }
+    public void SetJumping(bool IsDoing)
+    {
+        _animator.SetBool("IsJumping", IsDoing);
+    }
+
+    #endregion
+ #region Triggers
+    public void TriggerLand()
+    {
+        _animator.SetTrigger("Land");
+    }
+    public void TriggerJump()
+    {
+        _animator.SetTrigger("Jump");
+    }
+    public void TriggerFalling()
+    {
+        _animator.SetTrigger("Falling");
+    }
     public void Splash()
     {
         _WaterSplash.Play();
+    }
+    #endregion
+    public void IsDead()
+    {
+        GameManager.instance.Lose();
     }
 }

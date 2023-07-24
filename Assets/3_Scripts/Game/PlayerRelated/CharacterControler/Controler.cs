@@ -13,11 +13,14 @@ public class Controler : IController
             _M.life.OnDeath += V.IsDead;
             _M.OnWater += V.Splash;
             _M.OnAttack += V.Attack;
+            _M.OnFloor += V.TriggerLand;
+            _M.OnMove += V.SetRunning;
+            _M.OnFall += V.TriggerFalling;
+            _M.OnJump += V.TriggerJump;
         }
     }
-    public void ListenKeyFixedUpdate() { }
-    public void ListenKeyUpdate() { }
 
+  #region Teclas
     public float Vertical()
     {
         var V = Input.GetAxis("Vertical");
@@ -52,4 +55,5 @@ public class Controler : IController
     {
         return (Input.GetKeyDown(KeyCode.T));
     }
+    #endregion
 }

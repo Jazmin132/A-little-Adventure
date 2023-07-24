@@ -61,7 +61,11 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
     Quaternion CheckPointRotation;
 
     public event Action OnWater;
+    public event Action OnFloor;
+    public event Action OnFall;
+    public event Action OnJump;
     public event Action<float, int> OnAttack;
+    public event Action<bool> OnMove;
 
     private void Awake()
     {
@@ -131,7 +135,7 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         _AttackBox.enabled = true;
         _IsAttacking = true;
         StartCoroutine(Recharge(_AttackDuration, _AttackReload));
-        OnAttack.Invoke(_AttackDuration, 0);
+        OnAttack?.Invoke(_AttackDuration, 0);
     }
     public void SuperAttack(float time, int NewDamage)
     {
@@ -187,7 +191,7 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
     }
 #endregion
 
-    #region "Detecters and Checkers"
+ #region "Detecters and Checkers"
     public bool WallDetecter(Vector3 dir)
     {
         var Down = Physics.Raycast(_RigP.transform.position + _UpDist, dir, _RayForwardDist, _Wall);
@@ -197,11 +201,6 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         else Ray = false;
 
         return Ray;
-    }
-    public void CheckEnviroment()
-    {
-        if (Physics.Raycast(_RigP.transform.position, Vector3.down, jump.RayJumpDist, _Water))
-            OnWater?.Invoke();
     }
     public void CheckPoint()
     {
@@ -215,7 +214,25 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         transform.position = CheckPointPosition;
         transform.rotation = CheckPointRotation;
     }
-#endregion
+    public void CheckEnviroment()
+    {
+        OnFloor.Invoke();
+        if (Physics.Raycast(_RigP.transform.position, Vector3.down, jump.RayJumpDist, _Water))
+            OnWater?.Invoke();
+    }
+    public void CheckMove(bool IsMoving)
+    {
+        OnMove.Invoke(IsMoving);
+    }
+    public void CheckOnAir()
+    { 
+        OnFall.Invoke();
+    }
+    public void CheckJump()
+    {
+        OnJump.Invoke();
+    }
+    #endregion
 
     public void UpImpulse(float ForceUp)
     {

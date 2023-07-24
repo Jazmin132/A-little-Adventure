@@ -4,8 +4,6 @@ using UnityEngine;
 
 public interface IController
 {
-    public void ListenKeyFixedUpdate();
-    public void ListenKeyUpdate();
     public float Vertical();
     public float Horizontal();
     public bool Jump();

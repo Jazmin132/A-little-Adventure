@@ -15,7 +15,7 @@ public class AirState : IState
     Vector3 _Forward;
     float _CurrentSpeed;
     bool _IsDoubleJumping;
-    
+    bool _Falling;
 
     public AirState(FiniteStateMachine FSM, PlayerM Player, IController controller)
     {
@@ -48,19 +48,29 @@ public class AirState : IState
     {
         _PlayerCol.material = _Player.PhysicsM[1];
         Debug.Log("ENTER AIR");
+        _Falling = true;
     }
-    public void OnUpdate()
-    {
-    }
+    public void OnUpdate() { }
+
     public void OnFixedUpdate()
     {
-        if (_Controller.Glide()) _FSM.ChangeState(PlayerStates.Glide);
-        else MoveOnAir();
+        if (_Controller.Glide())
+            _FSM.ChangeState(PlayerStates.Glide);
+        else
+        {
+            MoveOnAir();
+            if (_RigP.velocity.y < 0 && _Falling)
+            {
+                _Falling = false;
+                _Player.CheckOnAir();
+            }
+        }
 
         if (_Controller.Shoot()) _Player.Shoot();
         else if (_Controller.Attack()) _Player.Attack();
 
-        if (_Player._playerJump.IsGrounded() && _RigP.velocity.y < 0) _FSM.ChangeState(PlayerStates.Ground);
+        if (_Player._playerJump.IsGrounded() && _RigP.velocity.y < 0) 
+            _FSM.ChangeState(PlayerStates.Ground);
 
         if (_Controller.Atajo()) _Player.ActivateCheckPoint();
     }

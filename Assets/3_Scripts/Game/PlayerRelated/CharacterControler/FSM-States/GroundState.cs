@@ -74,8 +74,12 @@ public class GroundState : IState
         else if (_Controller.Attack())
             _Player.Attack();
 
-        if (!_Player._playerJump.IsGrounded()) _FSM.ChangeState(PlayerStates.Air);
-
+        if (!_Player._playerJump.IsGrounded())
+        {
+            _FSM.ChangeState(PlayerStates.Air);
+            _Player.CheckJump();
+        }
+            
         if (_Controller.Atajo()) _Player.ActivateCheckPoint();
     }
     private void Move()
@@ -89,6 +93,7 @@ public class GroundState : IState
 
         if (_Player.WallDetecter(_direction)) return;
 
+        _Player.CheckMove(_Controller.Horizontal() != 0 || _Controller.Vertical() != 0);
         if (_Controller.Horizontal() != 0 || _Controller.Vertical() != 0)
         {
             _RigP.MovePosition(_transform.position + _direction * _CurrentSpeed * Time.fixedDeltaTime);
