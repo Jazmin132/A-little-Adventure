@@ -306,7 +306,10 @@ MonoBehaviour:
   _RayForwardDist: 0.51
   _RayUpDist: 0.85
   _RayDownDist: 0.5
-  _Wall:
+  _NotGround:
+    serializedVersion: 2
+    m_Bits: 1024
+  _Ground:
     serializedVersion: 2
     m_Bits: 8
   _Water:

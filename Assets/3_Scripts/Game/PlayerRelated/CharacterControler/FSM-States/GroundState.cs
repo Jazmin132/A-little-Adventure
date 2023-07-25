@@ -62,7 +62,8 @@ public class GroundState : IState
 
     public void OnUpdate()
     {
-        if (_Controller.Jump()) _Player._playerJump.Jump();
+        if (_Controller.Jump() && !_Player._playerJump.IsNotGrounded())
+            _Player._playerJump.Jump();
     }
 
     public void OnFixedUpdate()

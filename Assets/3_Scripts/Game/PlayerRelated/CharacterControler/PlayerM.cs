@@ -31,7 +31,8 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
     [SerializeField] float _RayForwardDist;
     [SerializeField] float _RayUpDist;
     [SerializeField] float _RayDownDist;
-    [SerializeField] LayerMask _Wall;
+    [SerializeField] LayerMask _NotGround;
+    [SerializeField] LayerMask _Ground;
     [SerializeField] LayerMask _Water;
     public PhysicMaterial[] PhysicsM;
     Vector3 _UpDist;
@@ -76,7 +77,7 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         _RigP = GetComponent<Rigidbody>();
         _controller = new Controler(this, GetComponent<View>());
         _playerJump = new PlayerJump().SetJump(jump.RayJumpDist, jump.JumpForce)
-            .SetRigidbody(_RigP).SetGround(_Wall);
+            .SetRigidbody(_RigP).SetGround(_NotGround);
 
         _AttackBox = GetComponent<BoxCollider>();
         _PlayerCol = GetComponent<CapsuleCollider>();
@@ -198,8 +199,8 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
  #region "Detecters and Checkers"
     public bool WallDetecter(Vector3 dir)
     {
-        var Down = Physics.Raycast(_RigP.transform.position + _UpDist, dir, _RayForwardDist, _Wall);
-        var Up = Physics.Raycast(_RigP.transform.position - _DownDist, dir, _RayForwardDist, _Wall);
+        var Down = Physics.Raycast(_RigP.transform.position + _UpDist, dir, _RayForwardDist, _Ground);
+        var Up = Physics.Raycast(_RigP.transform.position - _DownDist, dir, _RayForwardDist, _Ground);
         //HACER QUE SUBA LA ESCALERA, POR AHORA SE QUEDA ASÍ
         if (Down && Up) Ray = true;
         else Ray = false;
