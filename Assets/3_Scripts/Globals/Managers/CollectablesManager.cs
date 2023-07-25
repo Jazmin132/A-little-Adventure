@@ -6,37 +6,60 @@ using UnityEngine.UI;
 public class CollectablesManager : MonoBehaviour
 {
     [SerializeField] Text Tuercas;
-    [SerializeField] int TotalTuercas;
-    [SerializeField] int TotalCurrency;
+    [SerializeField] int TuercasCurrent;
+    [SerializeField] int VitalesCurrent;
+    int TotalTuercas;
+    int TotalVitales;
+    [SerializeField] bool ResetAll;
     public static CollectablesManager instance;
 
     private void Awake()
     {
         if (instance == null) instance = this;
         else Destroy(gameObject);
-
-        if (PlayerPrefs.HasKey("Total Currency"))
-            TotalCurrency = PlayerPrefs.GetInt("Total Currency");
-        else
-        {
-            TotalCurrency = 0;
-            PlayerPrefs.SetInt("Total Currency", TotalCurrency);
-        }
     }
-    public void AddTuerca(int value)
+    private void Start()
     {
-        TotalTuercas += value;
-        Tuercas.text = "Tuercas : " + TotalTuercas.ToString();
-        //Debug.Log("Here comes the money : " + TotalTuercas);
-        AddTotalTuercas(TotalTuercas);
+        if (PlayerPrefs.HasKey("Total Tuercas") || PlayerPrefs.HasKey("Total Vitales"))
+        {
+            TotalTuercas = PlayerPrefs.GetInt("Total Tuercas");
+            TotalVitales = PlayerPrefs.GetInt("Total Vitales");
+            Debug.Log("TotalTuercas : " + TotalTuercas);
+            Debug.Log("TotalVitales : " + TotalVitales);
+        }
+        else 
+            StablishCurrency();
+
+        if (ResetAll) StablishCurrency();
+    }
+    public void AddTuerca(int valueT)
+    {
+        TuercasCurrent += valueT;
+        Tuercas.text = "Tuercas : " + TuercasCurrent.ToString();
+        AddTotalTuercas(TuercasCurrent);
     }
     void AddTotalTuercas(int Totalvalue)
     {
-        TotalCurrency += Totalvalue;
-        PlayerPrefs.SetInt("Total Currency", TotalCurrency);
+        TotalTuercas += Totalvalue;
+        PlayerPrefs.SetInt("Total Tuercas", TotalTuercas);
     }
-    private void ResetAll()
+
+    public void AddVital(int valueV)
     {
-        PlayerPrefs.SetInt("Total Currency", 0);
+        VitalesCurrent += valueV;
+        AddTotalVital(VitalesCurrent);
+    }
+    void AddTotalVital(int Totalvalue)
+    {
+        TotalVitales += Totalvalue;
+        PlayerPrefs.SetInt("Total Vitales", TotalVitales);
+    }
+
+    private void StablishCurrency()
+    {
+        TotalTuercas = 0;
+        TotalVitales = 0;
+        PlayerPrefs.SetInt("Total Tuercas", TotalTuercas);
+        PlayerPrefs.SetInt("Total Vitales", TotalVitales);
     }
 }

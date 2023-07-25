@@ -618,8 +618,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Tuercas: {fileID: 7250476172581170797}
-  TotalTuercas: 0
-  TotalCristals: 0
+  TuercasCurrent: 0
+  VitalesCurrent: 0
+  ResetAll: 0
 --- !u!1 &8066842164023956631
 GameObject:
   m_ObjectHideFlags: 0

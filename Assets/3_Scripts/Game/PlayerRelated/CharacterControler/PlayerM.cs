@@ -231,20 +231,11 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
     public void Check(string CurrentState, bool IsActive)
     {
         if (CurrentState == "Ground")
-        {
             OnMove.Invoke(IsActive);
-            Debug.Log("Running");
-        }
         else if (CurrentState == "Glide")
-        { 
             OnGlide.Invoke(IsActive);
-            Debug.Log("Gliding");
-        }
         else if (CurrentState == "AIR")
-        {
             OnFall.Invoke(IsActive);
-            Debug.Log("Falling");
-        }
     }
     public void CheckJump()
     {

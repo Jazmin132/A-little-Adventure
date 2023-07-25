@@ -2,13 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class VitalPiece : MonoBehaviour
+public class VitalPiece : Collectables
 {
-    private void OnTriggerEnter(Collider other)
+    public override void WhatToAdd()
     {
-        if (other.GetComponent<PlayerM>() != null)
-        {
-            GameManager.instance.Win();
-        }
+        CollectablesManager.instance.AddVital(1);
     }
 }

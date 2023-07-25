@@ -22,10 +22,12 @@ public abstract class Collectables : MonoBehaviour
         {
             GameManager.instance.onPlay -= PlayAnim;
             GameManager.instance.onPause -= StopAnim;
-            CollectablesManager.instance.AddTuerca(value);
-            Destroy(this.gameObject);
+            WhatToAdd();
+            Destroy(gameObject);
         }
     }
+    public virtual void WhatToAdd()
+    { }
     void PlayAnim()
     {
         anim.enabled = true;

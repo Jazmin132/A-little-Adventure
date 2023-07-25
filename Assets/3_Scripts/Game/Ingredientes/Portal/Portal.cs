@@ -25,10 +25,9 @@ public class Portal : MonoBehaviour
         {
             ScenesManager.instance.GotoLevel(_NextLevel);
         }
-        else
+        else if (_RequiresMoney && _MoneyRequired <= _TotalTuercas)
         {//Si la plata que requiero es menor a la plata total que tengo, voy al sigueinte nivel
-            if (_MoneyRequired <= _TotalTuercas)
-                ScenesManager.instance.GotoLevel(_NextLevel);
+            ScenesManager.instance.GotoLevel(_NextLevel);
         }
     }
     void ShowHowMuch()
