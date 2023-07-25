@@ -15,7 +15,7 @@ public class Controler : IController
             _M.OnAttack += V.Attack;
             _M.OnFloor += V.TriggerLand;
             _M.OnMove += V.SetRunning;
-            _M.OnFall += V.TriggerFalling;
+            _M.OnFall += V.SetFalling;
             _M.OnJump += V.TriggerJump;
             _M.OnShoot += V.TriggerShoot;
             _M.OnGlide += V.SetFlying;

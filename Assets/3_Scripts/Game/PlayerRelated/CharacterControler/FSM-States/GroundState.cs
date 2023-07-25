@@ -111,5 +111,6 @@ public class GroundState : IState
     public void OnExit()
     {
         //Debug.Log("EXIT GROUND");
+        _Player.Check("Ground", false);
     }
 }

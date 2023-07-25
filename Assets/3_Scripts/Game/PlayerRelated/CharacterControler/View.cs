@@ -7,14 +7,16 @@ public class View : MonoBehaviour
 {
     [SerializeField] ParticleSystem _AUCH;
     [SerializeField] ParticleSystem _WaterSplash;
+    [SerializeField] ParticleSystem[] _ParticleRun;
     [SerializeField] GameObject[] _Attacks;
-    [SerializeField] Transform LifeContainer;
+    [SerializeField] Transform _LifeContainer;
+    bool _IsOnLand;
     Animator _animator;
     Image[] hearthIcons;
 
     private void Awake()
     {
-        hearthIcons = LifeContainer.GetComponentsInChildren<Image>();
+        hearthIcons = _LifeContainer.GetComponentsInChildren<Image>();
         _animator = GetComponent<Animator>();
     }
     public void RecieveDamage(float currentHealth)
@@ -54,29 +56,42 @@ public class View : MonoBehaviour
     {
         _animator.SetBool("IsFlying", IsFlying);
     }
+    public void SetFalling(bool IsFalling)
+    {
+        _animator.SetBool("IsFalling", IsFalling);
+    }
     #endregion
   #region Triggers
     public void TriggerLand()
     {
         _animator.SetTrigger("Land");
+        _IsOnLand = true;
+    }
+    public void Splash()
+    {
+        _WaterSplash.Play();
+        _IsOnLand = false;
     }
     public void TriggerJump()
     {
         _animator.SetTrigger("Jump");
-    }
-    public void TriggerFalling()
-    {
-        _animator.SetTrigger("Falling");
+        _IsOnLand = false;
     }
     public void TriggerShoot()
     {
         _animator.SetTrigger("Shoot");
     }
-    public void Splash()
+    public void RunParticleLeft()
     {
-        _WaterSplash.Play();
+        if(_IsOnLand == true)
+            _ParticleRun[0].Play();
     }
-    #endregion
+    public void RunParticleRight()
+    {
+        if (_IsOnLand == true)
+            _ParticleRun[1].Play();
+    }
+  #endregion
     public void IsDead()
     {
         GameManager.instance.Lose();

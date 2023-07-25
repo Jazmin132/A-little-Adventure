@@ -59,11 +59,7 @@ public class AirState : IState
         else
         {
             MoveOnAir();
-            if (_RigP.velocity.y < 0 && _Falling)
-            {
-                _Falling = false;
-                _Player.CheckOnAir();
-            }
+            _Player.Check("AIR", true);
         }
 
         if (_Controller.Shoot()) _Player.Shoot();
@@ -94,7 +90,7 @@ public class AirState : IState
     }
     public void OnExit()
     {
-       
+        _Player.Check("AIR", false);
     }
 }
 

@@ -64,10 +64,10 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
  #region Actions
     public event Action OnWater;
     public event Action OnFloor;
-    public event Action OnFall;
     public event Action OnJump;
     public event Action OnShoot;
     public event Action<float, int> OnAttack;
+    public event Action<bool> OnFall;
     public event Action<bool> OnMove;
     public event Action<bool> OnGlide;
     #endregion
@@ -231,13 +231,20 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
     public void Check(string CurrentState, bool IsActive)
     {
         if (CurrentState == "Ground")
+        {
             OnMove.Invoke(IsActive);
+            Debug.Log("Running");
+        }
         else if (CurrentState == "Glide")
+        { 
             OnGlide.Invoke(IsActive);
-    }
-    public void CheckOnAir()
-    { 
-        OnFall.Invoke();
+            Debug.Log("Gliding");
+        }
+        else if (CurrentState == "AIR")
+        {
+            OnFall.Invoke(IsActive);
+            Debug.Log("Falling");
+        }
     }
     public void CheckJump()
     {

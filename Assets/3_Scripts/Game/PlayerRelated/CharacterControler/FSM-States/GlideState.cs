@@ -44,10 +44,11 @@ public class GlideState : IState
     {
         Debug.Log("ENTER GLIDE");
         _GlidingSign = Mathf.Sign(Vector3.Dot(_Player.transform.forward, _MainCamera.transform.forward));
+        _Player.Check("Glide", true);
     }
     public void OnUpdate()
     {
-
+        _Player.Check("Glide", true);
     }
 
     public void OnFixedUpdate()
@@ -68,8 +69,6 @@ public class GlideState : IState
     {
         if (_RigP.velocity.y < 0)
         {
-             _Player.Check("Glide", true);
-
             _direction = (_Player.transform.right * _GlidingSign) * _Controller.Horizontal() * _SpeedH;
             _direction += _Player.transform.forward * (_CurrentSpeed);
 
