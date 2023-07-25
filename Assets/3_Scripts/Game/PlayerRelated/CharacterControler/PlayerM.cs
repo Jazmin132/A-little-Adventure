@@ -221,9 +221,12 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
     }
     public void CheckEnviroment()
     {
-        OnFloor.Invoke();
+        OnFloor?.Invoke();
         if (Physics.Raycast(_RigP.transform.position, Vector3.down, jump.RayJumpDist, _Water))
+        {
             OnWater?.Invoke();
+            Debug.Log("ON WATER");
+        }
     }
     public void Check(string CurrentState, bool IsActive)
     {

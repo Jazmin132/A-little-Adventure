@@ -56,7 +56,7 @@ GameObject:
   - component: {fileID: 4093513175224412573}
   - component: {fileID: 7149804996494925057}
   - component: {fileID: 1535639969396776543}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlataformaLuminosa (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -123,7 +123,7 @@ GameObject:
   - component: {fileID: 6863763341106158090}
   - component: {fileID: 7160823707899559397}
   - component: {fileID: 6374566323411511298}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlataformaLuminosa (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -702,7 +702,7 @@ GameObject:
   - component: {fileID: 8394768864159661938}
   - component: {fileID: 8394768864159661939}
   - component: {fileID: 8394768864159661936}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PlataformaLuminosa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -813,6 +813,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6782502082929783387, guid: 0fdf6b5e7e04cd2408ce22eeaf43a7fd, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -4423095918026882307, guid: 0fdf6b5e7e04cd2408ce22eeaf43a7fd, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: -738037330743529639, guid: 0fdf6b5e7e04cd2408ce22eeaf43a7fd, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -820,6 +828,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0fdf6b5e7e04cd2408ce22eeaf43a7fd, type: 3}
       propertyPath: m_Name
       value: Plataforma_Cambia_Color
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0fdf6b5e7e04cd2408ce22eeaf43a7fd, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fdf6b5e7e04cd2408ce22eeaf43a7fd, type: 3}
@@ -958,6 +970,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6782502082929783387, guid: 0fdf6b5e7e04cd2408ce22eeaf43a7fd, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -4423095918026882307, guid: 0fdf6b5e7e04cd2408ce22eeaf43a7fd, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: -738037330743529639, guid: 0fdf6b5e7e04cd2408ce22eeaf43a7fd, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -965,6 +985,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0fdf6b5e7e04cd2408ce22eeaf43a7fd, type: 3}
       propertyPath: m_Name
       value: Plataforma_Cambia_Color
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0fdf6b5e7e04cd2408ce22eeaf43a7fd, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fdf6b5e7e04cd2408ce22eeaf43a7fd, type: 3}
@@ -1117,6 +1141,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -6782502082929783387, guid: 0fdf6b5e7e04cd2408ce22eeaf43a7fd, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -4423095918026882307, guid: 0fdf6b5e7e04cd2408ce22eeaf43a7fd, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: -738037330743529639, guid: 0fdf6b5e7e04cd2408ce22eeaf43a7fd, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1124,6 +1156,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 0fdf6b5e7e04cd2408ce22eeaf43a7fd, type: 3}
       propertyPath: m_Name
       value: Plataforma_Cambia_Color
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0fdf6b5e7e04cd2408ce22eeaf43a7fd, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0fdf6b5e7e04cd2408ce22eeaf43a7fd, type: 3}
