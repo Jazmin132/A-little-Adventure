@@ -22,20 +22,15 @@ public class Portal : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (!_RequiresMoney)
-        {
             ScenesManager.instance.GotoLevel(_NextLevel);
-        }
-        else if (_RequiresMoney && _MoneyRequired <= _TotalTuercas)
-        {//Si la plata que requiero es menor a la plata total que tengo, voy al sigueinte nivel
+        else if (_RequiresMoney && _MoneyRequired <= _TotalTuercas) 
             ScenesManager.instance.GotoLevel(_NextLevel);
-        }
     }
     void ShowHowMuch()
-    {//CurrencyDisplay = CanvasPortalManager.instance.CurrencyPrefab.GetComponent<Text>();
-        _TotalTuercas = PlayerPrefs.GetInt("Total Currency");
-
+    {
+        _TotalTuercas = PlayerPrefs.GetInt("Total Tuercas");
+        //     Muestro la plata que tengo / la plata que necesito
         CurrencyDisplay.text = _TotalTuercas.ToString() + " / " + _MoneyRequired.ToString();
-        //Muestro la plata que tengo / la plata que necesito
     }
 }
 

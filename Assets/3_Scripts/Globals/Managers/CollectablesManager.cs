@@ -24,8 +24,8 @@ public class CollectablesManager : MonoBehaviour
         {
             TotalTuercas = PlayerPrefs.GetInt("Total Tuercas");
             TotalVitales = PlayerPrefs.GetInt("Total Vitales");
-            Debug.Log("TotalTuercas : " + TotalTuercas);
-            Debug.Log("TotalVitales : " + TotalVitales);
+           // Debug.Log("TotalTuercas : " + TotalTuercas);
+           // Debug.Log("TotalVitales : " + TotalVitales);
         }
         else 
             StablishCurrency();
