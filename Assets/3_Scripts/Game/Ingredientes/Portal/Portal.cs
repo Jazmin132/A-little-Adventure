@@ -21,9 +21,11 @@ public class Portal : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (!_RequiresMoney)
+        var Player = other.GetComponent<PlayerM>();
+
+        if (!_RequiresMoney && Player!= null)
             ScenesManager.instance.GotoLevel(_NextLevel);
-        else if (_RequiresMoney && _MoneyRequired <= _TotalTuercas) 
+        else if (_RequiresMoney && _MoneyRequired <= _TotalTuercas && Player != null)
             ScenesManager.instance.GotoLevel(_NextLevel);
     }
     void ShowHowMuch()

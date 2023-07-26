@@ -175,7 +175,6 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         RaycastHit hit;
         var _bulletObjectP = BulletFactory._instance.pool.GetObject();
         _bulletObjectP.transform.position = _firePoint.position;
-        OnShoot.Invoke();
         if (Physics.Raycast(_MainCamera.position, _MainCamera.forward, out hit, Mathf.Infinity))
         {
 
@@ -193,6 +192,8 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         Vector3 camForward = _MainCamera.forward;
         camForward.y = 0;
         transform.forward = camForward;
+
+        OnShoot.Invoke();
     }
 #endregion
 

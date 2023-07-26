@@ -47,7 +47,7 @@ public class Controler : IController
     }
     public bool Attack()
     {
-        return (Input.GetKey(KeyCode.E));
+        return (Input.GetKeyDown(KeyCode.E));
     }
     public bool Shoot()
     {
