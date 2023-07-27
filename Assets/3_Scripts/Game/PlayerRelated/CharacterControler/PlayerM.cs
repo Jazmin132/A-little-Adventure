@@ -193,7 +193,7 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         camForward.y = 0;
         transform.forward = camForward;
 
-        OnShoot.Invoke();
+        OnShoot?.Invoke();
     }
 #endregion
 
@@ -232,15 +232,15 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
     public void Check(string CurrentState, bool IsActive)
     {
         if (CurrentState == "Ground")
-            OnMove.Invoke(IsActive);
+            OnMove?.Invoke(IsActive);
         else if (CurrentState == "Glide")
-            OnGlide.Invoke(IsActive);
+            OnGlide?.Invoke(IsActive);
         else if (CurrentState == "AIR")
-            OnFall.Invoke(IsActive);
+            OnFall?.Invoke(IsActive);
     }
     public void CheckJump()
     {
-        OnJump.Invoke();
+        OnJump?.Invoke();
     }
     #endregion
 

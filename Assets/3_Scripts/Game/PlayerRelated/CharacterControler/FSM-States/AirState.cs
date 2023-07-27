@@ -51,7 +51,7 @@ public class AirState : IState
 
     public void OnFixedUpdate()
     {
-        if (_Controller.Shoot())
+        if (Input.GetMouseButtonDown(0))
             _Player.Shoot();
         else if (_Controller.Attack())
             _Player.Attack();

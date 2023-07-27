@@ -70,7 +70,7 @@ public class GroundState : IState
     {//PREGUNTAR COMO OPTIMIZAR ESTO
         Move();
         
-        if (_Controller.Shoot())
+        if (Input.GetMouseButtonDown(0))
             _Player.Shoot();
         else if (_Controller.Attack())
             _Player.Attack();

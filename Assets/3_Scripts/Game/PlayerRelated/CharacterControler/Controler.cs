@@ -45,13 +45,13 @@ public class Controler : IController
     {
         return (Input.GetKey(KeyCode.LeftShift));
     }
-    public bool Attack()
-    {
-        return (Input.GetKeyDown(KeyCode.E));
-    }
     public bool Shoot()
     {
         return (Input.GetKeyDown(KeyCode.Mouse0));
+    }
+    public bool Attack()
+    {
+        return (Input.GetKeyDown(KeyCode.E));
     }
     public bool Atajo()
     {
