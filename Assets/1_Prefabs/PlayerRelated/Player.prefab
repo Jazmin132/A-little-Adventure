@@ -10102,7 +10102,7 @@ MonoBehaviour:
     SpeedHorizontal: 1
     IsOnVent: 0
   _firePoint: {fileID: 1798929347511054741}
-  _MaxBulletDistAir: 0
+  _MaxBulletDistAir: 100
 --- !u!114 &4905413815145528365
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10123,7 +10123,7 @@ MonoBehaviour:
   _Attacks:
   - {fileID: 2875397636875220922}
   - {fileID: 2613939131897031442}
-  LifeContainer: {fileID: 0}
+  _LifeContainer: {fileID: 0}
 --- !u!95 &4639960947778705197
 Animator:
   serializedVersion: 4
