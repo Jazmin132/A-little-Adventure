@@ -9,6 +9,7 @@ public class View : MonoBehaviour
     [SerializeField] ParticleSystem _WaterSplash;
     [SerializeField] ParticleSystem[] _ParticleRun;
     [SerializeField] GameObject[] _Attacks;
+    [SerializeField] GameObject _Trails;
     [SerializeField] Transform _LifeContainer;
     bool _IsOnLand;
     Animator _animator;
@@ -18,6 +19,7 @@ public class View : MonoBehaviour
     {
         hearthIcons = _LifeContainer.GetComponentsInChildren<Image>();
         _animator = GetComponent<Animator>();
+        _Trails.SetActive(false);
     }
     public void RecieveDamage(float currentHealth)
     {
@@ -55,6 +57,7 @@ public class View : MonoBehaviour
     public void SetFlying(bool IsFlying)
     {
         _animator.SetBool("IsFlying", IsFlying);
+        _Trails.SetActive(IsFlying);
     }
     public void SetFalling(bool IsFalling)
     {
