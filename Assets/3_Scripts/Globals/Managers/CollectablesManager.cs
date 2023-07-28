@@ -7,9 +7,9 @@ public class CollectablesManager : MonoBehaviour
 {
     [SerializeField] Text Tuercas;
     [SerializeField] int TuercasCurrent;
-    [SerializeField] int VitalesCurrent;
+    [SerializeField] int PiezasCurrent;
     int TotalTuercas;
-    int TotalVitales;
+    int TotalPiezas;
     [SerializeField] bool ResetAll;
     public static CollectablesManager instance;
 
@@ -20,12 +20,12 @@ public class CollectablesManager : MonoBehaviour
     }
     private void Start()
     {
-        if (PlayerPrefs.HasKey("Total Tuercas") || PlayerPrefs.HasKey("Total Vitales"))
+        if (PlayerPrefs.HasKey("Total Tuercas") || PlayerPrefs.HasKey("Total Piezas"))
         {
             TotalTuercas = PlayerPrefs.GetInt("Total Tuercas");
-            TotalVitales = PlayerPrefs.GetInt("Total Vitales");
-           // Debug.Log("TotalTuercas : " + TotalTuercas);
-           // Debug.Log("TotalVitales : " + TotalVitales);
+            TotalPiezas = PlayerPrefs.GetInt("Total Piezas");
+            // Debug.Log("TotalTuercas : " + TotalTuercas);
+            // Debug.Log("TotalVitales : " + TotalPiezas);
         }
         else 
             StablishCurrency();
@@ -46,20 +46,20 @@ public class CollectablesManager : MonoBehaviour
 
     public void AddVital(int valueV)
     {
-        VitalesCurrent += valueV;
-        AddTotalVital(VitalesCurrent);
+        PiezasCurrent += valueV;
+        AddTotalVital(PiezasCurrent);
     }
     void AddTotalVital(int Totalvalue)
     {
-        TotalVitales += Totalvalue;
-        PlayerPrefs.SetInt("Total Vitales", TotalVitales);
+        TotalPiezas += Totalvalue;
+        PlayerPrefs.SetInt("Total Piezas", TotalPiezas);
     }
 
     private void StablishCurrency()
     {
         TotalTuercas = 0;
-        TotalVitales = 0;
+        TotalPiezas = 0;
         PlayerPrefs.SetInt("Total Tuercas", TotalTuercas);
-        PlayerPrefs.SetInt("Total Vitales", TotalVitales);
+        PlayerPrefs.SetInt("Total Piezas", TotalPiezas);
     }
 }
