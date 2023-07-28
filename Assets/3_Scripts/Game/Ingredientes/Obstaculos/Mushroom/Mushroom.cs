@@ -5,10 +5,12 @@ public class Mushroom : MonoBehaviour
     [SerializeField] float _UpForce;
     public bool PlayerDetected;
     MushoomHandler handler;
+    bool _Trampolin = false;
 
     private void Start()
     {
         handler = GetComponentInParent<MushoomHandler>();
+        if (handler == null) _Trampolin = true;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -16,8 +18,11 @@ public class Mushroom : MonoBehaviour
         if (other.TryGetComponent(out PlayerM P))
         {
             P.UpImpulse(_UpForce);
-            PlayerDetected = true;
-            handler.ActivateNextMushroom();
+            if (!_Trampolin)
+            {
+                PlayerDetected = true;
+                handler.ActivateNextMushroom();
+            }
         }
     }
 }

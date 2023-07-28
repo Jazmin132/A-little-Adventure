@@ -10075,7 +10075,7 @@ MonoBehaviour:
   _AttackReload: 0.5
   IsPowerAttack: 0
   _PlayerSpeed: 14
-  _RayForwardDist: 0.51
+  _RayForwardDist: 0.53
   _RayUpDist: 0.85
   _RayDownDist: 0.5
   _NotGround:
@@ -10648,6 +10648,14 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 8
       objectReference: {fileID: 0}
+    - target: {fileID: -1933100637915812687, guid: 13791a9fe1224ba4ebae73892f00b3da, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e5555d3dbca67ca4da84bdf94894bb7d, type: 2}
+    - target: {fileID: -1933100637915812687, guid: 13791a9fe1224ba4ebae73892f00b3da, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7ec88746f297c914fbb9909374615784, type: 2}
     - target: {fileID: -1788960023831598713, guid: 13791a9fe1224ba4ebae73892f00b3da, type: 3}
       propertyPath: m_Layer
       value: 8
