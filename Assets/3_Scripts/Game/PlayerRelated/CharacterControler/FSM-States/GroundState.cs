@@ -90,9 +90,9 @@ public class GroundState : IState
         Vector3 Right = Vector3.ProjectOnPlane(_MainCamera.transform.right, Vector3.up).normalized;
         _direction = (_Controller.Horizontal() * Right + _Controller.Vertical() * Forward);
 
-        if (_direction.sqrMagnitude > 1) _direction.Normalize();
-
         if (_Player.WallDetecter(_direction)) return;
+
+        if (_direction.sqrMagnitude > 1) _direction.Normalize();
 
         if (_Controller.Horizontal() != 0 || _Controller.Vertical() != 0)
         {

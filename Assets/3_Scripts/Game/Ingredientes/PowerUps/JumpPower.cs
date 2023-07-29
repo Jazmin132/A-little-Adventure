@@ -5,7 +5,8 @@ public class JumpPower : PowerUp
 {
     [SerializeField] float time; 
     [SerializeField] float JumpForceAdded;
-    public BoxCollider Box;
+    [SerializeField] ParticleSystem particle;
+    BoxCollider Box;
 
     public void Awake()
     {
@@ -14,15 +15,16 @@ public class JumpPower : PowerUp
     public override void Activate(PlayerM Player)
     {
         Player.DoubleJump(time, JumpForceAdded);
+        particle.Play();
         Debug.Log("Activate double Jump");
-        StartCoroutine(ForHowLongGone(5));
+        StartCoroutine(ForHowLongGone(3));
     }
     IEnumerator ForHowLongGone(float time)
     {
         Box.enabled = false;
-        gameObject.SetActive(false);
+        Object.SetActive(false);
         yield return new WaitForSeconds(time);
-        gameObject.SetActive(true);
+        Object.SetActive(true);
         Box.enabled = true;
     }
 }

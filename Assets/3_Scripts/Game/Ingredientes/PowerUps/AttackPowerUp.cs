@@ -8,6 +8,6 @@ public class AttackPowerUp : PowerUp
     public override void Activate(PlayerM Player)
     {
         Player.SuperAttack(_time, _NewAttack);
-        Destroy(this.gameObject);
+        Destroy(gameObject);
     }
 }

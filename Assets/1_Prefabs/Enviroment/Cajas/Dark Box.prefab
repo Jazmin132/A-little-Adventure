@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 6230393264983441997}
   - component: {fileID: 7210067160617982141}
   - component: {fileID: 3144506368113813938}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: pasted__pasted__Caja_1_Metal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 9046701582213707757}
   - component: {fileID: 9046701582213707758}
   - component: {fileID: 9046701582213707759}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Dark Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}

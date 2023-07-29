@@ -12,25 +12,31 @@ public class View : MonoBehaviour
     [SerializeField] GameObject _Trails;
     [SerializeField] Transform _LifeContainer;
     bool _IsOnLand;
-    Animator _animator;
+    Animator _anim;
     Image[] hearthIcons;
 
     private void Awake()
     {
         hearthIcons = _LifeContainer.GetComponentsInChildren<Image>();
-        _animator = GetComponent<Animator>();
+        _anim = GetComponent<Animator>();
         _Trails.SetActive(false);
     }
-    public void RecieveDamage(float currentHealth)
+    public void Start()
     {
-        _AUCH.Play();
+        GameManager.instance.onPlay += PlayAnim;
+        GameManager.instance.onPause += StopAnim;
+    }
+    public void RecieveDamage(float currentHealth, bool IsDamaged)
+    {
+        if(IsDamaged) _AUCH.Play();
+
         for (int i = 0; i < hearthIcons.Length; i++)
             hearthIcons[i].enabled = (currentHealth > i);
         //CamaraScript.ShakeCamera(ShakeIntensity, ShakeTime);
     }
     public void Attack(float Time, int Num)
     {
-        _animator.SetTrigger("Attack");
+        _anim.SetTrigger("Attack");
         StartCoroutine(AttackActiveT(Time, Num));
     }
     public IEnumerator AttackActiveT(float Time, int setD)
@@ -52,22 +58,22 @@ public class View : MonoBehaviour
   #region Bools
     public void SetRunning(bool IsRunning)
     {
-        _animator.SetBool("IsRunning", IsRunning);
+        _anim.SetBool("IsRunning", IsRunning);
     }
     public void SetFlying(bool IsFlying)
     {
-        _animator.SetBool("IsFlying", IsFlying);
+        _anim.SetBool("IsFlying", IsFlying);
         _Trails.SetActive(IsFlying);
     }
     public void SetFalling(bool IsFalling)
     {
-        _animator.SetBool("IsFalling", IsFalling);
+        _anim.SetBool("IsFalling", IsFalling);
     }
     #endregion
   #region Triggers
     public void TriggerLand()
     {
-        _animator.SetTrigger("Land");
+        _anim.SetTrigger("Land");
         _IsOnLand = true;
     }
     public void Splash()
@@ -77,12 +83,12 @@ public class View : MonoBehaviour
     }
     public void TriggerJump()
     {
-        _animator.SetTrigger("Jump");
+        _anim.SetTrigger("Jump");
         _IsOnLand = false;
     }
     public void TriggerShoot()
     {
-        _animator.SetTrigger("Shoot");
+        _anim.SetTrigger("Shoot");
     }
     public void RunParticleLeft()
     {
@@ -98,5 +104,13 @@ public class View : MonoBehaviour
     public void IsDead()
     {
         GameManager.instance.Lose();
+    }
+    void PlayAnim()
+    {
+        _anim.enabled = true;
+    }
+    void StopAnim()
+    {
+        _anim.enabled = false;
     }
 }

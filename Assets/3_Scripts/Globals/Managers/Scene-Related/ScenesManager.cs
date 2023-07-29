@@ -29,6 +29,10 @@ public class ScenesManager : MonoBehaviour
     {
         SceneManager.LoadScene("TitleScreen");
     }
+    public void EXITGame()
+    {
+        Application.Quit();
+    }
     public void GotoCheckPoint()
     {
         onCheckPoint?.Invoke();

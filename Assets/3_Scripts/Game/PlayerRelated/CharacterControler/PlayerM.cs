@@ -203,7 +203,11 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         var Down = Physics.Raycast(_RigP.transform.position + _UpDist, dir, _RayForwardDist, _Ground);
         var Up = Physics.Raycast(_RigP.transform.position - _DownDist, dir, _RayForwardDist, _Ground);
         //HACER QUE SUBA LA ESCALERA, POR AHORA SE QUEDA ASÍ
-        if (Down && Up) Ray = true;
+        if (Down && Up)
+        {
+            Ray = true;
+            Debug.Log("Pared DETECTADA");
+        }
         else Ray = false;
 
         return Ray;
@@ -296,7 +300,7 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
 [System.Serializable]
 public class PlayerHealth
 {
-    public event Action<float> OnHealthChange;
+    public event Action<float, bool> OnHealthChange;
     public event Action OnDeath;
 
     public int _MaxLife;
@@ -308,22 +312,19 @@ public class PlayerHealth
         _CurrentLife = Mathf.Max(0, _CurrentLife);
         if (_CurrentLife == 0) OnDeath?.Invoke();
 
-        OnHealthChange?.Invoke(_CurrentLife);
-
+        OnHealthChange?.Invoke(_CurrentLife, true);
         Debug.Log("AUCH " + _CurrentLife);
     }
-
     public void AddLife(int restore)
     {
         _CurrentLife += restore;
         _CurrentLife = Mathf.Min(_CurrentLife, _MaxLife);
-        OnHealthChange?.Invoke(_CurrentLife);
+        OnHealthChange?.Invoke(_CurrentLife, false);
     }
-
     public void ResetLife()
     {
         _CurrentLife = _MaxLife;
-        OnHealthChange?.Invoke(_CurrentLife);
+        OnHealthChange?.Invoke(_CurrentLife, false);
     }
 
 }
