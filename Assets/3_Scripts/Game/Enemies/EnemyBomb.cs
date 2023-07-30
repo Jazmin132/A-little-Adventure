@@ -7,9 +7,10 @@ public class EnemyBomb : Enemies, IDamage, IDamageableBomb
     [Header("Bomb Variables")]
     [SerializeField] SphereCollider _BombCollider;
     [SerializeField] GameObject _VisibleRadious;
-    [SerializeField] int TimeBeforeExplosion;
+    [SerializeField] int TimeForExplosion;
     [SerializeField] int ExplosionDamage;
     [SerializeField] float RadiusExplosion;
+    [SerializeField] ParticleSystem[] _Sparkles;
 
     [Header("Move Variables")]
     [SerializeField] float _ViewRadius;
@@ -57,11 +58,13 @@ public class EnemyBomb : Enemies, IDamage, IDamageableBomb
         if (other.TryGetComponent(out PlayerM P) && _IsActive == false)
         {
             _IsActive = true;//Sin esto se generan mil corrutinas al mismo tiempo
-            StartCoroutine(TimeToExplode(TimeBeforeExplosion)); 
+            StartCoroutine(TimeToExplode(TimeForExplosion)); 
         }
     }
     IEnumerator TimeToExplode(int time)
     {
+        _Sparkles[0].Play(); 
+        _Sparkles[1].Play(); 
         yield return new WaitForSeconds(time);
         Debug.Log("CountDown: "+ time);
         Explode();
