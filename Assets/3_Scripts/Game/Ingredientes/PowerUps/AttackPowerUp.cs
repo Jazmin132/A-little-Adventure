@@ -8,6 +8,8 @@ public class AttackPowerUp : PowerUp
     public override void Activate(PlayerM Player)
     {
         Player.SuperAttack(_time, _NewAttack);
-        Destroy(gameObject);
+        particle.Play();
+        _Box.enabled = false;
+        Object.SetActive(false);
     }
 }
