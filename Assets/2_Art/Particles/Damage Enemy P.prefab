@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2866047392319018527}
   - component: {fileID: 2866047392319018524}
   - component: {fileID: 2866047392319018525}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Damage Enemy P
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4819,7 +4819,7 @@ ParticleSystemRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: c7afcc7d2fd1e7c44b7d81839a5f1bbb, type: 2}
+  - {fileID: 2100000, guid: f60714637f46a734794e6f6a19a9055e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
