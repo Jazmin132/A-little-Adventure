@@ -67,6 +67,7 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
     public event Action OnJump;
     public event Action OnShoot;
     public event Action<float, int> OnAttack;
+    public event Action<float> OnSuperJump;
     public event Action<bool> OnFall;
     public event Action<bool> OnMove;
     public event Action<bool> OnGlide;
@@ -262,6 +263,7 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
     public void DoubleJump(float time, float NewForce)
     {
         _playerJump.Superjump(NewForce);
+        OnSuperJump?.Invoke(time);
         StartCoroutine(ForHowLong(time));
     }
     IEnumerator ForHowLong(float time)

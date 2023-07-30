@@ -10,15 +10,16 @@ public class Controler : IController
         if (V) 
         {
             _M.life.OnHealthChange += V.RecieveDamage;
-            _M.life.OnDeath += V.IsDead;
             _M.OnWater += V.Splash;
+            _M.OnShoot += V.TriggerShoot;
             _M.OnAttack += V.Attack;
             _M.OnFloor += V.TriggerLand;
             _M.OnMove += V.SetRunning;
             _M.OnFall += V.SetFalling;
-            _M.OnJump += V.TriggerJump;
-            _M.OnShoot += V.TriggerShoot;
             _M.OnGlide += V.SetFlying;
+            _M.OnSuperJump += V.SuperJump; 
+            _M.OnJump += V.TriggerJump;
+            _M.life.OnDeath += V.IsDead;
         }
     }
 

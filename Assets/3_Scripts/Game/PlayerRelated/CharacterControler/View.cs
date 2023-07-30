@@ -10,6 +10,7 @@ public class View : MonoBehaviour
     [SerializeField] ParticleSystem[] _ParticleRun;
     [SerializeField] GameObject[] _Attacks;
     [SerializeField] GameObject _Trails;
+    [SerializeField] GameObject _JumpEffect;
     [SerializeField] Transform _LifeContainer;
     bool _IsOnLand;
     Animator _anim;
@@ -55,6 +56,17 @@ public class View : MonoBehaviour
         yield return new WaitForSeconds(Time);
         _Attacks[currentI].SetActive(false);
     }
+    public void SuperJump(float time)
+    {
+        StartCoroutine(SuperJumpActive(time));
+        _JumpEffect.SetActive(true);
+    }
+    public IEnumerator SuperJumpActive(float Time)
+    {
+        yield return new WaitForSeconds(Time);
+        _JumpEffect.SetActive(false);
+    }
+
   #region Bools
     public void SetRunning(bool IsRunning)
     {
@@ -69,7 +81,9 @@ public class View : MonoBehaviour
     {
         _anim.SetBool("IsFalling", IsFalling);
     }
+
     #endregion
+
   #region Triggers
     public void TriggerLand()
     {
