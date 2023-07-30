@@ -20,34 +20,38 @@ public class CollectablesManager : MonoBehaviour
     }
     private void Start()
     {
+        if (ResetAll) StablishCurrency();
+
         if (PlayerPrefs.HasKey("Total Tuercas") || PlayerPrefs.HasKey("Total Piezas"))
         {
             TotalTuercas = PlayerPrefs.GetInt("Total Tuercas");
             TotalPiezas = PlayerPrefs.GetInt("Total Piezas");
-            // Debug.Log("TotalTuercas : " + TotalTuercas);
-            // Debug.Log("TotalVitales : " + TotalPiezas);
+            Debug.Log("TotalTuercas : " + TotalTuercas);
+            Debug.Log("TotalVitales : " + TotalPiezas);
         }
         else 
             StablishCurrency();
-
-        if (ResetAll) StablishCurrency();
     }
     public void AddTuerca(int valueT)
     {
         TuercasCurrent += valueT;
         Tuercas.text = "Tuercas : " + TuercasCurrent.ToString();
-        AddTotalTuercas(TuercasCurrent);
+        AddTotalTuercas(valueT);
     }
     void AddTotalTuercas(int Totalvalue)
     {
         TotalTuercas += Totalvalue;
         PlayerPrefs.SetInt("Total Tuercas", TotalTuercas);
     }
-
+    public void RemovetPoints(int minus)
+    {
+        TuercasCurrent -= minus;
+        Tuercas.text = "Tuercas : " + TuercasCurrent.ToString();
+    }
     public void AddVital(int valueV)
     {
         PiezasCurrent += valueV;
-        AddTotalVital(PiezasCurrent);
+        AddTotalVital(valueV);
     }
     void AddTotalVital(int Totalvalue)
     {

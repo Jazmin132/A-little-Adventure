@@ -19,6 +19,13 @@ public class Portal : MonoBehaviour
             ShowHowMuch();
         }
     }
+    void ShowHowMuch()
+    {
+        _TotalTuercas = PlayerPrefs.GetInt("Total Tuercas");
+        Debug.Log("Total Tuercas Portal :" + _TotalTuercas);
+        //     Muestro la plata que tengo / la plata que necesito
+        CurrencyDisplay.text = _TotalTuercas.ToString() + " / " + _MoneyRequired.ToString();
+    }
     private void OnTriggerEnter(Collider other)
     {
         var Player = other.GetComponent<PlayerM>();
@@ -27,12 +34,6 @@ public class Portal : MonoBehaviour
             ScenesManager.instance.GotoLevel(_NextLevel);
         else if (_RequiresMoney && _MoneyRequired <= _TotalTuercas && Player != null)
             ScenesManager.instance.GotoLevel(_NextLevel);
-    }
-    void ShowHowMuch()
-    {
-        _TotalTuercas = PlayerPrefs.GetInt("Total Tuercas");
-        //     Muestro la plata que tengo / la plata que necesito
-        CurrencyDisplay.text = _TotalTuercas.ToString() + " / " + _MoneyRequired.ToString();
     }
 }
 

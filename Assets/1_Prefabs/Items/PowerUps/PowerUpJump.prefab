@@ -145,10 +145,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68b6df799f4191344b07eee06f8904c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Object: {fileID: 8281245256140569608}
-  time: 10
-  JumpForceAdded: 2.5
   particle: {fileID: 4730923851525201204}
+  Object: {fileID: 8281245256140569608}
+  time: 8
+  JumpForceAdded: 2.5
 --- !u!198 &4730923851525201204
 ParticleSystem:
   m_ObjectHideFlags: 0

@@ -204,11 +204,7 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         var Down = Physics.Raycast(_RigP.transform.position + _UpDist, dir, _RayForwardDist, _Ground);
         var Up = Physics.Raycast(_RigP.transform.position - _DownDist, dir, _RayForwardDist, _Ground);
         //HACER QUE SUBA LA ESCALERA, POR AHORA SE QUEDA ASÍ
-        if (Down && Up)
-        {
-            Ray = true;
-            Debug.Log("Pared DETECTADA");
-        }
+        if (Down && Up) Ray = true;
         else Ray = false;
 
         return Ray;
@@ -224,6 +220,7 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         _RigP.velocity = Vector3.zero;
         transform.position = CheckPointPosition;
         transform.rotation = CheckPointRotation;
+        CollectablesManager.instance.RemovetPoints(3);
     }
     public void CheckEnviroment()
     {

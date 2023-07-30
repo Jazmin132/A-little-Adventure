@@ -8,14 +8,13 @@ public class CheckPoinAtajo : MonoBehaviour
     public PlayerM player;
     int cont = 0;
 
-    private void Update()
+    private void FixedUpdate()
     {
         if (Input.GetKeyDown(KeyCode.Y))
         {
             player.transform.position = checkPoints[cont].position;
             cont++;
-            Debug.Log(cont + " Cantidad");
-            if (cont > checkPoints.Length) cont = 0;
+            if (cont >= checkPoints.Length) cont = 0;
         }
     }
 }
