@@ -10078,7 +10078,7 @@ MonoBehaviour:
   IsPowerAttack: 0
   _PlayerSpeed: 14
   _RayForwardDist: 0.53
-  _RayUpDist: 0.85
+  _RayUpDist: 0.7
   _RayDownDist: 0.5
   _NotGround:
     serializedVersion: 2
