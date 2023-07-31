@@ -220,7 +220,7 @@ public class PlayerM : MonoBehaviour, IDamageableBomb
         _RigP.velocity = Vector3.zero;
         transform.position = CheckPointPosition;
         transform.rotation = CheckPointRotation;
-        CollectablesManager.instance.RemovetPoints(3);
+        CollectablesManager.instance.RemovePoints(3);
     }
     public void CheckEnviroment()
     {

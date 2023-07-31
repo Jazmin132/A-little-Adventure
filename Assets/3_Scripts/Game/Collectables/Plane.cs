@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class Plane : MonoBehaviour
 {
-    [SerializeField] int _PartsRequired;
+    //[SerializeField] int _PartsRequired; //+ _PartsRequired.ToString();
     public Text CurrencyDisplay;
     int _TotalParts;
 
@@ -17,6 +17,6 @@ public class Plane : MonoBehaviour
     void ShowHowMuch()
     {
         _TotalParts = PlayerPrefs.GetInt("Total Piezas");
-        CurrencyDisplay.text = _TotalParts.ToString() + " / " + _PartsRequired.ToString();
+        CurrencyDisplay.text = _TotalParts.ToString() + " / ???"; 
     }
 }

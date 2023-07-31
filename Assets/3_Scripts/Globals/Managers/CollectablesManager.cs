@@ -43,9 +43,12 @@ public class CollectablesManager : MonoBehaviour
         TotalTuercas += Totalvalue;
         PlayerPrefs.SetInt("Total Tuercas", TotalTuercas);
     }
-    public void RemovetPoints(int minus)
+    public void RemovePoints(int minus)
     {
         TuercasCurrent -= minus;
+        if (TuercasCurrent <= 0)
+            TuercasCurrent = 0;
+
         Tuercas.text = "Tuercas : " + TuercasCurrent.ToString();
     }
     public void AddVital(int valueV)
