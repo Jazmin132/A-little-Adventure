@@ -9679,7 +9679,7 @@ MonoBehaviour:
   _MaxLife: 2
   _CurrentLife: 0
   _Attack: 1
-  _Speed: 2
+  _Speed: 6
   _Recompenzas: {fileID: 3662441117973748737, guid: a96e842e5f2a5e44393198db6ee1dbd9, type: 3}
   _IsGoing: 0
   _BombCollider: {fileID: 2788284964073603128}
@@ -9690,8 +9690,8 @@ MonoBehaviour:
   _Sparkles:
   - {fileID: 1325013456889855629}
   - {fileID: 1267798916180640641}
-  _ViewRadius: 8
-  _Angle: 159.89
+  _ViewRadius: 20
+  _Angle: 160
   _SpeedRot: 2
 --- !u!54 &7890568500695987875
 Rigidbody:
