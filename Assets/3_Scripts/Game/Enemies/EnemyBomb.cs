@@ -22,6 +22,9 @@ public class EnemyBomb : Enemies, IDamage, IDamageableBomb
     Vector3 _LerpDir;
     bool _IsActive;
 
+    public GameObject ExplosionDeath;
+    public GameObject Explosion;
+
     public override void Start()
     {
         base.Start();
@@ -79,6 +82,7 @@ public class EnemyBomb : Enemies, IDamage, IDamageableBomb
             if (colliders[i].TryGetComponent(out IDamageableBomb B))
                 B.RecieveBombDamage(ExplosionDamage);
         }
+        Instantiate(Explosion, transform.position, Quaternion.identity);
         Destroy();
     }
     public void RecieveDamage(int damage)
@@ -94,6 +98,7 @@ public class EnemyBomb : Enemies, IDamage, IDamageableBomb
     {
         base.Destroy();
         GameManager.instance.UnSubscribeBehaviours(this);
+        Instantiate(ExplosionDeath, transform.position, Quaternion.identity);
         Destroy(this.gameObject);
     }
     Vector3 GetDirFromAngle(float Angle)
