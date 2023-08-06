@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3063321674116360131}
   - component: {fileID: 3063321674116360130}
-  - component: {fileID: 8798528456325595130}
+  - component: {fileID: 1928293313124521325}
   m_Layer: 0
   m_Name: CheckPoint
   m_TagString: Untagged
@@ -52,8 +52,8 @@ MonoBehaviour:
   _Activate:
   - {fileID: 2100000, guid: 34acc83a3497623409dff2ca17ae3fb4, type: 2}
   - {fileID: 2100000, guid: 54074ac6cf6ecef4ca8740f9924a8127, type: 2}
---- !u!136 &8798528456325595130
-CapsuleCollider:
+--- !u!65 &1928293313124521325
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -62,10 +62,9 @@ CapsuleCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  m_Radius: 15
-  m_Height: 60
-  m_Direction: 1
-  m_Center: {x: 0, y: 23.89, z: -0.03189759}
+  serializedVersion: 2
+  m_Size: {x: 200, y: 100, z: 200}
+  m_Center: {x: 0, y: 50, z: 0}
 --- !u!1001 &143713227132326741
 PrefabInstance:
   m_ObjectHideFlags: 0
