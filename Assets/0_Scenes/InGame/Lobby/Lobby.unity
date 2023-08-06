@@ -4129,7 +4129,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2598962075728924943, guid: 38aaa40663ac0e64eadba49a2e3cb9e7, type: 3}
       propertyPath: _MoneyRequired
-      value: 40
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2598962075728924943, guid: 38aaa40663ac0e64eadba49a2e3cb9e7, type: 3}
       propertyPath: _RequiresMoney
@@ -17417,7 +17417,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2598962075728924943, guid: 38aaa40663ac0e64eadba49a2e3cb9e7, type: 3}
       propertyPath: _MoneyRequired
-      value: 80
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2598962075728924943, guid: 38aaa40663ac0e64eadba49a2e3cb9e7, type: 3}
       propertyPath: _RequiresMoney
