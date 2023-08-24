@@ -81,6 +81,9 @@ MonoBehaviour:
   _Speed: 45
   _Damage: 1
   _maxDistance: 20
+  NotHit:
+    serializedVersion: 2
+    m_Bits: 321
 --- !u!96 &-6308714089914806777
 TrailRenderer:
   serializedVersion: 2

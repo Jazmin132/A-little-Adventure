@@ -98,7 +98,8 @@ public class GroundState : IState
         {
             _Player.Check("Ground", true);
 
-            _RigP.MovePosition(_transform.position + _direction * _CurrentSpeed * Time.fixedDeltaTime);
+            //_RigP.MovePosition(_transform.position + _direction * _CurrentSpeed * Time.fixedDeltaTime);
+            _Player.transform.position += _direction * _CurrentSpeed * Time.fixedDeltaTime;
             //Que gire sobre su vector Y hacia la dirreción que le indico
             Quaternion Rotation = Quaternion.LookRotation(_direction.normalized, Vector3.up);
             _transform.rotation = Quaternion.RotateTowards(_transform.rotation, Rotation, Time.fixedDeltaTime * 500f);

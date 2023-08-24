@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5141912141064647788}
   - component: {fileID: 7284066455645081533}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: ArcoBoxCollider2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -71,7 +71,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4046456799188258810}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 5.13, y: 0.01, z: -5.29}
+  m_LocalPosition: {x: 4.13, y: 0.01, z: -5.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -190,7 +190,7 @@ GameObject:
   - component: {fileID: 2387701735181735855}
   - component: {fileID: 5153848413425211552}
   - component: {fileID: 2314520748578266943}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Puerte
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -251,7 +251,7 @@ GameObject:
   - component: {fileID: 8394768863702482500}
   - component: {fileID: 8394768863702482503}
   - component: {fileID: 8394768863702482502}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: PuertaPlaceHolder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -485,7 +485,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1943
+  m_VersionIndex: 2408
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -579,7 +579,7 @@ GameObject:
   - component: {fileID: 8394768863732556296}
   - component: {fileID: 8394768863732556299}
   - component: {fileID: 8128912711557410993}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -664,7 +664,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8394768864059628937}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.26999998, y: 0.54, z: 16.380001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -717,7 +717,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8394768864159661944}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -4.87, y: 0.01, z: -5.29}
+  m_LocalPosition: {x: -3.87, y: 0.01, z: -5.29}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -904,9 +904,21 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: f6e67f24e469b864ba58141ff6bff72d, type: 2}
+    - target: {fileID: -1058976313529914444, guid: 06bdc7eab51c95e4d9ba8a7bf4399761, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -770228499288801478, guid: 06bdc7eab51c95e4d9ba8a7bf4399761, type: 3}
+      propertyPath: m_Layer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 06bdc7eab51c95e4d9ba8a7bf4399761, type: 3}
       propertyPath: m_Name
       value: Boton1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 06bdc7eab51c95e4d9ba8a7bf4399761, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06bdc7eab51c95e4d9ba8a7bf4399761, type: 3}
@@ -1060,6 +1072,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: 6fb96d903b5b18646a01d3ba59e0ae9c, type: 3}
       propertyPath: m_Name
       value: Arco1
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 6fb96d903b5b18646a01d3ba59e0ae9c, type: 3}
+      propertyPath: m_Layer
+      value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6fb96d903b5b18646a01d3ba59e0ae9c, type: 3}

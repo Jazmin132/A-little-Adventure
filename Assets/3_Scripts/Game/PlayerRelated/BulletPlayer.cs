@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class BulletPlayer : Bullet
 {
+    public LayerMask NotHit;
+
     private void FixedUpdate()
     {
         _Rig.transform.position = Vector3.MoveTowards(transform.position, target, _Speed * Time.fixedDeltaTime);
@@ -18,6 +20,8 @@ public class BulletPlayer : Bullet
 
     private void OnTriggerEnter(Collider other)
     {
+        if (other.gameObject.layer == NotHit) return;
+
         if (other.TryGetComponent(out IDamage D)) D.RecieveDamage(_Damage);
         else if (other.TryGetComponent(out Ingredient I) && I.CanBeShoot) I.Activate();
 
