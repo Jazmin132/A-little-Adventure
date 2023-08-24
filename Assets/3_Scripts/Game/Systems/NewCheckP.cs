@@ -8,11 +8,11 @@ public class NewCheckP : MonoBehaviour
     [SerializeField] GameObject _Flag;
     [SerializeField] Material[] _Activate;
     Material _FlafMat;
-    CapsuleCollider _Capsule;
+    BoxCollider _Box;
 
     private void Start()
     {
-        _Capsule = GetComponent<CapsuleCollider>();
+        _Box = GetComponent<BoxCollider>();
         _FlafMat = _Flag.GetComponent<Material>();
         _FlafMat = _Activate[0];
     }
@@ -22,7 +22,7 @@ public class NewCheckP : MonoBehaviour
         {
             P.CheckPoint();
             FeedBack();
-            _Capsule.enabled = false;
+            _Box.enabled = false;
         }
     }
     public void FeedBack()
